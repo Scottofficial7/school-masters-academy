@@ -1,0 +1,850 @@
+@media only screen and (max-width: 767px) {
+  .teacher-slider {
+    padding: 1.5rem 0.5rem;
+  }
+  .teacher-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+  }
+  .teacher-card {
+    margin: 0 auto;
+    width: 95vw;
+    max-width: 400px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .post-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 0;
+    padding: 0;
+  width: 100%;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  .post-grid .card-item {
+    min-width: 100vw;
+    max-width: 100vw;
+    scroll-snap-align: center;
+    padding: 0;
+    box-sizing: border-box;
+    transition: transform 0.5s cubic-bezier(0.4,0.2,0.2,1);
+  }
+}
+@media only screen and (max-width: 767px) {
+  .post-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 0.5rem;
+  }
+  .post-grid .card-item {
+    margin-bottom: 0;
+  }
+}
+/*
+Theme Name: Glory - School Bootstrap 5 HTML Website Template
+Theme URI: https://templatesjungle.com/
+Author: TemplatesJungle
+Author URI: https://templatesjungle.com/
+Description: Glory is specially designed for schools by TemplatesJungle.
+Version: 1.1
+*/
+
+/*--------------------------------------------------------------
+This is main CSS file that contains custom style rules used in this template
+--------------------------------------------------------------*/
+
+/*------------------------------------*\
+    Table of contents
+\*------------------------------------*/
+
+/*------------------------------------------------
+
+CSS STRUCTURE:
+
+1. VARIABLES
+
+2. GENERAL TYPOGRAPHY
+  2.1 General Styles
+  2.2 Background Color
+  2.3 Section
+    - Section Paddings
+    - Section Margins
+    - Section Title
+    - Content width
+  2.4 Buttons
+    - Primary Buttons
+    - Outline Buttons
+
+3. CONTENT ELEMENTS
+  - Dropdown
+  - Form
+  - Svg Color
+- Swiper
+- Offcanvas
+- Modal
+
+4. SITE STRUCTURE
+  4.1 Header
+  4.2 Slider Section
+  4.3 Feature Section
+  4.4 About Section
+  4.5 Founder Section
+  4.6 Facilities Section
+
+    
+/*--------------------------------------------------------------
+/** 1. VARIABLES
+--------------------------------------------------------------*/
+:root {
+  --accent-color: #1D157C;
+  --black-color: #111111;
+  --light-black-color: #343536;
+  --dark-color: #111111;
+  --primary-color: #1D157C;
+  --secondary-color: #3C5494;
+  --tertiary-color: #5B7BCE;
+  --background-color: #E3EBFF;
+  --gray-color: #777F81;
+
+  --bs-dark-rgb: 17, 17, 17;
+  --bs-gray-100: #F6F6F6;
+  --bs-gray-300: #DCDCDC;
+  --bs-primary-text-emphasis: var(--primary-color);
+
+  --bs-light-rgb: rgba(255, 255, 255, 1);
+  --bs-primary-rgb: 29, 21, 124;
+  --light-color: #fdfdfd;
+  --swiper-theme-color: #111 !important;
+  --cadet-blue-color: #9AB4B7;
+}
+
+/* Fonts */
+:root {
+  --body-font: "Roboto", sans-serif;
+}
+
+/*----------------------------------------------*/
+/* 2 GENERAL TYPOGRAPHY
+/*----------------------------------------------*/
+
+/* 2.1 General Styles
+/*----------------------------------------------*/
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--light-color);
+  font-family: var(--body-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 164%;
+  letter-spacing: 0.32px;
+  color: var(--dark-color);
+  margin: 0;
+}
+
+p {
+  color: var(--dark-color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--tertiary-color);
+}
+
+.text-light {
+  color: var(--light-color) !important;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-black {
+  color: var(--black-color) !important;
+}
+
+/* 2.2 Background Color
+/*----------------------------------------------*/
+.bg-light {
+  background-color: var(--light-color) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--tertiary-color) !important;
+}
+
+.bg-gray {
+  background-color: var(--bs-gray-100) !important;
+}
+
+.bg-background {
+  background-color: var(--background-color) !important;
+}
+
+/*--------------------------------------------------------------
+/** 2.3 Section
+--------------------------------------------------------------*/
+/* - Section Padding
+--------------------------------------------------------------*/
+.padding-small {
+  padding-top: 8.125em;
+  padding-bottom: 8.125em;
+}
+
+.padding-medium {
+  padding-top: 10em;
+  padding-bottom: 10em;
+}
+
+.padding-large {
+  padding-top: 12em;
+  padding-bottom: 12em;
+}
+
+/* - Section Margin
+--------------------------------------------------------------*/
+.margin-small {
+  margin-top: 8.125em;
+  margin-bottom: 8.125em;
+}
+
+.margin-medium {
+  margin-top: 10em;
+  margin-bottom: 10em;
+}
+
+.margin-large {
+  margin-top: 12em;
+  margin-bottom: 12em;
+}
+
+
+/* - Section Title
+--------------------------------------------------------------*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black-color);
+  text-transform: capitalize;
+  font-weight: 700;
+  letter-spacing: 0.84px;
+  line-height: 115%;
+}
+
+@media (min-width: 1200px) {
+  .display-1 {
+    font-size: 6.5rem;
+  }
+}
+
+/* - Content width
+--------------------------------------------------------------*/
+.container-md {
+  max-width: 1465px;
+}
+
+.container-lg {
+  max-width: 1750px;
+}
+
+
+/*--------------------------------------------------------------
+/** 2.4 Buttons
+--------------------------------------------------------------*/
+.btn {
+  --bs-btn-padding-x: 1.9rem;
+  --bs-btn-padding-y: 0.8rem;
+  --bs-btn-font-size: 1rem;
+  --bs-btn-font-weight: 500;
+  text-transform: uppercase;
+  transition: 0.3s ease-in-out;
+  border-radius: 0;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--primary-color);
+  --bs-btn-border-color: var(--primary-color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--secondary-color);
+  --bs-btn-hover-border-color: var(--secondary-color);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--primary-color);
+  --bs-btn-active-border-color: var(--primary-color);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--primary-color);
+  --bs-btn-disabled-border-color: var(--primary-color);
+}
+
+/*--------------------------------------------------------------
+/** 3.CONTENT ELEMENTS
+--------------------------------------------------------------*/
+
+/* Dropdown
+------------------------------------------------------------- */
+.dropdown-item {
+  color: var(--dark-color);
+}
+
+.dropdown-item.active,
+.dropdown-item:hover,
+.dropdown-item:active {
+  color: var(--dark-color);
+  background-color: var(--bs-gray-300);
+}
+
+/* Form
+------------------------------------------------------------- */
+.form-check-input:checked {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: none;
+}
+
+.form-check-input:focus {
+  border-color: var(--accent-color);
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--dark-color);
+  outline: 0;
+  box-shadow: none;
+}
+
+input,
+select,
+textarea {
+  border-color: var(--dark-color);
+  outline: 0;
+  box-shadow: none;
+}
+
+select:focus {
+  box-shadow: none;
+}
+
+/* Svg Color
+------------------------------------------------------------- */
+svg.light-color {
+  color: var(--light-color);
+}
+
+svg.dark-color {
+  color: var(--dark-color);
+}
+
+svg.primary-color {
+  color: var(--primary-color);
+}
+
+svg.accent-color {
+  color: var(--accent-color);
+}
+
+svg.primary-color-500 {
+  color: var(--bs-primary-rgb);
+}
+
+/* Swiper
+------------------------------------------------------------- */
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+  margin: 0 5px;
+}
+
+.swiper-pagination-bullet {
+  width: 14px;
+  height: 14px;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--primary-color);
+}
+
+/* Offcanvas
+------------------------------------------------------------- */
+.offcanvas {
+height: 110vh;  
+}
+
+/* Modal
+------------------------------------------------------------- */
+.modal-dialog {
+  max-width: 800px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
+  padding: 1rem;
+  background-color: #f5f3ef;
+  border: none;
+  border-radius: 0
+}
+
+/*----------------------------------------------*/
+/* 4 SITE STRUCTURE */
+/*----------------------------------------------*/
+
+/* 4.1 Header
+/*----------------------------------------------*/
+
+.header-top {
+  transition: transform 0.8s ease-in-out;
+}
+
+.header-top.hidden {
+  transform: translateY(-100%);
+}
+
+#primary-header {
+  transition: transform 0.8s ease-in-out;
+}
+
+#primary-header.hidden {
+  transform: translateY(-50%);
+}
+
+a.nav-link {
+  text-transform: uppercase;
+  color: var(--light-color);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+a.nav-link:focus {
+  color: var(--light-color);
+}
+
+a.nav-link.active,
+.nav-link.show,
+a.nav-link:hover {
+  color: var(--light-color) !important;
+  outline: none;
+}
+
+#primary-header .dropdown .search::after {
+  content: none;
+}
+
+#primary-header .search-dropdown .dropdown-menu {
+  width: 260px;
+}
+
+#primary-header .search-dropdown .dropdown-menu input {
+  min-width: 100%;
+}
+
+#primary-header .search-dropdown .dropdown-menu button {
+  padding: 0 12px;
+  min-height: -webkit-fill-available;
+  border-radius: 0.25rem;
+}
+
+.btn-close.btn-close-black {
+  filter: invert(1) brightness(2);
+}
+
+.navbar-nav .nav-link {
+  color: #fff !important;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: #007bff !important;
+}
+
+.col-md-6 {
+  margin-top: 90px;
+}
+
+@media only screen and (max-width: 610px) {
+  #primary-header.hidden {
+    transform: translateY(-105%);
+  }
+  #bdNavbar{
+  background-color: black;
+}
+}
+
+@media only screen and (max-width: 990px) {
+  a.nav-link {
+    color: var(--dark-color);
+    font-size: 13px;
+    padding: 1rem 0 1rem 0 !important;
+  }
+  
+  a.nav-link:focus {
+    color: var(--dark-color);
+  }
+  
+  a.nav-link.active,
+  .nav-link.show,
+  a.nav-link:hover {
+    color: var(--dark-color) !important;
+  }
+  #bdNavbar {
+    background-color: #000 !important;
+  }
+  .header-bottom{
+    margin-right: 30px;
+  }
+}
+
+
+/* 4.2 Slider Section
+/*----------------------------------------------*/
+section#slider .banner-content {
+  width: 50%;
+}
+
+section#slider .main-slider-button-next,
+.main-slider-button-prev {
+  z-index: 111111;
+  height: fit-content;
+  opacity: 0.9;
+}
+
+section#slider .main-slider-button-next.swiper-button-disabled,
+.main-slider-button-prev.swiper-button-disabled {
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 999px) {
+  section#slider .banner-content {
+    width: 66%;
+  }
+}
+
+
+/* 4.3 Feature Section
+/*----------------------------------------------*/
+#features{
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 0;
+    position: absolute;
+}
+
+@media only screen and (max-width: 999px) {
+  #features{
+    left: 0;
+    transform: translateX(0%);
+    position:static;
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+}
+
+
+
+/* 4.4 About Section
+/*----------------------------------------------*/
+#about {
+  padding-top: 240px;
+  padding-bottom: 350px;
+}
+
+#courses{
+  top: 75%;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 0;
+  position: absolute;
+}
+
+@media only screen and (max-width: 999px) {
+  #about {
+    padding-top: 150px;
+    padding-bottom: 0px;
+  }
+#courses{
+  left: 0;
+  transform: translateX(0%);
+  position:static;
+  padding-top: 10em;
+  padding-bottom: 10em;
+}
+}
+
+/* 4.5 Founder Section
+/*----------------------------------------------*/
+
+#founder {
+  padding-top: 18rem;
+  margin-top: 275px;
+}
+
+@media only screen and (max-width: 999px) {
+  #founder {
+    padding-top: 10rem;
+    margin-bottom: 105px;
+  }
+}
+
+
+/* 4.6 Facilities Section
+/*----------------------------------------------*/
+.facility-block{
+    margin: auto;
+    width: 25%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: absolute;
+}
+
+.product-item img.post-image {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.product-item:hover img.post-image {
+  opacity: 0.7;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.product-description {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.product-item:hover .product-description {
+  opacity: 1;
+  visibility: visible;
+}
+
+#primary-header {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+    }
+
+@media only screen and (max-width: 999px) {
+  .navbar-nav {
+    background: black;
+  }
+
+  .header-top {
+        background-color: #000 !important;
+    }
+    #primary-header {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+    }
+  
+  .facility-block{
+    left: 0;
+    transform: translateX(0%);
+    position:static;
+    margin: auto;
+    width: 100%;
+}
+
+#courses {
+  margin-bottom: 4rem;
+}
+#founder {
+  margin-bottom: 12rem;
+}
+@media only screen and (max-width: 999px) {
+  #courses {
+    margin-bottom: 2rem;
+  }
+  #founder {
+    margin-top: 5rem;
+  }
+}
+}
+/* Add custom styles for courses section */
+.courses-row {
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  background: #fff;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+.courses-row .col-md-4 {
+  border-radius: 2rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #f8f9fa;
+}w
+/* Add custom styles for teacher section */
+.teacher-row {
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  background: #fff;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  justify-content: center;
+}
+.teacher-row .teacher-card {
+  border-radius: 2rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Add custom styles for facilities section */
+.facilities-row {
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  background: #fff;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  justify-content: center;
+}
+.facilities-row .facility-card {
+  border-radius: 2rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Unique professional styles for blogs section */
+#blogs {
+  background: linear-gradient(120deg, #e3ebff 0%, #c7d2fe 100%);
+  border-radius: 2rem;
+  box-shadow: 0 4px 24px rgba(29,21,124,0.08);
+  padding: 4rem 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+#blogs .section-title h2 {
+  font-size: 2.7rem;
+  font-weight: 700;
+  color: #1D157C;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+.post-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+  max-width: 900px;
+  min-height: 380px;
+  padding: 2rem 1rem;
+}
+.post-grid .card-item {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(29,21,124,0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 0;
+  overflow: hidden;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border: 1px solid #e3ebff;
+  position: relative;
+}
+.post-grid .card-item::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 1.5rem;
+  pointer-events: none;
+  box-shadow: 0 2px 24px rgba(91,123,206,0.07);
+  opacity: 0.7;
+}
+.post-grid .card-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(29,21,124,0.15);
+}
+.post-grid .card img {
+  border-radius: 1.5rem 1.5rem 0 0;
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+.post-grid .card-body {
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  background: #f8f9fa;
+  border-radius: 0 0 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.post-grid .card-body h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1D157C;
+  margin-bottom: 0.5rem;
+}
+.post-grid .card-body span {
+  font-size: 0.95rem;
+  color: #5B7BCE;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.post-grid .card-body a {
+  color: #3C5494;
+  text-decoration: underline;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  transition: color 0.2s;
+}
+.post-grid .card-body a:hover {
+  color: #1D157C;
+}
