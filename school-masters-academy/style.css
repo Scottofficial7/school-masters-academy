@@ -1,49 +1,102 @@
-@media only screen and (max-width: 767px) {
-  .teacher-slider {
-    padding: 1.5rem 0.5rem;
+/* Blog Section - Desktop/Laptop Only */
+@media (min-width: 992px) {
+  #blogs {
+    padding: 4rem 0 2rem 0;
+    background: #f8f9fa;
   }
-  .teacher-swiper .swiper-slide {
+  #blogs .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  #blogs .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  #blogs .card-item {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+  }
+  #blogs .card-item:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(29,21,124,0.18);
+  }
+  #blogs .card-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+  }
+  #blogs .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  #blogs .card-item:hover .card-image img {
+    transform: scale(1.07);
+  }
+  #blogs .card-body {
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  #blogs .card-body span {
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  #blogs .card-body h5 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: #1D157C;
+    line-height: 1.3;
+  }
+  #blogs .card-body a {
+    color: #1D157C;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  #blogs .card-body a:hover {
+    color: #FBB911;
+    text-decoration: underline;
+  }
+}
+/* Facilities Swiper Dots for Mobile */
+@media (max-width: 767px) {
+  .facilities-swiper .swiper-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.5rem;
+    margin-top: 38px;
+    position: relative;
+    z-index: 2;
   }
-  .teacher-card {
-    margin: 0 auto;
-    width: 95vw;
-    max-width: 400px;
+  .facilities-swiper .swiper-pagination-bullet {
+    background: #1D157C;
+    opacity: 1;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    transition: background 0.3s;
   }
-}
-@media only screen and (max-width: 767px) {
-  .post-grid {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0;
-    padding: 0;
-  width: 100%;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-  }
-  .post-grid .card-item {
-    min-width: 100vw;
-    max-width: 100vw;
-    scroll-snap-align: center;
-    padding: 0;
-    box-sizing: border-box;
-    transition: transform 0.5s cubic-bezier(0.4,0.2,0.2,1);
-  }
-}
-@media only screen and (max-width: 767px) {
-  .post-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    padding: 1.5rem 0.5rem;
-  }
-  .post-grid .card-item {
-    margin-bottom: 0;
+  .facilities-swiper .swiper-pagination-bullet-active {
+    background: #FBB911;
+    border-color: #1D157C;
   }
 }
 /*
@@ -415,7 +468,7 @@ height: 110vh;
 }
 
 .modal-content {
-  padding: 1rem;
+  padding: 0;
   background-color: #f5f3ef;
   border: none;
   border-radius: 0
@@ -447,7 +500,7 @@ height: 110vh;
 a.nav-link {
   text-transform: uppercase;
   color: var(--light-color);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -492,10 +545,6 @@ a.nav-link:hover {
   color: #007bff !important;
 }
 
-.col-md-6 {
-  margin-top: 90px;
-}
-
 @media only screen and (max-width: 610px) {
   #primary-header.hidden {
     transform: translateY(-105%);
@@ -508,7 +557,7 @@ a.nav-link:hover {
 @media only screen and (max-width: 990px) {
   a.nav-link {
     color: var(--dark-color);
-    font-size: 13px;
+    font-size: 2rem;
     padding: 1rem 0 1rem 0 !important;
   }
   
@@ -520,12 +569,6 @@ a.nav-link:hover {
   .nav-link.show,
   a.nav-link:hover {
     color: var(--dark-color) !important;
-  }
-  #bdNavbar {
-    background-color: #000 !important;
-  }
-  .header-bottom{
-    margin-right: 30px;
   }
 }
 
@@ -610,13 +653,11 @@ section#slider .main-slider-button-next.swiper-button-disabled,
 
 #founder {
   padding-top: 18rem;
-  margin-top: 275px;
 }
 
 @media only screen and (max-width: 999px) {
   #founder {
     padding-top: 10rem;
-    margin-bottom: 105px;
   }
 }
 
@@ -656,195 +697,13 @@ section#slider .main-slider-button-next.swiper-button-disabled,
   visibility: visible;
 }
 
-#primary-header {
-        position: sticky;
-        top: 0;
-        z-index: 1020;
-    }
-
 @media only screen and (max-width: 999px) {
-  .navbar-nav {
-    background: black;
-  }
-
-  .header-top {
-        background-color: #000 !important;
-    }
-    #primary-header {
-        position: sticky;
-        top: 0;
-        z-index: 1020;
-    }
-  
   .facility-block{
     left: 0;
     transform: translateX(0%);
     position:static;
     margin: auto;
     width: 100%;
+    padding-bottom: 30px;
 }
-
-#courses {
-  margin-bottom: 4rem;
-}
-#founder {
-  margin-bottom: 12rem;
-}
-@media only screen and (max-width: 999px) {
-  #courses {
-    margin-bottom: 2rem;
-  }
-  #founder {
-    margin-top: 5rem;
-  }
-}
-}
-/* Add custom styles for courses section */
-.courses-row {
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  background: #fff;
-  margin-bottom: 2rem;
-  padding: 2rem;
-}
-.courses-row .col-md-4 {
-  border-radius: 2rem;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  background: #f8f9fa;
-}w
-/* Add custom styles for teacher section */
-.teacher-row {
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  background: #fff;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  justify-content: center;
-}
-.teacher-row .teacher-card {
-  border-radius: 2rem;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  background: #f8f9fa;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* Add custom styles for facilities section */
-.facilities-row {
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  background: #fff;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  justify-content: center;
-}
-.facilities-row .facility-card {
-  border-radius: 2rem;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  background: #f8f9fa;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* Unique professional styles for blogs section */
-#blogs {
-  background: linear-gradient(120deg, #e3ebff 0%, #c7d2fe 100%);
-  border-radius: 2rem;
-  box-shadow: 0 4px 24px rgba(29,21,124,0.08);
-  padding: 4rem 2rem;
-  margin-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-#blogs .section-title h2 {
-  font-size: 2.7rem;
-  font-weight: 700;
-  color: #1D157C;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
-}
-.post-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 2.5rem;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: nowrap;
-  margin: 0 auto;
-  max-width: 900px;
-  min-height: 380px;
-  padding: 2rem 1rem;
-}
-.post-grid .card-item {
-  background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 32px rgba(29,21,124,0.12);
-  transition: transform 0.2s, box-shadow 0.2s;
-  padding: 0;
-  overflow: hidden;
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  min-height: 340px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  border: 1px solid #e3ebff;
-  position: relative;
-}
-.post-grid .card-item::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 1.5rem;
-  pointer-events: none;
-  box-shadow: 0 2px 24px rgba(91,123,206,0.07);
-  opacity: 0.7;
-}
-.post-grid .card-item:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(29,21,124,0.15);
-}
-.post-grid .card img {
-  border-radius: 1.5rem 1.5rem 0 0;
-  height: 200px;
-  object-fit: cover;
-  width: 100%;
-}
-.post-grid .card-body {
-  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-  background: #f8f9fa;
-  border-radius: 0 0 1.5rem 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.post-grid .card-body h5 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1D157C;
-  margin-bottom: 0.5rem;
-}
-.post-grid .card-body span {
-  font-size: 0.95rem;
-  color: #5B7BCE;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-.post-grid .card-body a {
-  color: #3C5494;
-  text-decoration: underline;
-  font-weight: 500;
-  margin-top: 0.5rem;
-  transition: color 0.2s;
-}
-.post-grid .card-body a:hover {
-  color: #1D157C;
 }

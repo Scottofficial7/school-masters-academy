@@ -23,6 +23,18 @@
 
     $(document).ready(function() {
 
+      // Facilities Swiper for mobile only
+      if (window.innerWidth < 768) {
+        var facilitiesSwiper = new Swiper('.facilities-swiper', {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          pagination: {
+            el: '.facilities-swiper .swiper-pagination',
+            clickable: true,
+          },
+        });
+      }
+
       /* Video */
       var $videoSrc;  
         $('.play-btn').click(function() {
