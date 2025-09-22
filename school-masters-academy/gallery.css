@@ -1,3 +1,9 @@
+/* Navbar background color set to black for consistency */
+.navbar.second-header,
+#primary-header.navbar,
+.header-top.first-header {
+  background-color: #000 !important;
+}
 :root {
   --body-font: "Roboto", sans-serif;
 }
@@ -181,7 +187,7 @@ header {
 	color: #fff;
 	padding: 5px 5px 5px 5px;
 	position: relative;
-  margin-top: 125px;
+  margin-top: 90px;
 }
 
 .gallery-header h1{
@@ -194,7 +200,7 @@ header {
   }
   /* Gallery Page Styles */
 .gallery-section {
-  margin-top: 150px;
+  margin-top: 10px;
   padding: 40px 0;
   background: #f9f9f9;
   text-align: center;

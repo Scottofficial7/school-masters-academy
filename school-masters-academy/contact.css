@@ -1,3 +1,9 @@
+/* Navbar background color set to black for consistency */
+.navbar.second-header,
+#primary-header.navbar,
+.header-top.first-header {
+  background-color: #000 !important;
+}
 /* Contact Page Styles */
 body {
   background: #f8f9fa;
@@ -109,7 +115,7 @@ header {
 
 
 .contact-header{
-    margin-top: 130px;
+    margin-top: 90px;
 }
 
 #schoolGalleryCarousel {
