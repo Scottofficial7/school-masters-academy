@@ -1,6 +1,6 @@
 /* Consistent nav-link font size and style across all pages */
 .navbar-nav .nav-link {
-  font-size: 19px !important;
+  font-size: 13px !important;
   font-family: 'Roboto', Arial, sans-serif !important;
   color: #fff !important;
   text-transform: uppercase !important;
@@ -716,4 +716,13 @@ section#slider .main-slider-button-next.swiper-button-disabled,
     width: 100%;
     padding-bottom: 30px;
 }
+
+  .navbar-nav .nav-link {
+		font-size: 21px !important;
+		font-family: 'Roboto', Arial, sans-serif !important;
+		color: #fff !important;
+		text-transform: uppercase !important;
+		font-weight: 500 !important;
+		letter-spacing: 0.5px !important;
+	}
 }

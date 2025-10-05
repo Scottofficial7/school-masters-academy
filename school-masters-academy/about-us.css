@@ -1,5 +1,5 @@
 .navbar-nav .nav-link {
-  font-size: 19px !important;
+  font-size: 14px !important;
   font-family: 'Roboto', Arial, sans-serif !important;
   color: #fff !important;
   text-transform: uppercase !important;
@@ -70,10 +70,7 @@
 }
 
 /* NavBar Font Size and Color Customization */
-.navbar-nav .nav-link {
-	font-size: 13px !important;
-	color: #fff !important;
-}
+
 
 header {
 	background-color: #000;
@@ -325,6 +322,15 @@ body {
 	.about-mission-vision .mission,
 	.about-mission-vision .vision p{
 		font-size: 19px;
+	}
+
+	.navbar-nav .nav-link {
+		font-size: 21px !important;
+		font-family: 'Roboto', Arial, sans-serif !important;
+		color: #fff !important;
+		text-transform: uppercase !important;
+		font-weight: 500 !important;
+		letter-spacing: 0.5px !important;
 	}
 }
 
