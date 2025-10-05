@@ -1,3 +1,13 @@
+/* Consistent nav-link font size and style across all pages */
+.navbar-nav .nav-link {
+  font-size: 19px !important;
+  font-family: 'Roboto', Arial, sans-serif !important;
+  color: #fff !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+}
+
 /* Blog Section - Desktop/Laptop Only */
 @media (min-width: 992px) {
   #blogs {

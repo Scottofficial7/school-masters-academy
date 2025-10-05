@@ -1,9 +1,23 @@
+.navbar-nav .nav-link {
+  font-size: 19px !important;
+  font-family: 'Roboto', Arial, sans-serif !important;
+  color: #fff !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Navbar background color set to black for consistency */
+.navbar.second-header,
+#primary-header.navbar,
+.header-top.first-header {
+  background-color: #000 !important;
+}
 /* Match nav font size to index page nav */
 .navbar-nav .nav-link {
   font-size: 13px;
 }
 @media only screen and (max-width: 999px) {
-  padding: 0;
   .navbar-nav .nav-link {
     font-size: 14px;
   }
