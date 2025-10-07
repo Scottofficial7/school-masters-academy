@@ -26,6 +26,7 @@ body {
 	padding-bottom: 2rem;
 }
 
+
 .footer-menu {
 	margin-bottom: 2rem;
 	background-color: #1a087e;
@@ -138,10 +139,60 @@ header {
   background: #f9f9f9;
   text-align: center;
 }
+/* Unique line styling for .gallery-section h2 */
 .gallery-section h2 {
-  margin-bottom: 30px;
-  font-size: 2rem;
-  color: #333;
+  position: relative;
+  display: inline-block;
+  font-size: 2.2rem;
+  color: #1a087e;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+  background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animate the underline line when .line-animate is added */
+.gallery-section h2.line-animate::after {
+  animation: lineGrow 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes lineGrow {
+  from {
+    width: 0;
+    opacity: 0.5;
+  }
+  to {
+    width: 110px;
+    opacity: 2;
+  }
+}
+
+@keyframes lineGrow {
+  from {
+    width: 0;
+    opacity: 0.5;
+  }
+  to {
+    width: 110px;
+    opacity: 2;
+  }
+}
+
+.gallery-section h2::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(26,8,126,0.15);
 }
 .gallery-grid {
   display: grid;

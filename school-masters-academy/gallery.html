@@ -275,6 +275,24 @@
       </div>
     </footer>
     <script>
+      
+          // Animate all .gallery-section h2 elements on scroll
+      document.addEventListener('DOMContentLoaded', function() {
+        const headings = document.querySelectorAll('.gallery-section h2');
+        function animateLines() {
+          headings.forEach(h2 => {
+            const rect = h2.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              h2.classList.add('line-animate');
+            } else {
+              h2.classList.remove('line-animate');
+            }
+          });
+        }
+        window.addEventListener('scroll', animateLines);
+        animateLines(); // Run on load
+      });
+
       function handleNavbarSearch(event) {
         event.preventDefault();
         var input = document.getElementById('navbar-search-input').value.trim().toLowerCase();
