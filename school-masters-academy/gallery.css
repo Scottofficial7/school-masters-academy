@@ -147,38 +147,11 @@ header {
   color: #1a087e;
   font-weight: 700;
   letter-spacing: 2px;
-  padding-bottom: 12px;
+  padding-bottom: 18px;
   margin-bottom: 32px;
   background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* Animate the underline line when .line-animate is added */
-.gallery-section h2.line-animate::after {
-  animation: lineGrow 0.7s cubic-bezier(0.4,0,0.2,1) forwards;
-}
-
-@keyframes lineGrow {
-  from {
-    width: 0;
-    opacity: 0.5;
-  }
-  to {
-    width: 110px;
-    opacity: 2;
-  }
-}
-
-@keyframes lineGrow {
-  from {
-    width: 0;
-    opacity: 0.5;
-  }
-  to {
-    width: 110px;
-    opacity: 2;
-  }
 }
 
 .gallery-section h2::after {
@@ -200,6 +173,15 @@ header {
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+}
+/* ...existing code... */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px; /* adjust spacing as needed */
+}
+.gallery-grid video {
+  width: 300px;
 }
 .gallery-grid figure {
   margin: 0;
