@@ -154,6 +154,25 @@ header {
   -webkit-text-fill-color: transparent;
 }
 
+/* ...existing code... */
+/* ...existing code... */
+
+/* Ensure h2 is positioned relative for ::after to work */
+.gallery-section h2 {
+  position: relative;
+  display: inline-block;
+  font-size: 2.2rem;
+  color: #1a087e;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding-bottom: 18px;
+  margin-bottom: 32px;
+  background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated line under h2 */
 .gallery-section h2::after {
   content: "";
   display: block;
@@ -166,7 +185,38 @@ header {
   background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(26,8,126,0.15);
+  animation: h2line-grow 1s forwards;
 }
+
+@keyframes h2line-grow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80px;
+  }
+}
+
+/* Gallery grid: 4 columns desktop, 2 columns mobile */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 990px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-grid video {
+    width: 200px;
+  }
+}
+
+/* ...existing code... */
+
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -258,6 +308,16 @@ header {
 }
 #bdNavbar{
   background-color: black;
+}
+
+@media (max-width: 990px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  .gallery-grid video {
+  width: 200px;
+}
 }
 
 }
