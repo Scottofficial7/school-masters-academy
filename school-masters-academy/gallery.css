@@ -149,28 +149,14 @@ header {
   letter-spacing: 2px;
   padding-bottom: 18px;
   margin-bottom: 32px;
+  margin-top: 32px;
   background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* ...existing code... */
-/* ...existing code... */
 
-/* Ensure h2 is positioned relative for ::after to work */
-.gallery-section h2 {
-  position: relative;
-  display: inline-block;
-  font-size: 2.2rem;
-  color: #1a087e;
-  font-weight: 700;
-  letter-spacing: 2px;
-  padding-bottom: 18px;
-  margin-bottom: 32px;
-  background: linear-gradient(90deg, #1a087e 60%, #007bff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
 /* Animated line under h2 */
 .gallery-section h2::after {
