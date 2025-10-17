@@ -271,6 +271,13 @@ header {
 #bdNavbar{
   background-color: black;
 }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 610px;
+  margin: 0 auto;
+}
 
 @media (max-width: 990px) {
   .gallery-grid {
@@ -279,6 +286,13 @@ header {
   }
   .gallery-grid video {
   width: 200px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 990px;
+  margin: 0 auto;
 }
 }
 
