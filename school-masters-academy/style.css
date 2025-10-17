@@ -8,6 +8,11 @@
   letter-spacing: 0.5px !important;
 }
 
+h2.text-white {
+  font-size: 85px;
+  margin-bottom: 15px;
+}
+
 /* Blog Section - Desktop/Laptop Only */
 @media (min-width: 992px) {
   #blogs {
