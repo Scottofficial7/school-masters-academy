@@ -8,16 +8,28 @@
   letter-spacing: 0.5px !important;
 }
 
+.swiper-pagination{
+  margin-top: 50px;
+  padding-top: 20px;
+}
+
 h2.text-white {
   font-size: 85px;
   margin-bottom: 15px;
 }
+
+.teacher-slider {
+    display: block;
+  }
 
 /* Blog Section - Desktop/Laptop Only */
 @media (min-width: 992px) {
   #blogs {
     padding: 4rem 0 2rem 0;
     background: #f8f9fa;
+  }
+  .teacher-slider {
+    display: none;
   }
   #blogs .container {
     max-width: 1200px;
@@ -98,6 +110,9 @@ h2.text-white {
     margin-top: 38px;
     position: relative;
     z-index: 2;
+  }
+  .teacher-slider {
+    display: none;
   }
   .facilities-swiper .swiper-pagination-bullet {
     background: #1D157C;

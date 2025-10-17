@@ -169,7 +169,8 @@ body {
 	gap: 30px;
 }
 .founder-img {
-	width: 160px;
+	width: 120px;
+	height: 170px;
 	border-radius: 50%;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
@@ -177,9 +178,7 @@ body {
 	flex: 1;
 	min-width: 220px;
 }
-.founder-signature {
-	margin: 10px 0 0 0;
-}
+
 .founder-name {
 	font-weight: 600;
 	color: #003366;
