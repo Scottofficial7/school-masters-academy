@@ -7,6 +7,15 @@
   letter-spacing: 0.5px !important;
 }
 
+
+/* Ensure teacher card titles are blue (override any conflicting rules) */
+.teacher-card h4 {
+  color: blue !important;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+/* ...existing code... */
+
 /* Navbar background color set to black for consistency */
 .navbar.second-header,
 #primary-header.navbar,

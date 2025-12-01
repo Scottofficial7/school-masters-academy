@@ -1,7 +1,7 @@
 <?php
 // Change these to your email and site name
-$to = 'your@email.com';
-$site_name = 'School Masters Academy';
+$to = 'schoolmastersacademy25@gmail.com';
+$site_name = 'schoolmastersacademy.com';
 
 // Get POST data
 $name = isset($_POST['name']) ? strip_tags($_POST['name']) : '';
@@ -18,7 +18,7 @@ if (!$name || !$email || !$message) {
 
 // Email content
 $email_content = "Name: $name\nEmail: $email\nSubject: $subject\nMessage:\n$message";
-$email_headers = "From: $site_name <no-reply@yourdomain.com>\r\nReply-To: $email";
+$email_headers = "From: $site_name <no-reply@schoolmastersacademy.com>\r\nReply-To: $email";
 
 // Send email
 if (mail($to, "Contact Form: $subject", $email_content, $email_headers)) {
