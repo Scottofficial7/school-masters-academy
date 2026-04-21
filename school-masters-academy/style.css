@@ -1,4 +1,3 @@
-
 /* Consistent nav-link font size and style across all pages */
 .navbar-nav .nav-link {
   font-size: 13px !important;
@@ -229,6 +228,7 @@ CSS STRUCTURE:
 
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -374,7 +374,7 @@ h6 {
   --bs-btn-font-weight: 500;
   text-transform: uppercase;
   transition: 0.3s ease-in-out;
-  border-radius: 0;
+  border-radius: 50px;
 }
 
 .btn-primary {
@@ -392,6 +392,27 @@ h6 {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: var(--primary-color);
   --bs-btn-disabled-border-color: var(--primary-color);
+}
+
+/* Hero Banner CTA Button */
+.btn-banner-cta {
+  background: #FBB911;
+  color: #1D157C;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;
+  padding: 0.85rem 2.4rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 18px rgba(251,185,17,0.35);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+.btn-banner-cta:hover {
+  background: #fff;
+  color: #1D157C;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(251,185,17,0.45);
 }
 
 /*--------------------------------------------------------------
@@ -442,6 +463,31 @@ textarea {
 
 select:focus {
   box-shadow: none;
+}
+
+/* Subscribe Section Polish */
+.subscribe-input {
+  border-radius: 50px !important;
+  border: 2px solid var(--primary-color);
+  padding-left: 1.5rem !important;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.subscribe-input:focus {
+  border-color: #FBB911 !important;
+  box-shadow: 0 0 0 3px rgba(251,185,17,0.2) !important;
+}
+.subscribe-btn {
+  border-radius: 50px !important;
+  background: var(--primary-color) !important;
+  border: none !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+  transition: background 0.3s, transform 0.2s !important;
+}
+.subscribe-btn:hover {
+  background: #FBB911 !important;
+  color: #1D157C !important;
+  transform: translateY(-2px);
 }
 
 /* Svg Color
@@ -509,6 +555,76 @@ height: 110vh;
 /* 4 SITE STRUCTURE */
 /*----------------------------------------------*/
 
+/* Third Term Banner
+/*----------------------------------------------*/
+.third-term-banner {
+  width: 100%;
+  background: linear-gradient(90deg, #FBB911 0%, #f5a800 100%);
+  color: #1D157C;
+  z-index: 99999;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(251,185,17,0.4);
+}
+.third-term-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+}
+.third-term-badge {
+  background: #1D157C;
+  color: #FBB911;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  padding: 4px 14px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.third-term-text {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #1D157C;
+  text-align: center;
+  line-height: 1.4;
+}
+.third-term-close {
+  background: none;
+  border: none;
+  color: #1D157C;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.third-term-close:hover {
+  opacity: 1;
+}
+@media (max-width: 600px) {
+  .third-term-text {
+    font-size: 0.8rem;
+  }
+  .third-term-close {
+    position: static;
+    transform: none;
+    margin-left: auto;
+  }
+}
+
 /* 4.1 Header
 /*----------------------------------------------*/
 
@@ -533,6 +649,24 @@ a.nav-link {
   color: var(--light-color);
   font-size: 14px;
   font-weight: 500;
+  position: relative;
+}
+
+/* Nav underline hover effect */
+a.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #FBB911;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+a.nav-link:hover::after,
+a.nav-link.active::after {
+  width: 100%;
 }
 
 a.nav-link:focus {
@@ -573,7 +707,7 @@ a.nav-link:hover {
 }
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link:hover {
-  color: #007bff !important;
+  color: #FBB911 !important;
 }
 
 @media only screen and (max-width: 610px) {
@@ -622,9 +756,22 @@ section#slider .main-slider-button-next.swiper-button-disabled,
   opacity: 0.6;
 }
 
+/* Slider dark overlay for readability */
+section#slider .swiper-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  z-index: 0;
+}
+section#slider .banner-content {
+  position: relative;
+  z-index: 1;
+}
+
 @media only screen and (max-width: 999px) {
   section#slider .banner-content {
-    width: 66%;
+    width: 80%;
   }
 }
 
@@ -634,8 +781,25 @@ section#slider .main-slider-button-next.swiper-button-disabled,
 #features{
     transform: translateX(-50%);
     left: 50%;
-    bottom: 0;
+    bottom: -230px;
     position: absolute;
+}
+
+/* Feature & course image hover zoom */
+.feature-img, .course-img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+.feature-img:hover, .course-img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(29,21,124,0.15);
+}
+
+.feature-label, .course-label {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 0.95rem;
+  transition: letter-spacing 0.3s;
 }
 
 @media only screen and (max-width: 999px) {
@@ -655,6 +819,17 @@ section#slider .main-slider-button-next.swiper-button-disabled,
 #about {
   padding-top: 240px;
   padding-bottom: 350px;
+}
+
+/* Welcome box polish */
+.welcome-box {
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(29,21,124,0.18);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.welcome-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(29,21,124,0.24);
 }
 
 #courses{
@@ -684,6 +859,16 @@ section#slider .main-slider-button-next.swiper-button-disabled,
 
 #founder {
   padding-top: 18rem;
+}
+
+.founder-img {
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(29,21,124,0.13);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.founder-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 16px 48px rgba(29,21,124,0.22);
 }
 
 @media only screen and (max-width: 999px) {
@@ -739,11 +924,45 @@ section#slider .main-slider-button-next.swiper-button-disabled,
 }
 
   .navbar-nav .nav-link {
-		font-size: 21px !important;
-		font-family: 'Roboto', Arial, sans-serif !important;
-		color: #fff !important;
-		text-transform: uppercase !important;
-		font-weight: 500 !important;
-		letter-spacing: 0.5px !important;
-	}
+    font-size: 21px !important;
+    font-family: 'Roboto', Arial, sans-serif !important;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+  }
+}
+
+/* =============================================
+   SCROLL REVEAL ANIMATIONS
+   ============================================= */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-up {
+  transform: translateY(40px);
+}
+.reveal-left {
+  transform: translateX(-48px);
+}
+.reveal-right {
+  transform: translateX(48px);
+}
+.reveal-up.revealed,
+.reveal-left.revealed,
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+section#slider .banner-content {
+  position: relative;
+  z-index: 1;
+}
+
+section#slider .banner-content p {
+  color: #fff !important;
 }

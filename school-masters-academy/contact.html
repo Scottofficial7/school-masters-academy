@@ -1,57 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contact Us - School Masters Academy</title>
-	<link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/vendor.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - School Masters Academy</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="contact.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
-      <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"/>
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="facebook" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="twitter" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M22.46 6c-.77.35-1.6.59-2.47.69a4.3 4.3 0 0 0 1.88-2.37c-.83.49-1.75.85-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.83 1.92 3.61-.71-.02-1.38-.22-1.97-.54v.05c0 2.09 1.49 3.83 3.47 4.23-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.68 2.11 2.9 3.97 2.93A8.6 8.6 0 0 1 2 19.54c-.29 0-.57-.02-.85-.05A12.13 12.13 0 0 0 8.29 21c7.55 0 11.69-6.26 11.69-11.69 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 22.46 6z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="linkedin" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.25c-.97 0-1.75-.78-1.75-1.75s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.75-1.75 1.75zm13.5 11.25h-3v-5.5c0-1.1-.9-2-2-2s-2 .9-2 2v5.5h-3v-10h3v1.5c.41-.77 1.36-1.5 2.5-1.5 1.93 0 3.5 1.57 3.5 3.5v6.5z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="instagram" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M12 2.16c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41a4.92 4.92 0 0 1 1.77 1.13 4.92 4.92 0 0 1 1.13 1.77c.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43a4.92 4.92 0 0 1-1.13 1.77 4.92 4.92 0 0 1-1.77 1.13c-.46.17-1.26.354-2.43.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41a4.92 4.92 0 0 1-1.77-1.13 4.92 4.92 0 0 1-1.13-1.77c-.17-.46-.354-1.26-.41-2.43C2.172 15.634 2.16 15.25 2.16 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43a4.92 4.92 0 0 1 1.13-1.77 4.92 4.92 0 0 1 1.77-1.13c.46-.17 1.26-.354 2.43-.41C8.416 2.172 8.8 2.16 12 2.16zm0-2.16C8.736 0 8.332.012 7.052.07c-1.28.058-2.16.24-2.91.51a6.92 6.92 0 0 0-2.51 1.64A6.92 6.92 0 0 0 .58 4.13c-.27.75-.452 1.63-.51 2.91C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.28.24 2.16.51 2.91a6.92 6.92 0 0 0 1.64 2.51 6.92 6.92 0 0 0 2.51 1.64c.75.27 1.63.452 2.91.51C8.332 23.988 8.736 24 12 24c3.264 0 3.668-.012 4.948-.07 1.28-.058 2.16-.24 2.91-.51a6.92 6.92 0 0 0 2.51-1.64 6.92 6.92 0 0 0 1.64-2.51c.27-.75.452-1.63.51-2.91.058-1.28.07-1.684.07-4.948 0-3.264-.012-3.668-.07-4.948-.058-1.28-.24-2.16-.51-2.91a6.92 6.92 0 0 0-1.64-2.51A6.92 6.92 0 0 0 19.858.58c-.75-.27-1.63-.452-2.91-.51C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="youtube" viewBox="0 0 32 32">
-      <path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
-    </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
-      <path fill="currentColor" fill-rule="evenodd"
-        d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
-    </symbol>
-  </svg>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
-	<header id="header" class="fixed-top">
+
+  <!-- ===== SVG SYMBOLS ===== -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="navbar-icon" viewBox="0 0 16 16">
+      <path fill="currentColor" fill-rule="evenodd" d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
+    </symbol>
+    <symbol id="search" viewBox="0 0 512 512">
+      <path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8"/>
+    </symbol>
+    <symbol id="location" viewBox="0 0 24 24">
+      <path fill="currentColor" fill-rule="evenodd" d="M3.25 10.143C3.25 5.244 7.155 1.25 12 1.25c4.845 0 8.75 3.994 8.75 8.893c0 2.365-.674 4.905-1.866 7.099c-1.19 2.191-2.928 4.095-5.103 5.112a4.2 4.2 0 0 1-3.562 0c-2.175-1.017-3.913-2.92-5.103-5.112c-1.192-2.194-1.866-4.734-1.866-7.099M12 2.75c-3.992 0-7.25 3.297-7.25 7.393c0 2.097.603 4.392 1.684 6.383c1.082 1.993 2.612 3.624 4.42 4.469a2.7 2.7 0 0 0 2.291 0c1.809-.845 3.339-2.476 4.421-4.469c1.081-1.99 1.684-4.286 1.684-6.383c0-4.096-3.258-7.393-7.25-7.393m0 5a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5M8.25 10a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="phone" viewBox="0 0 24 24">
+      <path fill="currentColor" fill-rule="evenodd" d="M4.718 3.092c1.226-1.291 3.254-1.05 4.268.384l1.26 1.784c.811 1.147.743 2.74-.225 3.76l-.245.257a.25.25 0 0 0-.002.006c-.013.036-.045.152-.013.372c.067.455.418 1.381 1.846 2.884c1.432 1.508 2.3 1.863 2.703 1.929a.608.608 0 0 0 .294-.007l.408-.43c.874-.92 2.236-1.101 3.335-.469l1.91 1.1c1.633.94 2.013 3.239.708 4.613l-1.42 1.495c-.443.467-1.048.866-1.795.94c-1.824.18-6.049-.055-10.478-4.719c-4.134-4.351-4.919-8.136-5.018-9.985l.666-.036l-.666.036c-.049-.914.358-1.697.894-2.262zm3.043 1.25c-.512-.724-1.433-.768-1.956-.217l-1.57 1.652c-.33.35-.505.75-.483 1.149c.08 1.51.731 4.952 4.607 9.032c4.064 4.28 7.809 4.4 9.244 4.259c.283-.028.575-.186.854-.48l1.42-1.495c.614-.646.453-1.808-.368-2.28l-1.91-1.1c-.513-.295-1.114-.204-1.499.202l-.456.48l-.527-.501c.527.5.527.501.526.502l-.001.001l-.003.004l-.007.006l-.014.014a1.007 1.007 0 0 1-.136.112c-.08.056-.186.119-.321.172c-.276.109-.64.167-1.091.094c-.878-.142-2.028-.773-3.55-2.376c-1.528-1.608-2.113-2.807-2.243-3.7c-.067-.454-.014-.817.084-1.092a1.591 1.591 0 0 1 .23-.427l.03-.037l.014-.015l.006-.007l.003-.003l.002-.001s0-.002.533.503l-.532-.505l.287-.302c.445-.469.51-1.263.088-1.86z" clip-rule="evenodd"/>
+    </symbol>
+    <symbol id="facebook" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+    </symbol>
+    <symbol id="twitter" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"/>
+    </symbol>
+    <symbol id="linkedin" viewBox="0 0 512 512">
+      <path fill="currentColor" d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32Zm-273.3 373.43h-64.18V205.88h64.18ZM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43c0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43Zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44c-17.74 0-28.24 12-32.91 23.69c-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44c42.13 0 74 27.77 74 87.64Z"/>
+    </symbol>
+    <symbol id="instagram" viewBox="0 0 256 256">
+      <path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"/>
+    </symbol>
+    <symbol id="youtube" viewBox="0 0 32 32">
+      <path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z"/>
+    </symbol>
+  </svg>
+
+
+  <!-- ===== NAVBAR (matches index.html exactly) ===== -->
+  <header id="header" class="fixed-top">
+    <!-- Primary navbar -->
     <nav id="primary-header" class="navbar second-header navbar-expand-lg py-2 px-xl-5">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
           <img src="images/SMA WEB LOGO.png" class="logo img-fluid">
         </a>
         <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false">
-          <svg width="60" height="60">
+          <svg class="text-white" width="60" height="60">
             <use xlink:href="#navbar-icon"></use>
           </svg>
         </button>
         <div class="header-bottom offcanvas offcanvas-end" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
           <div class="offcanvas-header px-4 pb-0 mt-3">
-            <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body align-items-center justify-content-end">
             <ul class="navbar-nav mb-2 mb-lg-0">
@@ -96,279 +106,298 @@
     </nav>
   </header>
 
-	<header class="contact-header text-center py-5 bg-primary text-white">
-		<h1>Contact Us</h1>
-		<p>We'd love to hear from you! Reach out using the form or details below.</p>
-	</header>
+  <!-- ===== HERO BANNER ===== -->
+  <section class="contact-hero" id="top" style="padding-top: 130px;">
+    <div class="contact-hero-overlay"></div>
+    <div class="contact-hero-content">
+      <span class="contact-hero-label">Get In Touch</span>
+      <h1>Contact Us</h1>
+      <p>We'd love to hear from you — reach out and let's connect.</p>
+      <a href="#contact-main" class="contact-hero-btn">Send a Message ↓</a>
+    </div>
+  </section>
 
-	<main class="container py-5">
-			<div class="row g-5">
-						<div class="col-12 mb-5">
-							<h2 class="mb-4 text-center">UNLOCK YOUR FULL POTENTIAL HERE</h2>
-							<div id="schoolGalleryCarousel" class="carousel slide shadow" data-bs-ride="carousel">
-								<div class="carousel-inner rounded">
-									<div class="carousel-item active">
-										<img src="images/School8.JPG" class="d-block w-100" alt="Facility 1">
-									</div>
-									<div class="carousel-item">
-										<img src="images/TEchhhh.JPG" class="d-block w-100" alt="Facility 2">
-									</div>
-									<div class="carousel-item">
-										<img src="images/School3.JPG" class="d-block w-100" alt="Facility 3">
-									</div>
-									<div class="carousel-item">
-										<img src="images/fun1.JPG" class="d-block w-100" alt="Facility 4">
-									</div>
-									<div class="carousel-item">
-										<img src="images/School back 3.JPG" class="d-block w-100" alt="School Event">
-									</div>
-									<div class="carousel-item">
-										<img src="images/smaclasses.JPG" class="d-block w-100" alt="School Gathering">
-									</div>
-								</div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#schoolGalleryCarousel" data-bs-slide="prev">
-									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Previous</span>
-								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#schoolGalleryCarousel" data-bs-slide="next">
-									<span class="carousel-control-next-icon" aria-hidden="true"></span>
-									<span class="visually-hidden">Next</span>
-								</button>
-							</div>
-						</div>
-			<div class="col-lg-6">
-				<h2 class="mb-4">Send Us a Message</h2>
-                <form class="contact-form p-4 rounded shadow" id="contactForm" method="POST" action="contact-form-handler.php">
-					<div class="mb-3">
-						<label for="name" class="form-label">Name</label>
-						<input type="text" class="form-control" id="name" name="name" required>
-					</div>
-					<div class="mb-3">
-						<label for="email" class="form-label">Email</label>
-						<input type="email" class="form-control" id="email" name="email" required>
-					</div>
-					<div class="mb-3">
-						<label for="subject" class="form-label">Subject</label>
-						<input type="text" class="form-control" id="subject" name="subject">
-					</div>
-					<div class="mb-3">
-						<label for="message" class="form-label">Message</label>
-						<textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-					</div>
-					<button type="submit" class="btn btn-primary w-100">Send Message</button>
-				</form>
-				<div id="form-status" class="mt-3"></div>
-			</div>
-			<div class="col-lg-6">
-				<h2 class="mb-4">Contact Information</h2>
-				<ul class="list-unstyled contact-info mb-4">
-					<li><strong>Address:</strong> 25 Addo Badore Road, Ajah, Lagos</li>
-<<<<<<< HEAD
-					<li><strong>Phone:</strong> <a href="tel:080 3703 9232">080 3703 9232</a></li>
-=======
-					<li><strong>Phone:</strong> <a href="tel:+1234567890">080 3703 9232</a></li>
->>>>>>> cbcefbd3f994c0f8b5f11a1c61310ad76e587daa
-					<li><strong>Email:</strong> <a href="mailto:schoolmastersacademy25@gmail.com">schoolmastersacademy25@gmail.com</a></li>
-				</ul>
-				<h3 class="mb-3">Follow Us</h3>
-				<div class="social-links mb-4">
-                    <a href="#" class="me-3" title="Facebook">
-                      <svg width="32" height="32" class="text-primary">
-                        <use xlink:href="#facebook"></use>
-                      </svg>
-                    </a>
-                    <a href="#" class="me-3" title="Twitter">
-                      <svg width="32" height="32" class="text-primary">
-                        <use xlink:href="#twitter"></use>
-                      </svg>
-                    </a>
-                    <a href="#" class="me-3" title="LinkedIn">
-                      <svg width="32" height="32" class="text-primary">
-                        <use xlink:href="#linkedin"></use>
-                      </svg>
-                    </a>
-                    <a href="#" class="me-3" title="Instagram">
-                      <svg width="32" height="32" class="text-primary">
-                        <use xlink:href="#instagram"></use>
-                      </svg>
-                    </a>
-                    <a href="#" class="me-3" title="YouTube">
-                      <svg width="32" height="32" class="text-primary">
-                        <use xlink:href="#youtube"></use>
-                      </svg>
-                    </a>
-				</div>
-				<h3 class="mb-3">Our Location</h3>
-				<div class="map-responsive">
-          <iframe src="https://www.google.com/maps?q=School+Masters+Academy,+Ajah,+Lagos,+Nigeria&output=embed" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-				</div>
-			</div>
-		</div>
-	</main>
-
-	<footer id="footer" class="bg-primary">
-      <div class="container padding-medium pb-5">
-        <div class="row flex-wrap justify-content-between">
-          <div class="col-lg-6 col-md-6 col-sm-6 pb-3 mb-4">
-            <div class="footer-menu">
-              <a class="navbar-brand" href="index.html">
-                <img src="images/SMA WEB FOOTER LOGO.png" class="logo img-fluid">
-              </a>
-              <ul class="social-links d-flex flex-wrap list-unstyled m-0 mt-5">
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26">
-            <use xlink:href="#facebook"></use>
-            </svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26">
-            <use xlink:href="#twitter"></use>
-            </svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26">
-            <use xlink:href="#linkedin"></use>
-            </svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26">
-            <use xlink:href="#instagram"></use>
-            </svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26">
-            <use xlink:href="#youtube"></use>
-            </svg>
-                  </a>
-                </li>
-              </ul>
+  <!-- ===== INFO CARDS ===== -->
+  <section class="contact-cards-section">
+    <div class="container">
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg width="30" height="30"><use xlink:href="#location"></use></svg>
             </div>
+            <h5>Visit Us</h5>
+            <p>25 Addo Badore Road<br>Ajah, Lagos</p>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
-            <div class="footer-menu">
-              <h5 class="text-white widget-title pb-2 fw-semibold">Quick Links</h5>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white">
-                  <a href="index.html" class="fw-light">Home</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="about-us.html" class="fw-light">About</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="gallery.html" class="fw-light">Gallery</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="school-blog.html" class="fw-light">School Blog</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="contact.html" class="fw-light">Contact</a>
-                </li>
-              </ul>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg width="30" height="30"><use xlink:href="#phone"></use></svg>
             </div>
+            <h5>Call Us</h5>
+            <p><a href="tel:08037039232">080 3703 9232</a></p>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6  pb-3">
-            <div class="footer-menu">
-              <h5 class="text-white widget-title pb-2 fw-semibold">About</h5>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">How It Work</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Pricing</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Promotion</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Refer a Friend</a>
-                </li>
-              </ul>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg>
             </div>
+            <h5>Email Us</h5>
+            <p><a href="mailto:schoolmastersacademy25@gmail.com">schoolmastersacademy25@gmail.com</a></p>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
-            <div class="footer-menu">
-              <h6 class="text-white widget-title pb-2 fw-semibold">Help Center</h6>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">FAQs</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Get in touch</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Info</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="#" class="fw-light">Payments</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-            <div class="container-fluid">
-                  <div class="d-flex flex-wrap justify-content-between align-items-center">
-                      <ul class="info d-flex flex-wrap list-unstyled m-0">
-                          <li class="location text-white text-capitalize d-flex align-items-center me-4" style="font-size: 15px;">
-                              <svg class="text-white me-1" width="18" height="18">
-                  <use xlink:href="#location"></use>
-                </svg> 25 Addo Badore Road, Ajah, Lagos
-                          </li>
-                          <li class="phone text-white text-capitalize d-flex align-items-center me-4" style="font-size: 15px;">
-                              <svg class="text-white me-1" width="18" height="18">
-                  <use xlink:href="#phone"></use>
-                </svg> 080 3703 9232
-                          </li>
-                      </ul>
-                    
-                  </div>
-              </div>
         </div>
       </div>
-      <div class="container">
-        <div class="footer-bottom d-md-flex justify-content-between py-4">
-          <p class="text-white mb-0">© 2025 School Masters Academy - All rights reserved</p>
-                
+    </div>
+  </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="container py-5" id="contact-main">
+
+    <!-- Gallery Carousel -->
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <span class="section-label">Our School</span>
+        <h2 class="section-title">Unlock Your Full Potential Here</h2>
+      </div>
+      <div class="col-12 mt-3">
+        <div id="schoolGalleryCarousel" class="carousel slide shadow" data-bs-ride="carousel">
+          <div class="carousel-inner rounded">
+            <div class="carousel-item active">
+              <img src="images/School8.JPG" class="d-block w-100" alt="Facility 1">
+            </div>
+            <div class="carousel-item">
+              <img src="images/TEchhhh.JPG" class="d-block w-100" alt="Facility 2">
+            </div>
+            <div class="carousel-item">
+              <img src="images/School3.JPG" class="d-block w-100" alt="Facility 3">
+            </div>
+            <div class="carousel-item">
+              <img src="images/fun1.JPG" class="d-block w-100" alt="Facility 4">
+            </div>
+            <div class="carousel-item">
+              <img src="images/School back 3.JPG" class="d-block w-100" alt="School Event">
+            </div>
+            <div class="carousel-item">
+              <img src="images/smaclasses.JPG" class="d-block w-100" alt="School Gathering">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#schoolGalleryCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#schoolGalleryCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
-    </footer>
+    </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script>
-      function handleNavbarSearch(event) {
-        event.preventDefault();
-        var input = document.getElementById('navbar-search-input').value.trim().toLowerCase();
-        if (!input) return false;
-        var pages = {
-          'home': 'index.html',
-          'index': 'index.html',
-          'about': 'about-us.html',
-          'about us': 'about-us.html',
-          'gallery': 'gallery.html',
-          'blog': 'blog.html',
-          'school blog': 'blog.html',
-          'contact': 'contact.html',
-        };
-        var file = pages[input] || (input.replace(/\s+/g, '-') + '.html');
-        window.location.href = file;
-        return false;
-      }
-      document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        document.getElementById('form-status').innerHTML = '<div class="alert alert-success">Thank you for contacting us! We will get back to you soon.';
-        this.reset();
+    <!-- Form + Info -->
+    <div class="row g-5">
+      <div class="col-lg-6">
+        <span class="section-label">Message Us</span>
+        <h2 class="section-title mb-4">Send Us a Message</h2>
+        <form class="contact-form p-4 p-md-5 rounded-4 shadow" id="contactForm" novalidate>
+          <div class="mb-4">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+          </div>
+          <div class="mb-4">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="e.g. name@email.com" required>
+          </div>
+          <div class="mb-4">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-send w-100">
+            <span class="btn-send-text">Send Message</span>
+            <span class="btn-send-icon">→</span>
+          </button>
+        </form>
+        <div id="form-status" class="mt-3"></div>
+      </div>
+
+      <div class="col-lg-6">
+        <span class="section-label">Find Us</span>
+        <h2 class="section-title mb-4">Contact Information</h2>
+
+        <ul class="list-unstyled contact-info mb-4">
+          <li>
+            <svg width="18" height="18"><use xlink:href="#location"></use></svg>
+            <div><strong>Address</strong><br>25 Addo Badore Road, Ajah, Lagos</div>
+          </li>
+          <li>
+            <svg width="18" height="18"><use xlink:href="#phone"></use></svg>
+            <div><strong>Phone</strong><br><a href="tel:08037039232">080 3703 9232</a></div>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4l-8 5l-8-5V6l8 5l8-5v2z"/></svg>
+            <div><strong>Email</strong><br><a href="mailto:schoolmastersacademy25@gmail.com">schoolmastersacademy25@gmail.com</a></div>
+          </li>
+        </ul>
+
+        <h3 class="section-subtitle mb-3">Follow Us</h3>
+        <div class="social-links mb-4 d-flex gap-3">
+          <a href="#" title="Facebook" class="social-btn"><svg width="22" height="22"><use xlink:href="#facebook"></use></svg></a>
+          <a href="#" title="Twitter" class="social-btn"><svg width="22" height="22"><use xlink:href="#twitter"></use></svg></a>
+          <a href="#" title="LinkedIn" class="social-btn"><svg width="22" height="22"><use xlink:href="#linkedin"></use></svg></a>
+          <a href="#" title="Instagram" class="social-btn"><svg width="22" height="22"><use xlink:href="#instagram"></use></svg></a>
+          <a href="#" title="YouTube" class="social-btn"><svg width="22" height="22"><use xlink:href="#youtube"></use></svg></a>
+        </div>
+
+        <h3 class="section-subtitle mb-3">Our Location</h3>
+        <div class="map-responsive">
+          <iframe src="https://www.google.com/maps?q=School+Masters+Academy,+Ajah,+Lagos,+Nigeria&output=embed"
+            width="100%" height="270" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer" class="bg-primary">
+    <div class="container padding-medium pb-5">
+      <div class="row flex-wrap justify-content-between">
+        <div class="col-lg-6 col-md-6 col-sm-6 pb-3 mb-4">
+          <div class="footer-menu">
+            <a class="navbar-brand" href="index.html">
+              <img src="images/SMA WEB FOOTER LOGO.png" class="logo img-fluid">
+            </a>
+            <ul class="social-links d-flex flex-wrap list-unstyled m-0 mt-5">
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#facebook"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#linkedin"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#youtube"></use></svg></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h5 class="text-white widget-title pb-2 fw-semibold">Quick Links</h5>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="index.html" class="fw-light">Home</a></li>
+              <li class="pb-2 text-white"><a href="about-us.html" class="fw-light">About</a></li>
+              <li class="pb-2 text-white"><a href="gallery.html" class="fw-light">Gallery</a></li>
+              <li class="pb-2 text-white"><a href="school-blog.html" class="fw-light">School Blog</a></li>
+              <li class="pb-2 text-white"><a href="contact.html" class="fw-light">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h5 class="text-white widget-title pb-2 fw-semibold">About</h5>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="#" class="fw-light">How It Work</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Pricing</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Promotion</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Refer a Friend</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h6 class="text-white widget-title pb-2 fw-semibold">Help Center</h6>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="#" class="fw-light">FAQs</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Get in touch</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Info</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Payments</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <ul class="info d-flex flex-wrap list-unstyled m-0">
+              <li class="location text-white text-capitalize d-flex align-items-center me-4" style="font-size:15px;">
+                <svg class="text-white me-1" width="18" height="18"><use xlink:href="#location"></use></svg> 25 Addo Badore Road, Ajah, Lagos
+              </li>
+              <li class="phone text-white text-capitalize d-flex align-items-center me-4" style="font-size:15px;">
+                <svg class="text-white me-1" width="18" height="18"><use xlink:href="#phone"></use></svg> 080 3703 9232
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom d-md-flex justify-content-between py-4">
+        <p class="text-white mb-0">© 2025 School Masters Academy - All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL TO TOP BUTTON ===== -->
+  <button id="scrollTopBtn" title="Back to top" aria-label="Back to top">↑</button>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script>
+    // Navbar search
+    function handleNavbarSearch(event) {
+      event.preventDefault();
+      var input = document.getElementById('navbar-search-input').value.trim().toLowerCase();
+      if (!input) return false;
+      var pages = {
+        'home': 'index.html', 'index': 'index.html',
+        'about': 'about-us.html', 'about us': 'about-us.html',
+        'gallery': 'gallery.html',
+        'blog': 'school-blog.html', 'school blog': 'school-blog.html',
+        'contact': 'contact.html'
+      };
+      window.location.href = pages[input] || (input.replace(/\s+/g, '-') + '.html');
+      return false;
+    }
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var status = document.getElementById('form-status');
+      status.innerHTML = '<div class="form-success-msg"><span class="success-icon">✓</span> Thank you! We\'ll get back to you soon.</div>';
+      this.reset();
+      setTimeout(function () { status.innerHTML = ''; }, 6000);
+    });
+
+    // Smooth scroll for hero CTA
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
-    </script>
+    });
+
+    // Scroll to top button
+    var scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', function () {
+      scrollBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+    scrollBtn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Fade-in on scroll
+    var fadeEls = document.querySelectorAll('.contact-card, .contact-form, .contact-info li');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(function (el) {
+      el.classList.add('fade-in-hidden');
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>

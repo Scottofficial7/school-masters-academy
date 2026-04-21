@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Term Highlights – School Masters Academy</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/vendor.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="gallery.css">
+  <style>
+    /* ── Page-specific overrides ─────────────────── */
+    :root {
+      --gold: #FBB911;
+      --navy: #1a087e;
+      --accent-blue: #007bff;
+      --dark: #111;
+      --soft-bg: #f4f6fb;
+    }
+
+    /* Hero */
+    .sth-hero {
+      position: relative;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0540 0%, #1a087e 55%, #0055a5 100%);
+      margin-top: 88px;
+      overflow: hidden;
+    }
+    .sth-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 50%, rgba(251,185,17,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(0,123,255,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .sth-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,5,64,0.3);
+    }
+    .sth-hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 24px 52px;
+      max-width: 860px;
+      width: 100%;
+    }
+    .sth-term-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 5px 18px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .sth-hero-content h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+    .sth-hero-content h1 span {
+      color: var(--gold);
+    }
+    .sth-hero-content .sth-intro {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: rgba(255,255,255,0.82);
+      font-weight: 300;
+      margin-bottom: 28px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .sth-jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .sth-jump-pill {
+      display: inline-block;
+      padding: 7px 18px;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      border-radius: 50px;
+      color: #fff !important;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      text-decoration: none !important;
+      transition: background 0.32s ease, border-color 0.32s ease;
+    }
+    .sth-jump-pill:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy) !important;
+    }
+
+    /* ── Stats ribbon ─────────────────────────────── */
+    .sth-stats-ribbon {
+      background: var(--gold);
+      padding: 28px 0;
+    }
+    .sth-stat {
+      text-align: center;
+      padding: 8px 16px;
+    }
+    .sth-stat .stat-number {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1;
+      display: block;
+    }
+    .sth-stat .stat-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+      display: block;
+    }
+    .sth-stat-divider {
+      width: 1px;
+      background: rgba(26,8,126,0.25);
+      align-self: stretch;
+    }
+
+    /* ── Main wrapper ─────────────────────────────── */
+    .sth-main { background: var(--soft-bg); }
+
+    /* ── Section base ─────────────────────────────── */
+    .sth-section {
+      padding: 72px 0 56px;
+    }
+    .sth-section-alt {
+      background: #fff;
+    }
+
+    /* ── Section heading ──────────────────────────── */
+    .sth-section-header {
+      margin-bottom: 44px;
+    }
+    .sth-event-tag {
+      display: inline-block;
+      background: rgba(26,8,126,0.08);
+      color: var(--navy);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(26,8,126,0.15);
+    }
+    .sth-section-header h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .sth-section-header h2.revealed { opacity: 1; transform: none; }
+    .sth-section-header h2 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .sth-underline {
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
+      border-radius: 3px;
+      margin-bottom: 20px;
+      transition: width 0.7s cubic-bezier(0.4,0,0.2,1) 0.2s;
+    }
+    .sth-section-header h2.revealed ~ .sth-underline { width: 80px; }
+    .sth-section-header .sth-lead {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.75;
+      max-width: 680px;
+    }
+
+    /* ── Trophy banner (interhouse) ───────────────── */
+    .sth-trophy-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #2a1a8e 60%, #0055a5 100%);
+      border-radius: 16px;
+      padding: 40px 44px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 44px;
+      box-shadow: 0 8px 40px rgba(26,8,126,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+    .sth-trophy-banner::before {
+      content: '';
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      background: rgba(251,185,17,0.08);
+      border-radius: 50%;
+    }
+    .sth-trophy-icon {
+      font-size: 5rem;
+      flex-shrink: 0;
+      line-height: 1;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    .sth-trophy-text h3 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .sth-trophy-text p {
+      color: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    /* ── Position podium ──────────────────────────── */
+    .sth-podium {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 12px;
+      margin: 40px 0;
+    }
+    .sth-podium-item {
+      flex: 1;
+      max-width: 160px;
+      text-align: center;
+    }
+    .sth-podium-block {
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px 12px 16px;
+      font-weight: 800;
+      font-size: 2rem;
+    }
+    .sth-podium-block.gold   { background: #FBB911; height: 120px; color: var(--navy); }
+    .sth-podium-block.silver { background: #b0b8c9; height: 90px;  color: #1a1a2e; }
+    .sth-podium-block.bronze { background: #cd7f32; height: 75px;  color: #fff; }
+    .sth-podium-item .sth-podium-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #444;
+      margin-top: 8px;
+    }
+    .sth-podium-item .sth-podium-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-top: 3px;
+    }
+    .sth-podium-item.our-school .sth-podium-name {
+      color: var(--gold);
+    }
+    .sth-podium-item.our-school .sth-podium-block.bronze {
+      background: linear-gradient(135deg, #cd7f32 0%, #e8a045 100%);
+      box-shadow: 0 4px 20px rgba(205,127,50,0.4);
+    }
+
+    /* ── Story blocks ─────────────────────────────── */
+    .sth-story-block {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+      margin-bottom: 32px;
+    }
+    .sth-story-block.reverse { flex-direction: row-reverse; }
+    .sth-story-img {
+      width: 260px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.12);
+    }
+    .sth-story-img img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .sth-story-img:hover img { transform: scale(1.05); }
+    .sth-story-text h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .sth-story-text p {
+      font-size: 0.97rem;
+      color: #555;
+      line-height: 1.78;
+      margin-bottom: 10px;
+    }
+
+    /* ── Image mosaic grid ────────────────────────── */
+    .sth-mosaic {
+      display: grid;
+      gap: 14px;
+    }
+    .sth-mosaic-3 { grid-template-columns: repeat(3, 1fr); }
+    .sth-mosaic-4 { grid-template-columns: repeat(4, 1fr); }
+    .sth-mosaic-item {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .sth-mosaic-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .sth-mosaic-item:hover img { transform: scale(1.07); }
+    .sth-mosaic-item .sth-img-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(10,5,64,0.75) 0%, transparent 100%);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 20px 10px 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .sth-mosaic-item:hover .sth-img-caption { opacity: 1; }
+
+    /* Featured mosaic — first item spans 2 rows */
+    .sth-mosaic-featured {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 220px 220px;
+    }
+    .sth-mosaic-featured .sth-mosaic-item:first-child {
+      grid-row: span 2;
+    }
+    .sth-mosaic-featured .sth-mosaic-item:first-child img {
+      height: 100%;
+    }
+    .sth-mosaic-featured .sth-mosaic-item img {
+      height: 100%;
+    }
+
+    /* ── Quote callout ─────────────────────────────── */
+    .sth-quote {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 36px 40px;
+      margin: 32px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .sth-quote::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 10rem;
+      color: rgba(251,185,17,0.12);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+    .sth-quote p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .sth-quote cite {
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-style: normal;
+    }
+
+    /* ── Highlight card (what students learned) ───── */
+    .sth-highlight-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .sth-hcard {
+      background: #fff;
+      border-radius: 14px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+      border-top: 4px solid var(--navy);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.3s ease;
+    }
+    .sth-hcard.item-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .sth-hcard:hover {
+      box-shadow: 0 10px 32px rgba(26,8,126,0.14);
+      transform: translateY(-4px);
+    }
+    .sth-hcard.gold-top  { border-top-color: var(--gold); }
+    .sth-hcard.blue-top  { border-top-color: var(--accent-blue); }
+    .sth-hcard-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .sth-hcard h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .sth-hcard p {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
+
+    /* ── CTA strip ─────────────────────────────────── */
+    .sth-cta-strip {
+      background: linear-gradient(135deg, #0a0540 0%, #1a087e 100%);
+      padding: 64px 0;
+      text-align: center;
+    }
+    .sth-cta-strip h2 {
+      color: #fff;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .sth-cta-strip p {
+      color: rgba(255,255,255,0.78);
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+    .sth-btn-gold {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--gold);
+      color: var(--navy) !important;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none !important;
+      letter-spacing: 0.5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 20px rgba(251,185,17,0.35);
+      margin: 6px 8px;
+    }
+    .sth-btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(251,185,17,0.5);
+    }
+    .sth-btn-outline {
+      display: inline-block;
+      padding: 13px 34px;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff !important;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none !important;
+      transition: border-color 0.3s ease, background 0.3s ease;
+      margin: 6px 8px;
+    }
+    .sth-btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(251,185,17,0.1);
+    }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 991px) {
+      .sth-hero { margin-top: 60px; }
+      .sth-trophy-banner { flex-direction: column; text-align: center; padding: 28px 24px; }
+      .sth-mosaic-4 { grid-template-columns: repeat(2, 1fr); }
+      .sth-mosaic-featured { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .sth-mosaic-featured .sth-mosaic-item:first-child { grid-row: span 1; }
+      .sth-mosaic-featured .sth-mosaic-item:first-child img { height: 200px; }
+      .sth-highlight-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .sth-hero { min-height: 300px; }
+      .sth-story-block, .sth-story-block.reverse { flex-direction: column; }
+      .sth-story-img { width: 100%; }
+      .sth-mosaic-3, .sth-mosaic-4, .sth-mosaic-featured {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .sth-mosaic-featured .sth-mosaic-item:first-child { grid-row: span 1; }
+      .sth-podium { gap: 6px; }
+    }
+    @media (max-width: 480px) {
+      .sth-highlight-cards { grid-template-columns: 1fr; }
+      .sth-quote { padding: 24px 20px; }
+      .sth-trophy-banner { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── SVG Sprites ──────────────────────────────────── -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <symbol id="navbar-icon" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/></symbol>
+    <symbol id="location" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M3.25 10.143C3.25 5.244 7.155 1.25 12 1.25c4.845 0 8.75 3.994 8.75 8.893c0 2.365-.674 4.905-1.866 7.099c-1.19 2.191-2.928 4.095-5.103 5.112a4.2 4.2 0 0 1-3.562 0c-2.175-1.017-3.913-2.92-5.103-5.112c-1.192-2.194-1.866-4.734-1.866-7.099M12 2.75c-3.992 0-7.25 3.297-7.25 7.393c0 2.097.603 4.392 1.684 6.383c1.082 1.993 2.612 3.624 4.42 4.469a2.7 2.7 0 0 0 2.291 0c1.809-.845 3.339-2.476 4.421-4.469c1.081-1.99 1.684-4.286 1.684-6.383c0-4.096-3.258-7.393-7.25-7.393m0 5a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5M8.25 10a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0" clip-rule="evenodd"/></symbol>
+    <symbol id="phone" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4.718 3.092c1.226-1.291 3.254-1.05 4.268.384l1.26 1.784c.811 1.147.743 2.74-.225 3.76l-.245.257a.25.25 0 0 0-.002.006c-.013.036-.045.152-.013.372c.067.455.418 1.381 1.846 2.884c1.432 1.508 2.3 1.863 2.703 1.929a.608.608 0 0 0 .294-.007l.408-.43c.874-.92 2.236-1.101 3.335-.469l1.91 1.1c1.633.94 2.013 3.239.708 4.613l-1.42 1.495c-.443.467-1.048.866-1.795.94c-1.824.18-6.049-.055-10.478-4.719c-4.134-4.351-4.919-8.136-5.018-9.985l.666-.036l-.666.036c-.049-.914.358-1.697.894-2.262zm3.043 1.25c-.512-.724-1.433-.768-1.956-.217l-1.57 1.652c-.33.35-.505.75-.483 1.149c.08 1.51.731 4.952 4.607 9.032c4.064 4.28 7.809 4.4 9.244 4.259c.283-.028.575-.186.854-.48l1.42-1.495c.614-.646.453-1.808-.368-2.28l-1.91-1.1c-.513-.295-1.114-.204-1.499.202l-.456.48l-.527-.501l.287-.302c.445-.469.51-1.263.088-1.86z" clip-rule="evenodd"/></symbol>
+    <symbol id="facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></symbol>
+    <symbol id="twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 512 512"><path fill="currentColor" d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32Zm-273.3 373.43h-64.18V205.88h64.18ZM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43c0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43Zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44c-17.74 0-28.24 12-32.91 23.69c-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44c42.13 0 74 27.77 74 87.64Z"/></symbol>
+    <symbol id="instagram" viewBox="0 0 256 256"><path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"/></symbol>
+    <symbol id="youtube" viewBox="0 0 32 32"><path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z"/></symbol>
+    <symbol id="search" viewBox="0 0 512 512"><path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8"/></symbol>
+  </svg>
+
+  <!-- ===== HEADER ===== -->
+  <header id="header" class="fixed-top">
+    <nav id="primary-header" class="navbar second-header navbar-expand-lg py-2 px-xl-5">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/SMA WEB LOGO.png" class="logo img-fluid" alt="SMA Logo">
+        </a>
+        <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar">
+          <svg class="text-white" width="60" height="60"><use xlink:href="#navbar-icon"></use></svg>
+        </button>
+        <div class="header-bottom offcanvas offcanvas-end" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
+          <div class="offcanvas-header px-4 pb-0 mt-3">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body align-items-center justify-content-end">
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item px-4"><a class="nav-link p-0" href="index.html">Home</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="about-us.html">About Us</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="gallery.html">Gallery</a></li>
+              <li class="nav-item px-4"><a class="nav-link active p-0" aria-current="page" href="school-blog.html">School Blog</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="contact.html">Contact</a></li>
+              <li class="nav-item search-dropdown ms-3 ms-lg-5 dropdown">
+                <a class="nav-link p-0 search dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 p-3 shadow">
+                  <li class="position-relative d-flex align-items-center p-0">
+                    <form id="navbar-search-form" class="w-100 d-flex" onsubmit="return handleNavbarSearch(event)">
+                      <input id="navbar-search-input" class="form-control me-2" type="search" placeholder="Search page (e.g. 'gallery')" aria-label="Search">
+                      <button class="btn btn-primary position-absolute end-0" type="submit">
+                        <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <div class="sth-hero">
+    <div class="sth-hero-overlay"></div>
+    <div class="sth-hero-content">
+      <span class="sth-term-badge">📰 News &amp; Events · 2025</span>
+      <h1>Second Term <span>Highlights</span></h1>
+      <p class="sth-intro">A term of grit, creativity, and unforgettable experiences — from the sports field to the art museum and the kitchen. Here is everything that made this term truly special at School Masters Academy.</p>
+      <div class="sth-jump-nav">
+        <a href="#interhouse"  class="sth-jump-pill">🏆 Interhouse Sports</a>
+        <a href="#ecobank-art" class="sth-jump-pill">🎨 Ecobank Art Museum</a>
+        <a href="#baking"      class="sth-jump-pill">🧁 Baking Practice</a>
+        <a href="#takeaways"   class="sth-jump-pill">✨ Key Takeaways</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STATS RIBBON ===== -->
+  <div class="sth-stats-ribbon">
+    <div class="container">
+      <div class="row g-0 align-items-center justify-content-center">
+        <div class="col-6 col-md-3">
+          <div class="sth-stat">
+            <span class="stat-number">3rd</span>
+            <span class="stat-label">Place — Interhouse Sports</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="sth-stat">
+            <span class="stat-number">1</span>
+            <span class="stat-label">Art Museum Excursion</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="sth-stat">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Students Participated</span>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="sth-stat">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Major Events This Term</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="sth-main">
+
+    <!-- ── INTERHOUSE SPORTS ─────────────────────────────── -->
+    <section id="interhouse" class="sth-section">
+      <div class="container">
+
+        <div class="sth-section-header">
+          <span class="sth-event-tag">Event 01 · Athletics</span>
+          <h2 class="sth-reveal">We Competed. We Fought. We <em>Finished Third.</em></h2>
+          <div class="sth-underline"></div>
+          <p class="sth-lead">The Second term's Interhouse Sports Competition was nothing short of spectacular. Our students took to the track, field, and court with incredible passion, energy, and school spirit — representing School Masters Academy with their heads held high throughout the entire competition.</p>
+        </div>
+
+        <!-- Trophy banner -->
+        <div class="sth-trophy-banner">
+          <div class="sth-trophy-icon">🥉</div>
+          <div class="sth-trophy-text">
+            <h3>3rd Place — Interhouse Sports Championship</h3>
+            <p>Our students competed fiercely against strong opponents across multiple sporting disciplines. Though the podium's top step was close, our athletes demonstrated outstanding courage, teamwork, and determination that made every parent and teacher incredibly proud. Third place is not the end — it is the fuel for what comes next.</p>
+          </div>
+        </div>
+
+        <!-- Podium visual -->
+        <div class="text-center mb-2">
+          <p class="text-muted" style="font-size:0.82rem; text-transform:uppercase; letter-spacing:1px; font-weight:600;">Overall Standings</p>
+        </div>
+        <div class="sth-podium">
+          <div class="sth-podium-item">
+            <div class="sth-podium-block silver">🥈</div>
+            <div class="sth-podium-label">2nd Place</div>
+            <div class="sth-podium-name">2nd Position</div>
+          </div>
+          <div class="sth-podium-item">
+            <div class="sth-podium-block gold">🥇</div>
+            <div class="sth-podium-label">1st Place</div>
+            <div class="sth-podium-name">Champions</div>
+          </div>
+          <div class="sth-podium-item our-school">
+            <div class="sth-podium-block bronze">🥉</div>
+            <div class="sth-podium-label">3rd Place</div>
+            <div class="sth-podium-name">School Masters Academy ⭐</div>
+          </div>
+        </div>
+
+        <!-- Story blocks -->
+        <div class="sth-story-block">
+          <div class="sth-story-img">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.55.jpeg" onerror="this.src='images/fun2.JPG'" alt="Students racing on sports day">
+          </div>
+          <div class="sth-story-text">
+            <h4>The Spirit of Competition</h4>
+            <p>From the opening march-past to the final relay race, every student who participated showed the true meaning of sportsmanship. Our athletes trained hard in the weeks leading up to the event, pushing their personal limits and supporting each other every step of the way.</p>
+            <p>While we may not have taken home the championship trophy this time, the lessons learned, friendships forged, and memories created on the field are what truly matter. Our students left everything on the track, and that is a victory in itself.</p>
+          </div>
+        </div>
+
+        <div class="sth-story-block reverse">
+          <div class="sth-story-img">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.56.jpeg" onerror="this.src='images/fun1.JPG'" alt="Students cheering during sports day">
+          </div>
+          <div class="sth-story-text">
+            <h4>Teamwork Above Everything</h4>
+            <p>One of the most moving moments of the day was our relay team — students from different year groups running together, passing the baton with trust and precision. The crowd cheered loudest for the effort, not just the result.</p>
+            <p>Our coaching staff and teachers stood alongside the students throughout the day, giving encouragement and tactical guidance. The atmosphere was electric, filled with school colours, chants, and the unmistakable energy of young people giving their absolute best.</p>
+          </div>
+        </div>
+
+        <div class="sth-quote">
+          <p>"Coming third is not a loss — it is proof that we belong at the table. Our students competed with pride, they finished standing tall, and they have already set their sights on next term. We could not be more proud of every single one of them."</p>
+          <cite>— School Masters Academy Sports Coordinator</cite>
+        </div>
+
+        <!-- Sports photo grid -->
+        <div class="sth-mosaic sth-mosaic-featured">
+          <div class="sth-mosaic-item">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (2).jpeg"  alt="Interhouse sports action">
+            <div class="sth-img-caption">Sports Day Action</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.56 (1).jpeg"  alt="Students marching">
+            <div class="sth-img-caption">March Past</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57.jpeg"  alt="Winners receiving medals">
+            <div class="sth-img-caption">Prize Giving</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.56 (3).jpeg" alt="Relay race">
+            <div class="sth-img-caption">Relay Race</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (1).jpeg"  alt="Students celebrating">
+            <div class="sth-img-caption">Team Spirit</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── ECOBANK ART MUSEUM ──────────────────────────── -->
+    <section id="ecobank-art" class="sth-section sth-section-alt">
+      <div class="container">
+
+        <div class="sth-section-header">
+          <span class="sth-event-tag">Event 02 · Cultural Excursion</span>
+          <h2 class="sth-reveal">Exploring Creativity at the <em>Ecobank Art Museum</em></h2>
+          <div class="sth-underline"></div>
+          <p class="sth-lead">Learning extends far beyond the four walls of a classroom. This term, our students had the incredible privilege or visiting the Ecobank Art Museum — a world-class cultural destination that opened their eyes to Nigeria's rich artistic heritage and the universal language of visual art.</p>
+        </div>
+
+        <div class="row align-items-center g-5 mb-5">
+          <div class="col-lg-6">
+            <div class="sth-story-img" style="width:100%;">
+              <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (2).jpeg" style="height:320px;">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <span class="sth-event-tag">The Experience</span>
+            <h3 style="font-size:1.6rem; font-weight:800; color:var(--navy); margin:12px 0 16px;">A World of Art, History &amp; Imagination</h3>
+            <p style="color:#555; line-height:1.78; margin-bottom:14px;">The moment our students stepped through the doors of the Ecobank Art Museum, they entered a space where history, culture, and creativity converge. From striking contemporary paintings to traditional Nigerian sculptures and mixed-media installations, every exhibit told a story that resonated with young, curious minds.</p>
+            <p style="color:#555; line-height:1.78; margin-bottom:14px;">Guided tours led by museum educators helped students understand the intent behind each piece — connecting art to history, society, and personal expression. Our students asked insightful questions, sketched their favourite pieces, and engaged in discussions that would continue long after the trip was over.</p>
+            <p style="color:#555; line-height:1.78;">This excursion was more than a day out. It was a deliberate investment in cultural literacy, empathy, and creative thinking — skills that no textbook alone can teach.</p>
+          </div>
+        </div>
+
+        <div class="sth-quote">
+          <p>"The way our students engaged with the artworks was remarkable. They saw connections to their own lives, their culture, their stories. That is exactly what great art is supposed to do — and that is exactly what happened."</p>
+          <cite>— Class Teacher, School Masters Academy</cite>
+        </div>
+
+        <!-- Art museum photo grid -->
+        <div class="sth-mosaic sth-mosaic-4" style="margin-top:32px;">
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00.jpeg"  alt="Students viewing art">
+            <div class="sth-img-caption">Gallery Walk</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00 (2).jpeg"  alt="Art installation">
+            <div class="sth-img-caption">Art Installations</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (1).jpeg"  alt="Students sketching">
+            <div class="sth-img-caption">Inspired Sketches</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01.jpeg"  alt="Group photo at museum">
+            <div class="sth-img-caption">Guided Tour</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (1).jpeg"  alt="Students sketching">
+            <div class="sth-img-caption">Inspired Sketches</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03 (4).jpeg"  alt="Group photo at museum">
+            <div class="sth-img-caption">Guided Tour</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51 (1).jpeg"  alt="Students sketching">
+            <div class="sth-img-caption">Inspired Sketches</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.02 (3).jpeg"  alt="Group photo at museum">
+            <div class="sth-img-caption">Guided Tour</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51.jpeg"  alt="Students sketching">
+            <div class="sth-img-caption">Inspired Sketches</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03.jpeg"  alt="Group photo at museum">
+            <div class="sth-img-caption">Guided Tour</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (3).jpeg"  alt="Students sketching">
+            <div class="sth-img-caption">Inspired Sketches</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (3).jpeg"  alt="Group photo at museum">
+            <div class="sth-img-caption">Guided Tour</div>
+          </div>
+        </div>
+
+        <!-- What students gained -->
+        <div class="sth-highlight-cards">
+          <div class="sth-hcard">
+            <span class="sth-hcard-icon">🖼️</span>
+            <h5>Cultural Awareness</h5>
+            <p>Students were exposed to Nigerian and African artistic traditions, deepening their appreciation for their own heritage and the diversity of human expression.</p>
+          </div>
+          <div class="sth-hcard gold-top">
+            <span class="sth-hcard-icon">💬</span>
+            <h5>Critical Thinking</h5>
+            <p>Interpreting art requires analysis, empathy and perspective. Students practiced forming and defending their own interpretations in real time.</p>
+          </div>
+          <div class="sth-hcard blue-top">
+            <span class="sth-hcard-icon">✏️</span>
+            <h5>Creative Inspiration</h5>
+            <p>Many students returned with fresh ideas for their own artwork. Several Art classes in the weeks following the visit reflected the direct influence of what they saw.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── BAKING PRACTICE ─────────────────────────────── -->
+    <section id="baking" class="sth-section">
+      <div class="container">
+
+        <div class="sth-section-header">
+          <span class="sth-event-tag">Event 03 · Practical Skills</span>
+          <h2 class="sth-reveal">Hands in the Dough — <em>Baking Practice</em> for Primary School</h2>
+          <div class="sth-underline"></div>
+          <p class="sth-lead">There is no better classroom than the kitchen. Our Primary School students rolled up their sleeves and got their hands floury this term during a dedicated baking session — one of the most joyful, educational, and delicious activities of the entire school year.</p>
+        </div>
+
+        <div class="row align-items-center g-5 mb-5">
+          <div class="col-lg-6 order-lg-2">
+            <div class="sth-story-img" style="width:100%;">
+              <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.09.jpeg" alt="Primary students baking" style="height:320px;">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <span class="sth-event-tag">The Activity</span>
+            <h3 style="font-size:1.6rem; font-weight:800; color:var(--navy); margin:12px 0 16px;">Flour, Butter, Teamwork &amp; Joy</h3>
+            <p style="color:#555; line-height:1.78; margin-bottom:14px;">The baking session was thoughtfully designed to teach our Primary School pupils far more than how to follow a recipe. Under the careful supervision of their teachers, students learned about measurements and fractions in a practical context, the science of how heat transforms raw ingredients, the importance of patience and following instructions, and the incredible satisfaction of making something with their own hands.</p>
+            <p style="color:#555; line-height:1.78; margin-bottom:14px;">Students worked in small teams, dividing responsibilities — some measured ingredients, others mixed and kneaded, while others managed the timing. The result was not just baked goods, but a lesson in collaboration, communication, and shared pride.</p>
+            <p style="color:#555; line-height:1.78;">The proud smiles on their faces when they presented their finished products — golden, warm, and fragrant — were worth more than any formal assessment could measure.</p>
+          </div>
+        </div>
+
+        <!-- Baking photos -->
+        <div class="sth-mosaic sth-mosaic-3" style="margin-bottom:32px;">
+          <div class="sth-mosaic-item">
+            <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.09 (1).jpeg"alt="Students measuring ingredients">
+            <div class="sth-img-caption">Measuring Ingredients</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.10.jpeg" alt="Students mixing dough">
+            <div class="sth-img-caption">Mixing &amp; Kneading</div>
+          </div>
+          <div class="sth-mosaic-item">
+            <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.11.jpeg" onerror="this.src='images/Primary Section.JPG'" alt="Students with baked goods">
+            <div class="sth-img-caption">The Finished Results!</div>
+          </div>
+        </div>
+
+        <div class="sth-quote">
+          <p>"Watching our Primary students bake together was one of the highlights of my term. They were focused, they helped each other, they troubleshot when things did not go to plan — and in the end, they were so proud of what they made. That is learning at its finest."</p>
+          <cite>— Primary School Teacher, School Masters Academy</cite>
+        </div>
+
+        <!-- What students gained -->
+        <div class="sth-highlight-cards">
+          <div class="sth-hcard">
+            <span class="sth-hcard-icon">🔢</span>
+            <h5>Maths in Action</h5>
+            <p>Measuring cups, grams, and minutes gave students a direct, tangible experience with fractions, weights, and time — concepts that can be hard to grasp on paper alone.</p>
+          </div>
+          <div class="sth-hcard gold-top">
+            <span class="sth-hcard-icon">🤝</span>
+            <h5>Collaboration &amp; Roles</h5>
+            <p>Each student had a defined role within their team, building an understanding of responsibility, delegation, and how individual contributions create a shared result.</p>
+          </div>
+          <div class="sth-hcard blue-top">
+            <span class="sth-hcard-icon">🌱</span>
+            <h5>Life Skills &amp; Independence</h5>
+            <p>Basic cooking skills are foundational life skills. By introducing them early, we build confidence, self-sufficiency, and an appreciation for the effort behind everyday meals.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── KEY TAKEAWAYS ──────────────────────────────────── -->
+    <section id="takeaways" class="sth-section sth-section-alt">
+      <div class="container">
+
+        <div class="sth-section-header text-center">
+          <span class="sth-event-tag">Looking Back &amp; Forward</span>
+          <h2 class="sth-reveal" style="text-align:center;">What This Term <em>Taught Us All</em></h2>
+          <div class="sth-underline" style="margin:0 auto 20px;"></div>
+          <p class="sth-lead" style="margin:0 auto; text-align:center;">Every event this term was carefully curated to stretch our students beyond academic knowledge — into character, creativity, resilience, and real-world skills. Here is what we take into Third Term.</p>
+        </div>
+
+        <div class="row g-4 mt-2">
+          <div class="col-md-4">
+            <div class="sth-hcard h-100" style="border-top-color:#cd7f32; padding:32px 26px;">
+              <span class="sth-hcard-icon">🥉</span>
+              <h5>Resilience Builds Champions</h5>
+              <p>Third place at Interhouse Sports is not a consolation — it is a foundation. Our athletes learned that consistent effort, team spirit, and a refusal to quit are the qualities that define true winners. We return to training with renewed hunger.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="sth-hcard h-100 gold-top" style="padding:32px 26px;">
+              <span class="sth-hcard-icon">🎨</span>
+              <h5>Culture Opens the Mind</h5>
+              <p>The Ecobank Art Museum visit reminded us that education lives in museums, galleries, and the world outside. Our students left with wider perspectives, sharper curiosity, and a genuine love for Nigerian art and culture.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="sth-hcard h-100 blue-top" style="padding:32px 26px;">
+              <span class="sth-hcard-icon">🧁</span>
+              <h5>Practical Skills Matter</h5>
+              <p>Baking taught our Primary pupils that learning is not confined to textbooks. When children apply knowledge with their hands, the lessons stick for life. We will continue to create these real-world learning moments across all year groups.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message to parents -->
+        <div style="background:linear-gradient(135deg,#0a0540,#1a087e); border-radius:16px; padding:44px 40px; margin-top:48px; text-align:center;">
+          <p style="color:rgba(255,255,255,0.6); font-size:0.75rem; text-transform:uppercase; letter-spacing:2px; font-weight:700; margin-bottom:12px;">A Message to Our Parents</p>
+          <h3 style="color:#fff; font-weight:800; font-size:clamp(1.3rem,3vw,2rem); margin-bottom:18px;">Thank You for Your Continued Trust &amp; Support</h3>
+          <p style="color:rgba(255,255,255,0.82); font-size:1rem; line-height:1.78; max-width:660px; margin:0 auto 24px;">None of what you have read on this page is possible without the partnership of parents who believe in giving children rich, memorable, and meaningful experiences. Your support — whether at the sports stands, on school trip forms, or in encouraging your children at home — makes all the difference. We are immensely grateful, and we promise to keep raising the bar in Third Term and beyond.</p>
+          <p style="color:#FBB911; font-weight:700; font-size:0.9rem; letter-spacing:0.5px;">— The Management &amp; Staff of School Masters Academy</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CTA STRIP ──────────────────────────────────────── -->
+    <div class="sth-cta-strip">
+      <div class="container">
+        <h2>Ready to See More of What Makes SMA Special?</h2>
+        <p>Explore our full gallery, learn about our programmes, or get in touch with us today.</p>
+        <a href="gallery.html" class="sth-btn-gold">View Our Gallery</a>
+        <a href="about-us.html" class="sth-btn-outline">About Our School</a>
+        <a href="contact.html" class="sth-btn-outline">Contact Us</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer" class="bg-primary">
+    <div class="container">
+      <div class="row pt-5 pb-3">
+        <div class="col-lg-4 col-md-6 pb-3">
+          <div class="footer-menu">
+            <img src="images/SMA WEB LOGO.png" class="img-fluid mb-3" alt="SMA Logo" style="max-height:60px;">
+            <p class="text-white fw-light" style="font-size:0.9rem; line-height:1.7;">School Masters Academy is committed to nurturing well-rounded individuals through academic excellence, creativity, and character. Knowledge for Service.</p>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h6 class="text-white widget-title pb-2 fw-semibold">Quick Links</h6>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2"><a href="index.html" class="text-white fw-light">Home</a></li>
+              <li class="pb-2"><a href="about-us.html" class="text-white fw-light">About Us</a></li>
+              <li class="pb-2"><a href="gallery.html" class="text-white fw-light">Gallery</a></li>
+              <li class="pb-2"><a href="second-term-highlights.html" class="text-white fw-light">News &amp; Events</a></li>
+              <li class="pb-2"><a href="contact.html" class="text-white fw-light">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h6 class="text-white widget-title pb-2 fw-semibold">Contact Us</h6>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white fw-light d-flex align-items-start gap-2">
+                <svg class="text-white mt-1 flex-shrink-0" width="16" height="16"><use xlink:href="#location"></use></svg>
+                25 Addo Badore Road, Ajah, Lagos
+              </li>
+              <li class="pb-2 text-white fw-light d-flex align-items-center gap-2">
+                <svg class="text-white flex-shrink-0" width="16" height="16"><use xlink:href="#phone"></use></svg>
+                080 3703 9232
+              </li>
+            </ul>
+            <div class="social-links mt-2">
+              <a href="#"><svg class="text-white" width="20" height="20"><use xlink:href="#facebook"></use></svg></a>
+              <a href="#"><svg class="text-white" width="20" height="20"><use xlink:href="#twitter"></use></svg></a>
+              <a href="#"><svg class="text-white" width="20" height="20"><use xlink:href="#instagram"></use></svg></a>
+              <a href="#"><svg class="text-white" width="20" height="20"><use xlink:href="#youtube"></use></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h6 class="text-white widget-title pb-2 fw-semibold">This Term's Highlights</h6>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2"><a href="#interhouse" class="text-white fw-light">🏆 Interhouse Sports — 3rd Place</a></li>
+              <li class="pb-2"><a href="#ecobank-art" class="text-white fw-light">🎨 Ecobank Art Museum Visit</a></li>
+              <li class="pb-2"><a href="#baking" class="text-white fw-light">🧁 Primary Baking Practice</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color:rgba(255,255,255,0.2); margin:0;">
+    <div class="container">
+      <div class="footer-bottom d-md-flex justify-content-between py-4">
+        <p class="text-white mb-0">&#169; 2025 School Masters Academy &#8211; All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    /* ── Navbar search ─────────────────────────────────────── */
+    function handleNavbarSearch(e) {
+      e.preventDefault();
+      var v = document.getElementById('navbar-search-input').value.trim().toLowerCase();
+      if (!v) return false;
+      var map = {'home':'index.html','index':'index.html','about':'about-us.html',
+        'about us':'about-us.html','gallery':'gallery.html','blog':'school-blog.html',
+        'school blog':'school-blog.html','contact':'contact.html',
+        'news':'second-term-highlights.html','events':'second-term-highlights.html'};
+      window.location.href = map[v] || (v.replace(/\s+/g,'-')+'.html');
+      return false;
+    }
+
+    /* ── Smooth scroll ─────────────────────────────────────── */
+    document.querySelectorAll('a.sth-jump-pill, a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          var tgt = document.querySelector(href);
+          if (tgt) { e.preventDefault(); tgt.scrollIntoView({behavior:'smooth', block:'start'}); }
+        }
+      });
+    });
+
+    /* ── Scroll-reveal headings ────────────────────────────── */
+    function revealHeads() {
+      document.querySelectorAll('.sth-reveal').forEach(function(h) {
+        if (h.getBoundingClientRect().top < window.innerHeight * 0.92)
+          h.classList.add('revealed');
+      });
+    }
+    window.addEventListener('scroll', revealHeads, {passive:true});
+    revealHeads();
+
+    /* ── Animate cards in on scroll ───────────────────────── */
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('item-visible'); obs.unobserve(e.target); }
+        });
+      }, {threshold: 0.07});
+      document.querySelectorAll('.sth-hcard').forEach(function(el) { obs.observe(el); });
+    } else {
+      document.querySelectorAll('.sth-hcard').forEach(function(el) { el.classList.add('item-visible'); });
+    }
+  </script>
+</body>
+</html>

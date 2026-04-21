@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/vendor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="school-blog.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,6 +78,15 @@
 
   </svg>
 
+    <!-- ✅ THIRD TERM ANNOUNCEMENT BANNER -->
+    <div id="third-term-banner" class="third-term-banner">
+        <div class="third-term-inner">
+            <span class="third-term-badge">📢 3rd Term</span>
+            <span class="third-term-text">Third Term is now in session! Welcome back, students & staff. Wishing everyone a productive and successful term ahead. 🎓</span>
+            <button class="third-term-close" onclick="document.getElementById('third-term-banner').style.display='none'" aria-label="Close">&times;</button>
+        </div>
+    </div>
+
     <header id="header" class="fixed-top">
         <nav class="header-top first-header bg-dark pt-2 pb-2 px-xl-5">
             <div class="container-fluid">
@@ -136,8 +146,7 @@
         <nav id="primary-header" class="navbar second-header navbar-expand-lg py-2 px-xl-5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/SMA WEB LOGO.png" class="logo img
-                    -fluid">
+                    <img src="images/SMA WEB LOGO.png" class="logo img-fluid">
                 </a>
                 <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false">
           <svg class=" text-white" width="60" height="60">
@@ -195,36 +204,28 @@
     <section id="slider">
         <div class="swiper slider position-relative">
             <div class="swiper-wrapper">
-                <div class="swiper-slide d-flex" style="background-image: url(images/School8.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center; height: 90vh;">
-                    <div class="banner-content text-center m-auto">
+                <div class="swiper-slide d-flex" style="background-image: url(images/School8.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center;">
+                    <div class="banner-content text-center m-auto reveal-up">
                         <h2 class="text-white display-1 fw-bolder lh-1">Unlock Your Future Success</h2>
-                        <p class="fs-4 text-white text-capitalize">High School Redefined for Success!</p>
+                        <p class="fs-4 text-white text-capitalize mb-4">High School Redefined for Success!</p>
+                        <a href="about-us.html" class="btn btn-banner-cta">Discover More</a>
                     </div>
                 </div>
-                <div class="swiper-slide d-flex" style="background-image: url(images/School\ back\ 3.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center; height: 90vh;">
+                <div class="swiper-slide d-flex" style="background-image: url(images/School\ back\ 3.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center;">
                     <div class="banner-content text-center m-auto">
-                        <h2 class="text-white display-1 fw-bolder lh-1">Unlock Your Future Success</h2>
-                        <p class="fs-4 text-white text-capitalize">High School Redefined for Success!</p>
+                        <h2 class="text-white display-1 fw-bolder lh-1">Excellence in Every Class</h2>
+                        <p class="fs-4 text-white text-capitalize mb-4">From Kindergarten to Senior Secondary.</p>
+                        <a href="gallery.html" class="btn btn-banner-cta">View Gallery</a>
                     </div>
                 </div>
-                <div class="swiper-slide d-flex" style="background-image: url(images/fun2.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center; height: 90vh;">
+                <div class="swiper-slide d-flex" style="background-image: url(images/fun2.JPG); background-size: cover; background-repeat: no-repeat; height: 90vh; background-position: center;">
                     <div class="banner-content text-center m-auto">
-                        <h2 class="text-white display-1 fw-bolder lh-1">Unlock Your Future Success</h2>
-                        <p class="fs-4 text-white text-capitalize">High School Redefined for Success!</p>
+                        <h2 class="text-white display-1 fw-bolder lh-1">Growing Together, Thriving Together</h2>
+                        <p class="fs-4 text-white text-capitalize mb-4">A community built on values and vision.</p>
+                        <a href="contact.html" class="btn btn-banner-cta">Contact Us</a>
                     </div>
                 </div>
-
             </div>
-            <!-- <div class="position-absolute top-0 bottom-0 end-0 m-auto me-0 me-md-5 main-slider-button-next">
-        <svg class="chevron-forward-circle light-color" width="60" height="60">
-          <use xlink:href="#chevron-forward-circle"></use>
-        </svg>
-      </div>
-      <div class="position-absolute top-0 bottom-0 start-0 m-auto ms-0 ms-md-5 main-slider-button-prev">
-        <svg class="chevron-back-circle light-color" width="60" height="60">
-          <use xlink:href="#chevron-back-circle"></use>
-        </svg>
-      </div> -->
         </div>
     </section>
 
@@ -232,23 +233,23 @@
         <div class="container ">
             <h2 class="display-5 d-block d-lg-none text-center fw-semibold">Our Features</h2>
 
-            <div class="row g-lg-0 mt-5 mt-lg-0 features-row rounded-4 p-4" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
+            <div class="row g-lg-0 mt-5 mt-lg-0 features-row rounded-4 p-4 reveal-up" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
                 <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
-                    <img src="images/class1.JPG" class="img-fluid" alt="img">
+                    <img src="images/class1.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
-                        <p class="text-white py-3 m-0 bg-primary">Career-Oriented Curriculum</p>
+                        <p class="text-white py-3 m-0 bg-primary feature-label">Career-Oriented Curriculum</p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
-                    <img src="images/bake.JPG" class="img-fluid" alt="img">
+                    <img src="images/bake.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
-                        <p class="text-white py-3 m-0 bg-tertiary">Skills for Professional Success</p>
+                        <p class="text-white py-3 m-0 bg-tertiary feature-label">Skills for Professional Success</p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
-                    <img src="images/fun2.JPG" class="img-fluid" alt="img">
+                    <img src="images/fun2.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
-                        <p class="text-white py-3 m-0 bg-secondary">Supportive Environment</p>
+                        <p class="text-white py-3 m-0 bg-secondary feature-label">Supportive Environment</p>
                     </a>
                 </div>
             </div>
@@ -259,7 +260,7 @@
         <div class="container">
             <div class="row align-items-center g-lg-5">
 
-                <div class="col-md-6">
+                <div class="col-md-6 reveal-left">
                     <div class="feature d-flex">
                         <div class="me-4">
                             <svg class="" width="100" height="100">
@@ -290,8 +291,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mt-5">
-                    <div class="bg-primary p-5">
+                <div class="col-md-6 mt-5 reveal-right">
+                    <div class="bg-primary p-5 welcome-box">
                         <h4 class="text-white mt-3">Welcome</h4>
                         <p class="text-white my-4">Welcome to School Masters Academy, where we gain knowledge for service. Our commitment to fostering academic achievement, personal growth, and community engagement sets us apart. Explore a transformative educational journey that prepares students
                             for a future of limitless possibilities. From advanced academic courses to a rich tapestry of extracurricular activities, School provides a holistic education that goes beyond the classroom.</p>
@@ -305,35 +306,35 @@
             <div class="container">
                 <h2 class="display-5 text-center fw-semibold">Our Classes</h2>
 
-                    <div class="row g-4 mt-4 courses-row rounded-4 p-4" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
+                    <div class="row g-4 mt-4 courses-row rounded-4 p-4 reveal-up" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
                     <div class="col-md-4 text-center">
-                        <img src="images/Kindergarten Section.JPG" class="img-fluid" alt="img">
+                        <img src="images/Kindergarten Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
-                            <p class="text-white py-3 m-0 bg-primary">Kindergarten</p>
+                            <p class="text-white py-3 m-0 bg-primary course-label">Kindergarten</p>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="images/Nursery Section.JPG" class="img-fluid" alt="img">
+                        <img src="images/Nursery Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
-                            <p class="text-white py-3 m-0 bg-tertiary">Nursery</p>
+                            <p class="text-white py-3 m-0 bg-tertiary course-label">Nursery</p>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="images/Primary Section.JPG" class="img-fluid" alt="img">
+                        <img src="images/Primary Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
-                            <p class="text-white py-3 m-0 bg-tertiary">Primary</p>
+                            <p class="text-white py-3 m-0 bg-tertiary course-label">Primary</p>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="images/Junior Secondary Section.JPG" class="img-fluid" alt="img">
+                        <img src="images/Junior Secondary Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
-                            <p class="text-white py-3 m-0 bg-tertiary">Junior Secondary</p>
+                            <p class="text-white py-3 m-0 bg-tertiary course-label">Junior Secondary</p>
                         </a>
                     </div>
                     <div class="col-md-4 text-center">
-                        <img src="images/Secondary Section4.JPG" class="img-fluid" alt="img">
+                        <img src="images/Secondary Section4.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
-                            <p class="text-white py-3 m-0 bg-secondary">Senior Secondary</p>
+                            <p class="text-white py-3 m-0 bg-secondary course-label">Senior Secondary</p>
                         </a>
                     </div>
                 </div>
@@ -345,15 +346,15 @@
         <div class="container">
             <div class="row align-items-center">
 
-                <div class="col-md-4 offset-md-2">
+                <div class="col-md-4 offset-md-2 reveal-left">
                     <div class="imageblock me-4">
                         <a type="button" data-bs-toggle="modal" >
-                            <img class="img-fluid" src="images/smafounder.JPG" alt="img">
+                            <img class="img-fluid founder-img" src="images/smafounder.JPG" alt="img">
                         </a>
                     </div>
                 </div>
 
-                <div class="col-md-4 mt-5">
+                <div class="col-md-4 mt-5 reveal-right">
 
                     <p class="fs-2 lh-base">At our School, we aim to empower students with the skills, knowledge, and values needed for success in a global context.</p>
                     <div class="d-flex justify-content-between">
@@ -378,7 +379,7 @@
         <div class="container">
             <div class="row g-4 align-items-center">
             <!-- Image: responsive with 1x/2x sources, fills column, keeps aspect -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 reveal-left">
                 <picture>
                 <source srcset="images/School Assistant Director/DSCF0260.JPG 2x, images/School Assistant Director/DSCF0260.JPG 1x">
                 <img src="images/School Assistant Director/DSCF0260.JPG" alt="Assistant Director — School Masters Academy"
@@ -387,7 +388,7 @@
             </div>
 
             <!-- Short, intriguing caption and CTA -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 reveal-right">
                 <div class="p-4">
                 <h3 class="fw-bold">Meet Our Assistant Director</h3>
                 <p class="mb-3 text-muted">A visionary leader dedicated to academic excellence and student wellbeing. Their experience and innovative approach shape a vibrant learning culture at School Masters Academy.</p>
@@ -401,7 +402,7 @@
 
     <section id="teacher" class="position-relative">
         <div class="container">
-            <h2 class="display-5 text-center fw-semibold">Meet our team of dedicated educators</h2>
+            <h2 class="display-5 text-center fw-semibold reveal-up">Meet our team of dedicated educators</h2>
 
             <!-- Mobile carousel (visible on xs-sm) -->
             <div class="teacher-slider-mobile d-block d-md-none mt-4">
@@ -677,7 +678,6 @@
                         768: { slidesPerView: 2 },
                         992: { slidesPerView: 3 }
                     },
-                    // keep slides grouped visually (optional)
                     watchOverflow: true
                 });
             }
@@ -798,51 +798,55 @@
 
     <section id="blogs" class="padding-medium position-relative">
         <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <div class="section-title">
-                    <h2 class="display-5 text-center fw-semibold">News & Events</h2>
+            <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+                <div>
+                    <div class="section-label"><span>Latest</span></div>
+                    <h3 class="section-heading">Recent Posts</h3>
                 </div>
-                <a href="school-blog.html" class="btn btn-primary mt-md-3 ">View all news</a>
+                <a href="school-blog.html" class="btn btn-primary mt-md-3">View all news</a>
             </div>
-            <div class="post-grid row mt-5">
-                <div class="card-item">
-                    <div class="card border-0 bg-transparent">
-                        <div class="card-image position-relative">
-                            <img src="images/blog1.jpg" alt="post-img" class="post-image img-fluid">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="post-card">
+                        <div class="post-card-img-wrap">
+                            <img src="images/bts.JPG" alt="Back to School">
+                            <span class="post-card-category">Tips</span>
                         </div>
-                    </div>
-                    <div class="card-body p-0 mt-2">
-                        <span class="text-capitalize text-black-50">news - Jan 30, 2024</span>
-                        <h5 class="mt-2">
-                            <a href="blog-single.html">Bachelor of Information Technology Major in Cyber Security</a>
-                        </h5>
-                    </div>
+                        <div class="post-card-body">
+                            <span class="post-card-date">April 2026</span>
+                            <h5 class="post-card-title">Back to School: Tips for Success</h5>
+                            <p class="post-card-text">Get ready for a new academic year with our top tips for students and parents. Learn how to stay organized and motivated!</p>
+                            <a href="tipforsuccess.html" class="post-card-link">Read More &#8594;</a>
+                        </div>
+                    </article>
                 </div>
-                <div class="card-item">
-                    <div class="card border-0 bg-transparent">
-                        <div class="card-image position-relative">
-                            <img src="images/blog2.jpg" alt="post-img" class="post-image img-fluid">
+                <div class="col-md-4">
+                    <article class="post-card">
+                        <div class="post-card-img-wrap">
+                            <img src="images/TEchhhh.JPG" alt="Second Term Highlights">
+                            <span class="post-card-category">Events</span>
                         </div>
-                    </div>
-                    <div class="card-body p-0 mt-2">
-                        <span class="text-capitalize text-black-50">news - Jan 30, 2024</span>
-                        <h5 class="mt-2">
-                            <a href="blog-single.html">Bachelor of Information Technology Major in Cyber Security</a>
-                        </h5>
-                    </div>
+                        <div class="post-card-body">
+                            <span class="post-card-date">April 2026</span>
+                            <h5 class="post-card-title">Second Term Highlights</h5>
+                            <p class="post-card-text">Check out all the wonderful experiences and milestones from the second term. A term full of growth and achievement!</p>
+                            <a href="second-term-highlights.html" class="post-card-link">Read More &#8594;</a>
+                        </div>
+                    </article>
                 </div>
-                <div class="card-item">
-                    <div class="card border-0 bg-transparent">
-                        <div class="card-image position-relative">
-                            <img src="images/blog3.jpg" alt="post-img" class="post-image img-fluid">
+                <div class="col-md-4">
+                    <article class="post-card">
+                        <div class="post-card-img-wrap">
+                            <img src="images/meet our teachers.JPG" alt="Meet Our Teachers">
+                            <span class="post-card-category">Community</span>
                         </div>
-                    </div>
-                    <div class="card-body p-0 mt-2">
-                        <span class="text-capitalize text-black-50">news - Jan 30, 2024</span>
-                        <h5 class="mt-2">
-                            <a href="blog-single.html">Bachelor of Information Technology Major in Cyber Security</a>
-                        </h5>
-                    </div>
+                        <div class="post-card-body">
+                            <span class="post-card-date">April 2026</span>
+                            <h5 class="post-card-title">Meet Our Teachers</h5>
+                            <p class="post-card-text">Get to know the dedicated educators who make School Masters Academy a great place to learn and grow every day.</p>
+                            <a href="meet-our-teachers.html" class="post-card-link">Read More &#8594;</a>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
@@ -891,18 +895,18 @@
         <div class="container">
             <div class="row align-items-center">
 
-                <div class="col-md-5 offset-md-1">
+                <div class="col-md-5 offset-md-1 reveal-left">
                     <h2 class="display-5 fw-semibold">Subscribe to Our Newsletter</h2>
                     <p>Stay in the loop with School news and updates</p>
                 </div>
 
-                <div class="col-md-5">
+                <div class="col-md-5 reveal-right">
                     <form>
                         <div class="mb-3">
-                            <input type="email" class="form-control form-control-lg rounded-0 fs-6 py-3" name="email" id="email" placeholder="Enter Email Address">
+                            <input type="email" class="form-control form-control-lg subscribe-input fs-6 py-3" name="email" id="email" placeholder="Enter Email Address">
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-dark btn-lg rounded-0">Subscribe now</button>
+                            <button type="submit" class="btn btn-primary btn-lg subscribe-btn">Subscribe now</button>
                         </div>
                     </form>
                 </div>
@@ -1095,6 +1099,22 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Scroll Reveal Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const revealEls = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            revealEls.forEach(el => observer.observe(el));
+        });
+    </script>
     
 </body>
 

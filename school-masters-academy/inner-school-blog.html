@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inner School Blog</title>
-  <link rel="stylesheet" href="inner-school-blog.css">
+  <title>Our Trip to Omu Resort | School Masters Academy Blog</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/vendor.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="inner-school-blog.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- ===== SVG SYMBOLS ===== -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <!-- SVG symbol definitions copied from gallery.html -->
     <symbol xmlns="http://www.w3.org/2000/svg" id="navbar-icon" viewBox="0 0 16 16">
       <path fill="currentColor" fill-rule="evenodd" d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
     </symbol>
@@ -42,55 +44,46 @@
       <path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8"/>
     </symbol>
   </svg>
+
+  <!-- ===== HEADER (identical structure to index.html) ===== -->
   <header id="header" class="fixed-top">
+
+   
+
+    <!-- Primary navbar -->
     <nav id="primary-header" class="navbar second-header navbar-expand-lg py-2 px-xl-5">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
           <img src="images/SMA WEB LOGO.png" class="logo img-fluid">
         </a>
-        <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false">
-          <svg class="text-white" width="60" height="60">
-            <use xlink:href="#navbar-icon"></use>
-          </svg>
+        <button class="navbar-toggler border-0 d-flex d-lg-none order-3 p-2 shadow-none" type="button"
+          data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false">
+          <svg class="text-white" width="60" height="60"><use xlink:href="#navbar-icon"></use></svg>
         </button>
         <div class="header-bottom offcanvas offcanvas-end" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
           <div class="offcanvas-header px-4 pb-0 mt-3">
-            <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
           </div>
           <div class="offcanvas-body align-items-center justify-content-end">
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item px-4">
-                <a class="nav-link p-0" href="index.html">Home</a>
-              </li>
-              <li class="nav-item px-4">
-                <a class="nav-link p-0" href="about-us.html">About Us</a>
-              </li>
-              <li class="nav-item px-4">
-                <a class="nav-link p-0" href="gallery.html">Gallery</a>
-              </li>
-              <li class="nav-item px-4">
-                <a class="nav-link active p-0" aria-current="page" href="school-blog.html">School Blog</a>
-              </li>
-              <li class="nav-item px-4">
-                <a class="nav-link p-0" href="contact.html">Contact</a>
-              </li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="index.html">Home</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="about-us.html">About Us</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="gallery.html">Gallery</a></li>
+              <li class="nav-item px-4"><a class="nav-link active p-0" aria-current="page" href="school-blog.html">School Blog</a></li>
+              <li class="nav-item px-4"><a class="nav-link p-0" href="contact.html">Contact</a></li>
               <li class="nav-item search-dropdown ms-3 ms-lg-5 dropdown">
                 <a class="nav-link p-0 search dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                  <svg class="search" width="24" height="24">
-                    <use xlink:href="#search"></use>
-                  </svg>
+                  <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 p-3 shadow">
-                                  <li class="position-relative d-flex align-items-center p-0">
-                                    <form id="navbar-search-form" class="w-100 d-flex" onsubmit="return handleNavbarSearch(event)">
-                                      <input id="navbar-search-input" class="form-control me-2" type="search" placeholder="Search page (e.g. 'gallery')" aria-label="Search">
-                                      <button class="btn btn-primary position-absolute end-0" type="submit">
-                                        <svg class="search" width="24" height="24">
-                                          <use xlink:href="#search"></use>
-                                        </svg>
-                                      </button>
-                                    </form>
-                                  </li>
+                  <li class="position-relative d-flex align-items-center p-0">
+                    <form id="navbar-search-form" class="w-100 d-flex" onsubmit="return handleNavbarSearch(event)">
+                      <input id="navbar-search-input" class="form-control me-2" type="search" placeholder="Search page (e.g. 'gallery')" aria-label="Search">
+                      <button class="btn btn-primary position-absolute end-0" type="submit">
+                        <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
+                      </button>
+                    </form>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -99,179 +92,292 @@
       </div>
     </nav>
   </header>
-  <!-- Add your inner blog content below -->
-  <main class="inner-blog-main container py-5">
-    <div class="row g-5 align-items-start">
-      <div class="col-lg-4 col-md-5 mb-4 mb-lg-0">
-        <div class="student-profile card shadow-sm p-4 text-center">
-          <img src="images/OMU RESORT WEBSITE IMG/DSCF0728.JPG" class="profile-img rounded-circle mb-3" alt="Student Profile" style="width:120px;height:120px;object-fit:cover;">
-          <h4 class="mb-1">Victoria Costache</h4>
-          <p class="text-muted mb-2">SSS 3 | Science </p>
-          <ul class="list-unstyled mb-3">
-            <li><strong>Achievements:</strong></li>
-            <li>Science</li>
-            <li></li>
-            <li>Community Volunteer</li>
-          </ul>
-          <div class="social-links d-flex justify-content-center">
-            <a href="#" class="me-3"><svg width="22" height="22"><use xlink:href="#facebook"></use></svg></a>
-            <a href="#" class="me-3"><svg width="22" height="22"><use xlink:href="#twitter"></use></svg></a>
-            <a href="#"><svg width="22" height="22"><use xlink:href="#instagram"></use></svg></a>
-          </div>
-        </div>
+
+  <!-- ===== ARTICLE HERO ===== -->
+  <section class="article-hero">
+    <div class="article-hero-content">
+      <a href="school-blog.html" class="article-back-link">← Back to Blog</a>
+      <div class="article-meta-top">
+        <span class="article-tag">Events</span>
+        <span class="article-read-time">5 min read</span>
       </div>
-      <div class="col-lg-8 col-md-7">
-        <div class="essay card shadow-sm p-4">
-          <h3 class="mb-3">Our Recent Class Trip To Omu Resort</h3>
-          <p>Our recent class trip to Omu resort was one of the most exciting experiences I’ve ever had. From the moment we arrived, everyone was full of energy and curiosity. The resort was lively,filled with nature, animals and adventure everywhere we turned.</p>
-          <p>We saw so many animals -- Lions, zebras, ostriches, eagles and even snakes. One of the most thrilling moment when a cobra spat at us, but thankfully there was a glass protecting everyone. We also saw a snake shedding it's skin, which  was fascinating to watch. </p>
-          <p>While exploring the animal section, I discovered that a lion doesn't actually sound like what movies made us to believe,  When I first heard the roar I was expecting some other creature to have a loud yawn, But it turned out to be the roar of a lion, Which surprised me.</p>
-          <p>After exploring the animal section, we went for rides like roller coasters and other fun activities.There was a particular roller coaster that turned us in an angle 360, It was quite terrifying but fun although I doubt I will embark on that ride ever again. I missed kayaking this time, but it’s definitely on my list for next visit.</p>
-          <p>The trip was not only fun but also educational, I learned a lot about  different animals and nature. I am really grateful for the experience and the memories I made with my classmates, It was a day full of laughter, adventure and discovery.</p>
-        </div>
-      </div>
-    </div>
-    <section class="blog-tips-advice container py-4">
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="tips card p-4 h-100">
-          <h4 class="mb-3 text-primary">Educational Tips for Students</h4>
-          <ul class="list-unstyled">
-            <li><strong>1. Stay Organized:</strong> Use planners and checklists to keep track of assignments and deadlines.</li>
-            <li><strong>2. Ask Questions:</strong> Don’t hesitate to seek help from teachers or classmates when you’re unsure.</li>
-            <li><strong>3. Set Goals:</strong> Break big tasks into smaller, achievable goals and celebrate your progress.</li>
-            <li><strong>4. Take Breaks:</strong> Balance study time with short breaks to stay focused and refreshed.</li>
-            <li><strong>5. Read Widely:</strong> Explore books, articles, and resources beyond your textbooks to expand your knowledge.</li>
-            <li><strong>6. Join Activities:</strong> Participate in clubs, sports, and events to develop new skills and friendships.</li>
-            <li><strong>7. Practice Self-Care:</strong> Get enough sleep, eat healthy, and manage stress for better learning.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="advice card p-4 h-100">
-          <h4 class="mb-3 text-success">Advice for Parents & Students</h4>
-          <ul class="list-unstyled">
-            <li><strong>1. Communicate Regularly:</strong> Parents and students should discuss school progress and challenges openly.</li>
-            <li><strong>2. Encourage Curiosity:</strong> Support students in exploring their interests and asking questions.</li>
-            <li><strong>3. Create a Study Space:</strong> Set up a quiet, comfortable area for homework and reading at home.</li>
-            <li><strong>4. Celebrate Achievements:</strong> Recognize both big and small successes to boost confidence and motivation.</li>
-            <li><strong>5. Foster Independence:</strong> Allow students to take responsibility for their learning and decision-making.</li>
-            <li><strong>6. Stay Involved:</strong> Attend school events, meetings, and stay informed about academic requirements.</li>
-            <li><strong>7. Promote Balance:</strong> Help students balance academics with hobbies, rest, and social time.</li>
-          </ul>
-        </div>
-      </div>
+      <h1 class="article-hero-title">Our Class Trip to Omu Resort</h1>
+      <p class="article-hero-subtitle">A day full of animals, adventure, and memories that will last a lifetime.</p>
     </div>
   </section>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="inner-blog-main container">
+    <div class="row g-5 align-items-start">
+
+      <!-- SIDEBAR: Author Profile -->
+      <div class="col-lg-3 col-md-4">
+        <div class="author-card">
+          <div class="author-card-top">
+            <img src="images/OMU RESORT WEBSITE IMG/DSCF0728.JPG" class="author-avatar" alt="Victoria Costache">
+            <div class="author-online-dot"></div>
+          </div>
+          <div class="author-card-body">
+            <span class="author-label">Written by</span>
+            <h4 class="author-name">Victoria Costache</h4>
+            <p class="author-class">SSS 3 &nbsp;·&nbsp; Science</p>
+            <div class="author-divider"></div>
+            <p class="author-achievements-label">Achievements</p>
+            <ul class="author-achievements">
+              <li>Science Excellence</li>
+              <li>Community Volunteer</li>
+            </ul>
+            <div class="author-social">
+              <a href="#" aria-label="Facebook"><svg width="18" height="18"><use xlink:href="#facebook"></use></svg></a>
+              <a href="#" aria-label="Twitter"><svg width="18" height="18"><use xlink:href="#twitter"></use></svg></a>
+              <a href="#" aria-label="Instagram"><svg width="18" height="18"><use xlink:href="#instagram"></use></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc-card">
+          <h6 class="toc-title">In This Article</h6>
+          <ul class="toc-list">
+            <li><a href="#section-arrival">Arrival at Omu Resort</a></li>
+            <li><a href="#section-animals">The Animal Experience</a></li>
+            <li><a href="#section-rides">Rides & Adventures</a></li>
+            <li><a href="#section-takeaway">What We Learned</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MAIN ARTICLE -->
+      <div class="col-lg-9 col-md-8">
+        <article class="article-body">
+
+          <!-- Hero image -->
+          <div class="article-cover-img mb-4">
+            <img src="images/OMU RESORT WEBSITE IMG/DSCF0728.JPG" alt="Omu Resort Trip" class="w-100">
+            <span class="article-cover-caption">📍 Omu Resort, Lagos — Class of SSS 3</span>
+          </div>
+
+          <section id="section-arrival">
+            <p class="article-lead">Our recent class trip to Omu resort was one of the most exciting experiences I've ever had. From the moment we arrived, everyone was full of energy and curiosity. The resort was lively, filled with nature, animals and adventure everywhere we turned.</p>
+          </section>
+
+          <section id="section-animals">
+            <h2 class="article-section-heading">The Animal Experience</h2>
+            <p>We saw so many animals — lions, zebras, ostriches, eagles and even snakes. One of the most thrilling moments was when a cobra spat at us, but thankfully there was a glass protecting everyone. We also saw a snake shedding its skin, which was fascinating to watch.</p>
+            <p>While exploring the animal section, I discovered that a lion doesn't actually sound like what movies made us believe. When I first heard the roar I was expecting some other creature to have a loud yawn, but it turned out to be the roar of a lion — which surprised me greatly.</p>
+          </section>
+
+          <div class="article-pullquote">
+            <blockquote>"It turned out to be the roar of a lion, which surprised me. Movies had not done it justice at all."</blockquote>
+            <cite>— Victoria Costache, SSS 3</cite>
+          </div>
+
+          <section id="section-rides">
+            <h2 class="article-section-heading">Rides & Adventures</h2>
+            <p>After exploring the animal section, we went for rides like roller coasters and other fun activities. There was a particular roller coaster that turned us at a full 360 degrees — it was quite terrifying but incredibly fun, although I doubt I will embark on that ride ever again. I missed kayaking this time, but it is definitely on my list for the next visit.</p>
+          </section>
+
+          <section id="section-takeaway">
+            <h2 class="article-section-heading">What We Learned</h2>
+            <p>The trip was not only fun but also educational. I learned a lot about different animals and nature. I am really grateful for the experience and the memories I made with my classmates. It was a day full of laughter, adventure and discovery.</p>
+          </section>
+
+          <!-- Tags -->
+          <div class="article-tags">
+            <span class="article-tag-item">🌿 Nature</span>
+            <span class="article-tag-item">🦁 Animals</span>
+            <span class="article-tag-item">🎡 Adventure</span>
+            <span class="article-tag-item">📚 Educational</span>
+          </div>
+
+        </article>
+      </div>
+    </div>
+
+    <!-- ===== TIPS & ADVICE ===== -->
+    <section class="tips-advice-section">
+      <div class="tips-advice-header">
+        <span class="section-eyebrow">For Students & Parents</span>
+        <h2 class="tips-advice-title">Tips & Advice</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="tips-card h-100">
+            <div class="tips-card-icon">📖</div>
+            <h4 class="tips-card-title">Educational Tips for Students</h4>
+            <ul class="tips-list">
+              <li><strong>Stay Organized:</strong> Use planners and checklists to keep track of assignments and deadlines.</li>
+              <li><strong>Ask Questions:</strong> Don't hesitate to seek help from teachers or classmates when you're unsure.</li>
+              <li><strong>Set Goals:</strong> Break big tasks into smaller, achievable goals and celebrate your progress.</li>
+              <li><strong>Take Breaks:</strong> Balance study time with short breaks to stay focused and refreshed.</li>
+              <li><strong>Read Widely:</strong> Explore books and resources beyond your textbooks to expand your knowledge.</li>
+              <li><strong>Join Activities:</strong> Participate in clubs, sports, and events to develop new skills and friendships.</li>
+              <li><strong>Practice Self-Care:</strong> Get enough sleep, eat healthy, and manage stress for better learning.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="advice-card h-100">
+            <div class="tips-card-icon">🤝</div>
+            <h4 class="tips-card-title">Advice for Parents & Students</h4>
+            <ul class="tips-list">
+              <li><strong>Communicate Regularly:</strong> Parents and students should discuss school progress and challenges openly.</li>
+              <li><strong>Encourage Curiosity:</strong> Support students in exploring their interests and asking questions.</li>
+              <li><strong>Create a Study Space:</strong> Set up a quiet, comfortable area for homework and reading at home.</li>
+              <li><strong>Celebrate Achievements:</strong> Recognize both big and small successes to boost confidence and motivation.</li>
+              <li><strong>Foster Independence:</strong> Allow students to take responsibility for their learning and decisions.</li>
+              <li><strong>Stay Involved:</strong> Attend school events, meetings, and stay informed about academic requirements.</li>
+              <li><strong>Promote Balance:</strong> Help students balance academics with hobbies, rest, and social time.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BACK TO BLOG CTA ===== -->
+    <div class="back-to-blog-cta">
+      <a href="school-blog.html" class="btn btn-primary">← Back to School Blog</a>
+    </div>
+
   </main>
-    <footer id="footer" class="bg-primary">
-      <div class="container padding-medium pb-5">
-        <div class="row flex-wrap justify-content-between">
-          <div class="col-lg-6 col-md-6 col-sm-6 pb-3 mb-4">
-            <div class="footer-menu">
-              <a class="navbar-brand" href="index.html">
-                <img src="images/SMA WEB FOOTER LOGO.png" class="logo img-fluid">
-              </a>
-              <ul class="social-links d-flex flex-wrap list-unstyled m-0 mt-5">
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26"><use xlink:href="#facebook"></use></svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26"><use xlink:href="#twitter"></use></svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26"><use xlink:href="#linkedin"></use></svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26"><use xlink:href="#instagram"></use></svg>
-                  </a>
-                </li>
-                <li class="social me-3">
-                  <a href="#">
-                    <svg class="text-white me-1" width="26" height="26"><use xlink:href="#youtube"></use></svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="footer" class="bg-primary">
+    <div class="container padding-medium pb-5">
+      <div class="row flex-wrap justify-content-between">
+        <div class="col-lg-6 col-md-6 col-sm-6 pb-3 mb-4">
+          <div class="footer-menu">
+            <a class="navbar-brand" href="index.html">
+              <img src="images/SMA WEB FOOTER LOGO.png" class="logo img-fluid">
+            </a>
+            <ul class="social-links d-flex flex-wrap list-unstyled m-0 mt-5">
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#facebook"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#linkedin"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="social me-3"><a href="#"><svg class="text-white me-1" width="26" height="26"><use xlink:href="#youtube"></use></svg></a></li>
+            </ul>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
-            <div class="footer-menu">
-              <h5 class="text-white widget-title pb-2 fw-semibold">Quick Links</h5>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white">
-                  <a href="index.html" class="fw-light">Home</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="about-us.html" class="fw-light">About</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="gallery.html" class="fw-light">Gallery</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="school-blog.html" class="fw-light">School Blog</a>
-                </li>
-                <li class="pb-2 text-white">
-                  <a href="contact.html" class="fw-light">Contact</a>
-                </li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h5 class="text-white widget-title pb-2 fw-semibold">Quick Links</h5>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="index.html" class="fw-light">Home</a></li>
+              <li class="pb-2 text-white"><a href="about-us.html" class="fw-light">About</a></li>
+              <li class="pb-2 text-white"><a href="gallery.html" class="fw-light">Gallery</a></li>
+              <li class="pb-2 text-white"><a href="school-blog.html" class="fw-light">School Blog</a></li>
+              <li class="pb-2 text-white"><a href="contact.html" class="fw-light">Contact</a></li>
+            </ul>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6  pb-3">
-            <div class="footer-menu">
-              <h5 class="text-white widget-title pb-2 fw-semibold">About</h5>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white"><a href="#" class="fw-light">How It Work</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Pricing</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Promotion</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Refer a Friend</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h5 class="text-white widget-title pb-2 fw-semibold">About</h5>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="#" class="fw-light">How It Works</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Pricing</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Promotion</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Refer a Friend</a></li>
+            </ul>
           </div>
-          <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
-            <div class="footer-menu">
-              <h6 class="text-white widget-title pb-2 fw-semibold">Help Center</h6>
-              <ul class="menu-list d-flex flex-column list-unstyled">
-                <li class="pb-2 text-white"><a href="#" class="fw-light">FAQs</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Get in touch</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Info</a></li>
-                <li class="pb-2 text-white"><a href="#" class="fw-light">Payments</a></li>
-              </ul>
-            </div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-sm-6 pb-3">
+          <div class="footer-menu">
+            <h6 class="text-white widget-title pb-2 fw-semibold">Help Center</h6>
+            <ul class="menu-list d-flex flex-column list-unstyled">
+              <li class="pb-2 text-white"><a href="#" class="fw-light">FAQs</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Get in touch</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Info</a></li>
+              <li class="pb-2 text-white"><a href="#" class="fw-light">Payments</a></li>
+            </ul>
           </div>
-          <div class="container-fluid">
-                <div class="d-flex flex-wrap justify-content-between align-items-center">
-                    <ul class="info d-flex flex-wrap list-unstyled m-0">
-                        <li class="location text-white text-capitalize d-flex align-items-center me-4" style="font-size: 15px;">
-                            <svg class="text-white me-1" width="18" height="18">
-                <use xlink:href="#location"></use>
-              </svg> 25 Addo Badore Road, Ajah, Lagos
-                        </li>
-                        <li class="phone text-white text-capitalize d-flex align-items-center me-4" style="font-size: 15px;">
-                            <svg class="text-white me-1" width="18" height="18">
-                <use xlink:href="#phone"></use>
-              </svg> 080 3703 9232
-                        </li>
-                    </ul>
-                  
-                </div>
-            </div>
+        </div>
+        <div class="container-fluid">
+          <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <ul class="info d-flex flex-wrap list-unstyled m-0">
+              <li class="location text-white text-capitalize d-flex align-items-center me-4" style="font-size:15px;">
+                <svg class="text-white me-1" width="18" height="18"><use xlink:href="#location"></use></svg>
+                25 Addo Badore Road, Ajah, Lagos
+              </li>
+              <li class="phone text-white text-capitalize d-flex align-items-center me-4" style="font-size:15px;">
+                <svg class="text-white me-1" width="18" height="18"><use xlink:href="#phone"></use></svg>
+                080 3703 9232
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="container">
-        <div class="footer-bottom d-md-flex justify-content-between py-4">
-          <p class="text-white mb-0">© 2025 School Masters Academy - All rights reserved</p>
-        </div>
+    </div>
+    <hr class="text-white">
+    <div class="container">
+      <div class="footer-bottom d-md-flex justify-content-between py-4">
+        <p class="text-white mb-0">© 2025 School Masters Academy - All rights reserved</p>
       </div>
-    </footer>
+    </div>
+  </footer>
+
   <script src="js/jquery-1.11.0.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/plugins.js"></script>
+  <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="js/plugins.js"></script>
+  <script>
+    function handleNavbarSearch(event) {
+      event.preventDefault();
+      var input = document.getElementById('navbar-search-input').value.trim().toLowerCase();
+      if (!input) return false;
+      var pages = {
+        'home': 'index.html', 'index': 'index.html',
+        'about': 'about-us.html', 'about us': 'about-us.html',
+        'gallery': 'gallery.html', 'blog': 'school-blog.html',
+        'school blog': 'school-blog.html', 'contact': 'contact.html',
+      };
+      var file = pages[input] || (input.replace(/\s+/g, '-') + '.html');
+      window.location.href = file;
+      return false;
+    }
+
+    /* Smooth scroll for TOC links */
+    document.querySelectorAll('.toc-list a').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          var offset = 120;
+          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    /* Highlight active TOC item on scroll */
+    var sections = document.querySelectorAll('section[id]');
+    var tocLinks = document.querySelectorAll('.toc-list a');
+    window.addEventListener('scroll', function() {
+      var scrollY = window.pageYOffset;
+      sections.forEach(function(section) {
+        var top = section.offsetTop - 140;
+        var bottom = top + section.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          tocLinks.forEach(function(link) { link.classList.remove('active'); });
+          var active = document.querySelector('.toc-list a[href="#' + section.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    });
+
+    /* Scroll reveal */
+    document.addEventListener('DOMContentLoaded', function() {
+      var revealEls = document.querySelectorAll('.reveal-up');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      revealEls.forEach(function(el) { observer.observe(el); });
+    });
+  </script>
 </body>
 </html>

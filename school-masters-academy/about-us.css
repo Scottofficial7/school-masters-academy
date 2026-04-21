@@ -62,7 +62,7 @@
 	color: #fff;
 }
 .navbar-nav .nav-link.active {
-	color: #007bff !important;
+    color: #FBB911 !important;
 }
 
 .navbar-nav.nav-link:hover{
@@ -85,6 +85,7 @@ body {
 	color: #222;
 	margin: 0;
 	padding: 0;
+	scroll-behavior: smooth;
 }
 
 .about-header {
@@ -334,3 +335,601 @@ body {
 }
 
 
+/* =============================================
+   ABOUT US PAGE - UPGRADED STYLES
+   Follows School Masters Academy theme
+   ============================================= */
+
+/* Nav overrides for about page */
+.navbar-nav .nav-link {
+    font-size: 13px !important;
+    font-family: 'Roboto', Arial, sans-serif !important;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+}
+
+#bdNavbar {
+    background-color: black;
+}
+
+/* ---- HERO BANNER ---- */
+.about-hero {
+    position: relative;
+    height: 420px;
+    background: url('images/School8.JPG') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+.about-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 21, 124, 0.65);
+}
+.about-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+}
+.about-hero-label {
+    display: inline-block;
+    background: #FBB911;
+    color: #1D157C;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 5px 18px;
+    margin-bottom: 16px;
+}
+.about-hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.about-hero-content p {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+}
+
+/* ---- SECTION BASE ---- */
+.about-section {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+/* ---- INTRO ---- */
+.about-intro {
+    max-width: 860px;
+    margin: 70px auto 0 auto;
+    text-align: center;
+    padding: 0 20px;
+}
+.about-intro .section-tag {
+    display: inline-block;
+    background: #E3EBFF;
+    color: #1D157C;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 5px 18px;
+    margin-bottom: 14px;
+}
+.about-intro h2 {
+    color: #1D157C;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+.about-intro p {
+    color: #444;
+    font-size: 1.08rem;
+    line-height: 1.8;
+}
+
+/* ---- MISSION / VISION ---- */
+.about-mission-vision {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+.about-mission-vision .mission,
+.about-mission-vision .vision {
+    flex: 1 1 300px;
+    border-radius: 16px;
+    padding: 36px 28px;
+    min-width: 260px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(29,21,124,0.10);
+    height: auto;
+}
+.about-mission-vision .mission {
+    background: linear-gradient(135deg, #1D157C 60%, #3C5494 100%);
+    color: #fff;
+}
+.about-mission-vision .vision {
+    background: linear-gradient(135deg, #FBB911 60%, #f5d060 100%);
+    color: #1D157C;
+}
+.about-mission-vision .mission::before,
+.about-mission-vision .vision::before {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    top: -40px;
+    right: -40px;
+}
+.about-mission-vision h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.about-mission-vision .mission h3 { color: #FBB911; }
+.about-mission-vision .vision h3  { color: #1D157C; }
+.about-mission-vision .mission p  { color: rgba(255,255,255,0.9); font-size: 1rem; line-height: 1.7; }
+.about-mission-vision .vision p   { color: #1D157C; font-size: 1rem; line-height: 1.7; }
+
+/* ---- FOUNDER ---- */
+.about-founder {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 40px rgba(29,21,124,0.10);
+}
+.about-founder > h2 {
+    color: #1D157C;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.about-founder > h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #FBB911;
+    border-radius: 2px;
+    margin: 12px auto 0 auto;
+}
+.founder-profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 36px;
+}
+.founder-img {
+    width: 160px;
+    height: 200px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 8px 32px rgba(29,21,124,0.18);
+    flex-shrink: 0;
+}
+.founder-message {
+    flex: 1;
+    min-width: 220px;
+}
+.founder-message p:first-child {
+    font-size: 1.08rem;
+    color: #444;
+    line-height: 1.85;
+    font-style: italic;
+    border-left: 4px solid #FBB911;
+    padding-left: 18px;
+    margin-bottom: 18px;
+}
+.founder-name {
+    font-weight: 700;
+    color: #1D157C;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+.founder-name span {
+    font-weight: 400;
+    color: #777;
+    font-size: 0.93em;
+    display: block;
+}
+
+/* ---- FACILITIES ---- */
+.about-facilities {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    background: #E3EBFF;
+    border-radius: 20px;
+}
+.about-facilities h2 {
+    color: #1D157C;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.about-facilities h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #FBB911;
+    border-radius: 2px;
+    margin: 12px auto 30px auto;
+}
+.facilities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+.facility {
+    text-align: center;
+    flex: 1 1 200px;
+    min-width: 160px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 14px 14px 14px;
+    box-shadow: 0 2px 12px rgba(29,21,124,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.facility:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(29,21,124,0.15);
+}
+.facility img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.facility p {
+    margin: 0;
+    color: #1D157C;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* ---- ACHIEVEMENTS ---- */
+.about-achievements {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(29,21,124,0.08);
+}
+.about-achievements h2 {
+    color: #1D157C;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.about-achievements h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #FBB911;
+    border-radius: 2px;
+    margin: 12px auto 30px auto;
+}
+.about-achievements ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+}
+.about-achievements li {
+    background: #E3EBFF;
+    color: #1D157C;
+    font-weight: 600;
+    font-size: 0.97rem;
+    border-radius: 50px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.about-achievements li::before {
+    content: '🏆';
+    font-size: 1rem;
+}
+
+/* ---- STAFF ---- */
+.about-staff {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    background: #E3EBFF;
+    border-radius: 20px;
+}
+.about-staff h2 {
+    color: #1D157C;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+}
+.about-staff h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #FBB911;
+    border-radius: 2px;
+    margin: 12px auto 30px auto;
+}
+.staff-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+.staff-member {
+    text-align: center;
+    flex: 0 1 140px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 12px 14px 12px;
+    box-shadow: 0 2px 12px rgba(29,21,124,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.staff-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(29,21,124,0.14);
+}
+.staff-member img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #1D157C;
+    margin-bottom: 10px;
+}
+.staff-member p {
+    margin: 0;
+    color: #1D157C;
+    font-weight: 600;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+.staff-member span {
+    display: block;
+    color: #777;
+    font-size: 0.82em;
+    font-weight: 400;
+}
+
+/* ---- FOOTER ---- */
+#footer.bg-primary {
+    background-color: #1D157C !important;
+    color: #fff;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+}
+.footer-menu {
+    margin-bottom: 2rem;
+    background-color: transparent;
+}
+.footer-menu h5,
+.footer-menu h6 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.footer-menu ul.menu-list { padding-left: 0; }
+.footer-menu ul.menu-list li { margin-bottom: 0.5rem; }
+.footer-menu ul.menu-list a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.2s;
+    text-transform: capitalize;
+}
+.footer-menu ul.menu-list a:hover { color: #FBB911; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+    .about-hero { height: 280px; margin-top: 80px; }
+    .about-hero-content h1 { font-size: 2.2rem; }
+    .about-founder, .about-facilities, .about-achievements, .about-staff { padding: 28px 16px; }
+    .about-mission-vision .mission,
+    .about-mission-vision .vision { padding: 24px 18px; height: auto; }
+    .navbar-nav .nav-link {
+        font-size: 21px !important;
+        padding: 1rem 0 !important;
+    }
+}
+
+/* =============================================
+   RESPONSIVE - ABOUT PAGE
+   ============================================= */
+
+/* Tablet & below (max 991px) */
+@media (max-width: 991px) {
+    .about-header {
+        margin-top: 70px;
+        padding: 30px 16px;
+    }
+    .about-header h1 {
+        font-size: 2rem;
+    }
+    .about-intro {
+        margin: 30px 16px;
+        padding: 22px 16px;
+    }
+    .about-intro h2 {
+        font-size: 1.5rem;
+    }
+    .about-mission-vision {
+        flex-direction: column;
+        gap: 20px;
+        margin: 20px 16px;
+    }
+    .about-mission-vision .mission,
+    .about-mission-vision .vision {
+        min-width: unset;
+        width: 100%;
+        height: auto !important;
+    }
+    .about-founder {
+        margin: 20px 16px;
+        padding: 24px 16px;
+    }
+    .founder-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .founder-img {
+        width: 120px;
+        height: 150px;
+    }
+    .about-facilities {
+        margin: 20px 16px;
+        padding: 24px 16px;
+    }
+    .facilities-list {
+        gap: 18px;
+    }
+    .facility {
+        flex: 1 1 140px;
+        min-width: 130px;
+    }
+    .about-achievements {
+        margin: 20px 16px;
+        padding: 24px 16px;
+    }
+    .about-staff {
+        margin: 20px 16px;
+        padding: 24px 16px;
+    }
+    .staff-list {
+        gap: 18px;
+    }
+    .staff-member {
+        flex: 1 1 130px;
+        min-width: 110px;
+    }
+}
+
+/* Mobile (max 600px) */
+@media (max-width: 600px) {
+    .about-header {
+        margin-top: 60px;
+        padding: 20px 12px;
+    }
+    .about-header h1 {
+        font-size: 1.5rem;
+    }
+    .about-tagline {
+        font-size: 1rem;
+    }
+    .about-intro {
+        margin: 20px 10px;
+        padding: 18px 12px;
+    }
+    .about-intro h2 {
+        font-size: 1.3rem;
+    }
+    .about-intro p {
+        font-size: 0.97rem;
+    }
+    .about-mission-vision {
+        margin: 16px 10px;
+    }
+    .about-mission-vision .mission,
+    .about-mission-vision .vision {
+        padding: 20px 14px;
+        font-size: 0.97rem;
+    }
+    .about-founder {
+        margin: 16px 10px;
+        padding: 18px 12px;
+    }
+    .founder-img {
+        width: 100px;
+        height: 130px;
+        border-radius: 50%;
+    }
+    .founder-message p {
+        font-size: 0.97rem;
+    }
+    .about-facilities {
+        margin: 16px 10px;
+        padding: 18px 12px;
+    }
+    .facility {
+        flex: 1 1 100%;
+        min-width: unset;
+    }
+    .facility img {
+        width: 100%;
+        height: 180px;
+    }
+    .about-achievements {
+        margin: 16px 10px;
+        padding: 18px 12px;
+    }
+    .about-achievements ul {
+        padding-left: 10px;
+    }
+    .about-achievements li {
+        font-size: 0.97rem;
+    }
+    .about-staff {
+        margin: 16px 10px;
+        padding: 18px 12px;
+    }
+    .staff-member {
+        flex: 1 1 42%;
+        min-width: 130px;
+    }
+    .staff-member img {
+        width: 70px;
+        height: 70px;
+    }
+    .staff-member p {
+        font-size: 0.85rem;
+    }
+    .navbar-nav .nav-link {
+        font-size: 21px !important;
+        padding: 0.8rem 0 !important;
+        letter-spacing: 0.5px !important;
+    }
+    #footer .container.padding-medium {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+    .footer-bottom p {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+}
