@@ -531,7 +531,49 @@ svg.primary-color-500 {
 /* Offcanvas
 ------------------------------------------------------------- */
 .offcanvas {
-height: 110vh;  
+height: 110vh;
+}
+
+/* ── Mobile nav: sticky close button + scrollable menu ─────── */
+@media (max-width: 991px) {
+
+  /* Make the offcanvas a flex column so header row stays pinned */
+  #bdNavbar {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  /* Close button row: always visible, never scrolls away */
+  #bdNavbar .offcanvas-header {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #000;
+    padding: 1rem 1.5rem 0.75rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Nav links area: fills remaining height and scrolls */
+  #bdNavbar .offcanvas-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1.5rem 1rem !important;
+  }
+
+  /* Slightly larger close button tap target */
+  #bdNavbar .btn-close {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.85;
+  }
+  #bdNavbar .btn-close:hover {
+    opacity: 1;
+  }
 }
 
 /* Modal
@@ -965,4 +1007,224 @@ section#slider .banner-content {
 
 section#slider .banner-content p {
   color: #fff !important;
+}
+/* ============================================================
+   PROFESSIONAL RESPONSIVE OVERRIDES — index page
+   Breakpoints: 991px (tablet) | 767px (mobile) | 480px (small)
+   ============================================================ */
+
+/* ── Announcement banner ─────────────────────────────────── */
+.third-term-banner {
+  position: relative;
+  z-index: 1060;
+}
+@media (max-width: 767px) {
+  .third-term-banner { padding: 0.4rem 0.75rem; }
+  .third-term-inner  { gap: 0.4rem; padding-right: 2rem; flex-wrap: wrap; justify-content: center; text-align: center; }
+  .third-term-text   { font-size: 0.78rem; }
+}
+
+/* ── Header / navbar ─────────────────────────────────────── */
+
+/* Mobile offcanvas nav — compact, readable */
+@media (max-width: 990px) {
+  a.nav-link {
+    font-size: 1rem !important;
+    padding: 0.55rem 0 !important;
+    color: #fff !important;
+  }
+  #bdNavbar { background-color: #000 !important; }
+}
+
+/* ── Hero slider ─────────────────────────────────────────── */
+/* Tablet */
+@media (max-width: 991px) {
+  section#slider .swiper-slide { height: 72vh !important; }
+  section#slider .banner-content { width: 86% !important; }
+  section#slider .banner-content h2 { font-size: clamp(1.8rem, 5vw, 3rem) !important; line-height: 1.15 !important; }
+  section#slider .banner-content p  { font-size: 1rem !important; }
+}
+/* Mobile */
+@media (max-width: 767px) {
+  section#slider .swiper-slide { height: 80vh !important; background-position: center center !important; }
+  section#slider .banner-content { width: 92% !important; padding: 0 0.5rem !important; }
+  section#slider .banner-content h2 { font-size: clamp(1.5rem, 7vw, 2.2rem) !important; line-height: 1.2 !important; }
+  section#slider .banner-content p  { font-size: 0.9rem !important; margin-bottom: 1.2rem !important; }
+  .btn.btn-banner-cta, a.btn-banner-cta { padding: 0.6rem 1.5rem !important; font-size: 0.88rem !important; }
+}
+@media (max-width: 480px) {
+  section#slider .swiper-slide { height: 88vh !important; }
+  section#slider .banner-content h2 { font-size: 1.4rem !important; }
+}
+
+/* ── Features section ────────────────────────────────────── */
+@media (max-width: 999px) {
+  #features {
+    left: 0; transform: none;
+    position: static;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .features-row { margin: 0 !important; }
+}
+@media (max-width: 767px) {
+  .feature-img { height: 170px; width: 100%; object-fit: cover; }
+  .features-row { padding: 1rem !important; gap: 1rem; }
+  .features-row .col-md-4 { width: 100%; }
+}
+
+/* ── About section ───────────────────────────────────────── */
+@media (max-width: 999px) {
+  #about {
+    padding-top: 3rem !important;
+    padding-bottom: 1rem !important;
+  }
+  #courses {
+    position: static !important;
+    left: auto !important;
+    transform: none !important;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+@media (max-width: 767px) {
+  #about { padding-top: 2rem !important; padding-bottom: 0.5rem !important; }
+  #about .col-md-6 { width: 100%; }
+  #about .feature { flex-direction: row; align-items: flex-start; }
+  #about .feature svg { width: 44px !important; height: 44px !important; flex-shrink: 0; }
+  .welcome-box { padding: 1.5rem !important; }
+  .welcome-box h4 { font-size: 1.2rem; }
+  .welcome-box p  { font-size: 0.92rem; }
+  #courses { padding-top: 2rem; padding-bottom: 2rem; }
+  #courses h2 { font-size: 1.5rem !important; }
+  .course-img { height: 150px !important; width: 100%; object-fit: cover; }
+  .courses-row .col-md-4 { width: 100%; }
+  .courses-row { padding: 1rem !important; }
+}
+
+/* ── Founder section ─────────────────────────────────────── */
+@media (max-width: 999px) {
+  #founder { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+}
+@media (max-width: 767px) {
+  #founder { padding-top: 2.5rem !important; padding-bottom: 2rem !important; }
+  #founder .col-md-4,
+  #founder .col-md-4.offset-md-2 { width: 100% !important; margin-left: 0 !important; }
+  #founder .imageblock { margin-bottom: 1.5rem; margin-right: 0 !important; }
+  #founder .founder-img { width: 100%; max-width: 340px; display: block; margin: 0 auto; }
+  #founder .col-md-4.mt-5 { width: 100% !important; margin-top: 0 !important; }
+  #founder .fs-2 { font-size: 1.2rem !important; line-height: 1.6 !important; }
+}
+
+/* ── Assistant Director section ──────────────────────────── */
+@media (max-width: 767px) {
+  #assistant-director .col-lg-6 { width: 100%; }
+  #assistant-director img { max-height: 280px; max-width: 100% !important; }
+  #assistant-director h3 { font-size: 1.2rem; }
+  #assistant-director p  { font-size: 0.92rem; }
+}
+
+/* ── Teacher section ─────────────────────────────────────── */
+@media (max-width: 767px) {
+  #teacher { padding-top: 2rem; padding-bottom: 2rem; }
+  #teacher h2 { font-size: 1.4rem !important; }
+}
+
+/* ── Facilities section ──────────────────────────────────── */
+@media (max-width: 999px) {
+  .facility-block {
+    position: static !important;
+    transform: none !important;
+    left: auto !important; top: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-bottom: 2rem;
+  }
+}
+@media (max-width: 767px) {
+  #facilities { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+  .facility-block .text-start { padding: 1.5rem !important; }
+  .facility-block h2 { font-size: 1.4rem !important; }
+  .facility-block p  { font-size: 0.92rem; }
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  #footer .footer-menu    { text-align: center; }
+  #footer .social-links   { justify-content: center; }
+  #footer .footer-bottom p { font-size: 0.82rem; text-align: center; }
+  #footer .container-fluid .info { flex-direction: column; gap: 0.4rem; }
+}
+
+/* ── General section headings ────────────────────────────── */
+@media (max-width: 767px) {
+  .display-5 { font-size: 1.5rem !important; }
+  .display-1 { font-size: clamp(1.5rem, 7vw, 2.4rem) !important; }
+  h2.text-white { font-size: clamp(1.4rem, 6vw, 2rem) !important; line-height: 1.2 !important; }
+  .padding-medium { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+  .padding-small  { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+}
+@media (max-width: 480px) {
+  .display-5 { font-size: 1.25rem !important; }
+  h2.text-white { font-size: 1.35rem !important; }
+}
+
+/* ── Prevent horizontal scroll ───────────────────────────── */
+@media (max-width: 767px) {
+  body, html { overflow-x: hidden; }
+  .container-fluid { padding-left: 1rem; padding-right: 1rem; }
+  img[class*="position-absolute"] { display: none; } /* hide decorative BG images on mobile */
+}
+@media (max-width: 991px) {
+
+  /* Fix the announcement banner at the very top */
+  .third-term-banner {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1060 !important;
+  }
+
+  /* Push header below the banner */
+  #header {
+    position: fixed !important;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+    transition: top 0.3s ease;
+  }
+
+  /* When banner is dismissed, header rises to top */
+  #header.banner-gone {
+    top: 0 !important;
+  }
+
+  /* Main black navbar */
+  #primary-header.navbar {
+    background-color: #000 !important;
+    transition: box-shadow 0.3s ease, padding 0.3s ease;
+  }
+
+  /* Shadow on scroll */
+  #header.scrolled #primary-header.navbar {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+
+  /* Logo shrink on scroll */
+  #header .navbar-brand img.logo {
+    transition: max-height 0.3s ease;
+    max-height: 52px;
+  }
+  #header.scrolled .navbar-brand img.logo {
+    max-height: 38px;
+  }
+
+  /* Body padding = banner (~40px) + navbar (~62px) */
+  body {
+    padding-top: 102px;
+  }
 }

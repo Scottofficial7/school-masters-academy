@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="gallery.css">
+  <link rel="stylesheet" href="second-term-highlights.css">
   <style>
     /* ── Page-specific overrides ─────────────────── */
     :root {
@@ -311,7 +312,9 @@
       width: 100%;
       height: 200px;
       object-fit: cover;
+      object-position: center;
       display: block;
+      cursor: zoom-in;
       transition: transform 0.4s ease;
     }
     .sth-story-img:hover img { transform: scale(1.05); }
@@ -339,13 +342,14 @@
       border-radius: 10px;
       overflow: hidden;
       position: relative;
-      cursor: pointer;
+      cursor: zoom-in;
       box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     }
     .sth-mosaic-item img {
       width: 100%;
       height: 200px;
       object-fit: cover;
+      object-position: center;
       display: block;
       transition: transform 0.4s ease;
     }
@@ -543,6 +547,169 @@
       .sth-quote { padding: 24px 20px; }
       .sth-trophy-banner { padding: 24px 18px; }
     }
+
+    /* ── LIGHTBOX ──────────────────────────────────── */
+    #sth-lb {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #sth-lb.lb-open {
+      visibility: visible;
+      pointer-events: auto;
+    }
+    #sth-lb-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(4,2,22,0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.32s ease;
+    }
+    #sth-lb.lb-open #sth-lb-backdrop { opacity: 1; }
+    #sth-lb-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 980px;
+      padding: 24px 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+      transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    #sth-lb.lb-open #sth-lb-wrap { opacity: 1; transform: none; }
+    #sth-lb-topbar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #sth-lb-section-tag {
+      display: inline-block;
+      background: #FBB911;
+      color: #1a087e;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 50px;
+    }
+    #sth-lb-close {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    #sth-lb-close:hover { background: #e53e3e; border-color: #e53e3e; transform: rotate(90deg) scale(1.1); }
+    #sth-lb-frame {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.06);
+      background: #07052a;
+      display: flex; align-items: center; justify-content: center;
+      max-height: 66vh;
+    }
+    #sth-lb-img {
+      width: 100%;
+      max-height: 66vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 14px;
+    }
+    #sth-lb-img.lb-anim {
+      animation: lbZoom 0.28s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    @keyframes lbZoom {
+      from { opacity:0; transform:scale(0.94); }
+      to   { opacity:1; transform:scale(1); }
+    }
+    #sth-lb-bottom {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px;
+    }
+    #sth-lb-controls { display: flex; align-items: center; gap: 16px; }
+    .lb-nav-btn {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s, transform 0.18s, box-shadow 0.2s;
+      user-select: none;
+    }
+    .lb-nav-btn:hover {
+      background: #FBB911; border-color: #FBB911; color: #1a087e;
+      transform: scale(1.12);
+      box-shadow: 0 0 22px rgba(251,185,17,0.45);
+    }
+    .lb-nav-btn:active { transform: scale(0.96); }
+    #sth-lb-counter {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+      min-width: 60px; text-align: center;
+    }
+    #sth-lb-thumbs {
+      display: flex; gap: 8px;
+      overflow-x: auto; max-width: 100%;
+      padding: 2px 2px 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(251,185,17,0.4) transparent;
+    }
+    #sth-lb-thumbs::-webkit-scrollbar { height: 3px; }
+    #sth-lb-thumbs::-webkit-scrollbar-thumb { background: rgba(251,185,17,0.4); border-radius: 3px; }
+    .lb-thumb {
+      width: 54px; height: 40px;
+      flex-shrink: 0;
+      border-radius: 6px; overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.4;
+      transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .lb-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .lb-thumb:hover { opacity: 0.75; transform: scale(1.07); }
+    .lb-thumb.lb-active { border-color: #FBB911; opacity: 1; transform: scale(1.1); }
+    #sth-lb-caption {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.76rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      text-align: center; min-height: 1em;
+    }
+    @media (max-width: 991px) {
+      #sth-lb-wrap { padding: 18px 52px; }
+    }
+    @media (max-width: 767px) {
+      #sth-lb-wrap { padding: 16px 48px; gap: 12px; }
+      .lb-nav-btn { width: 44px; height: 44px; }
+      #sth-lb-frame, #sth-lb-img { max-height: 54vh; }
+    }
+    @media (max-width: 480px) {
+      #sth-lb-wrap { padding: 12px 44px; }
+      #sth-lb-frame { border-radius: 10px; }
+      #sth-lb-frame, #sth-lb-img { max-height: 48vh; }
+      .lb-thumb { width: 42px; height: 32px; }
+    }
   </style>
 </head>
 <body>
@@ -727,15 +894,15 @@
         <!-- Sports photo grid -->
         <div class="sth-mosaic sth-mosaic-featured">
           <div class="sth-mosaic-item">
-            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (2).jpeg"  alt="Interhouse sports action">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (2).jpeg" alt="Interhouse sports action">
             <div class="sth-img-caption">Sports Day Action</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.56 (1).jpeg"  alt="Students marching">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.56 (1).jpeg" alt="Students marching">
             <div class="sth-img-caption">March Past</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57.jpeg"  alt="Winners receiving medals">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57.jpeg" alt="Winners receiving medals">
             <div class="sth-img-caption">Prize Giving</div>
           </div>
           <div class="sth-mosaic-item">
@@ -743,7 +910,7 @@
             <div class="sth-img-caption">Relay Race</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (1).jpeg"  alt="Students celebrating">
+            <img src="images/interhouse/WhatsApp Image 2026-04-21 at 09.21.57 (1).jpeg" alt="Students celebrating">
             <div class="sth-img-caption">Team Spirit</div>
           </div>
         </div>
@@ -765,7 +932,7 @@
         <div class="row align-items-center g-5 mb-5">
           <div class="col-lg-6">
             <div class="sth-story-img" style="width:100%;">
-              <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (2).jpeg" style="height:320px;">
+              <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (2).jpeg" alt="Students at Ecobank Art Museum" style="height:320px;">
             </div>
           </div>
           <div class="col-lg-6">
@@ -785,51 +952,51 @@
         <!-- Art museum photo grid -->
         <div class="sth-mosaic sth-mosaic-4" style="margin-top:32px;">
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00.jpeg"  alt="Students viewing art">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00.jpeg" alt="Students viewing art">
             <div class="sth-img-caption">Gallery Walk</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00 (2).jpeg"  alt="Art installation">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.00 (2).jpeg" alt="Art installation">
             <div class="sth-img-caption">Art Installations</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (1).jpeg"  alt="Students sketching">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (1).jpeg" alt="Students sketching">
             <div class="sth-img-caption">Inspired Sketches</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01.jpeg"  alt="Group photo at museum">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01.jpeg" alt="Group photo at museum">
             <div class="sth-img-caption">Guided Tour</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (1).jpeg"  alt="Students sketching">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (1).jpeg" alt="Students sketching">
             <div class="sth-img-caption">Inspired Sketches</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03 (4).jpeg"  alt="Group photo at museum">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03 (4).jpeg" alt="Group photo at museum">
             <div class="sth-img-caption">Guided Tour</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51 (1).jpeg"  alt="Students sketching">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51 (1).jpeg" alt="Students sketching">
             <div class="sth-img-caption">Inspired Sketches</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.02 (3).jpeg"  alt="Group photo at museum">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.02 (3).jpeg" alt="Group photo at museum">
             <div class="sth-img-caption">Guided Tour</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51.jpeg"  alt="Students sketching">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.51.jpeg" alt="Students sketching">
             <div class="sth-img-caption">Inspired Sketches</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03.jpeg"  alt="Group photo at museum">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.03.jpeg" alt="Group photo at museum">
             <div class="sth-img-caption">Guided Tour</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (3).jpeg"  alt="Students sketching">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 11.21.49 (3).jpeg" alt="Students sketching">
             <div class="sth-img-caption">Inspired Sketches</div>
           </div>
           <div class="sth-mosaic-item">
-            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (3).jpeg"  alt="Group photo at museum">
+            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01 (3).jpeg" alt="Group photo at museum">
             <div class="sth-img-caption">Guided Tour</div>
           </div>
         </div>
@@ -885,7 +1052,7 @@
         <!-- Baking photos -->
         <div class="sth-mosaic sth-mosaic-3" style="margin-bottom:32px;">
           <div class="sth-mosaic-item">
-            <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.09 (1).jpeg"alt="Students measuring ingredients">
+            <img src="images/Primary Baking/WhatsApp Image 2026-04-21 at 15.28.09 (1).jpeg" alt="Students measuring ingredients">
             <div class="sth-img-caption">Measuring Ingredients</div>
           </div>
           <div class="sth-mosaic-item">
@@ -1047,6 +1214,41 @@
     </div>
   </footer>
 
+  <!-- ===== LIGHTBOX MODAL ===== -->
+  <div id="sth-lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <div id="sth-lb-backdrop"></div>
+    <div id="sth-lb-wrap">
+      <div id="sth-lb-topbar">
+        <span id="sth-lb-section-tag"></span>
+        <button id="sth-lb-close" title="Close (Esc)">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div id="sth-lb-frame">
+        <img id="sth-lb-img" src="" alt="">
+      </div>
+      <div id="sth-lb-bottom">
+        <div id="sth-lb-controls">
+          <button class="lb-nav-btn" id="sth-lb-prev" title="Previous (←)">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M11 14L6 9L11 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span id="sth-lb-counter"></span>
+          <button class="lb-nav-btn" id="sth-lb-next" title="Next (→)">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M7 4L12 9L7 14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div id="sth-lb-thumbs"></div>
+        <div id="sth-lb-caption"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>
     /* ── Navbar search ─────────────────────────────────────── */
@@ -1094,6 +1296,137 @@
     } else {
       document.querySelectorAll('.sth-hcard').forEach(function(el) { el.classList.add('item-visible'); });
     }
+
+    /* ══════════════════════════════════════════════════
+       LIGHTBOX
+    ══════════════════════════════════════════════════ */
+    (function () {
+      var lb        = document.getElementById('sth-lb');
+      var backdrop  = document.getElementById('sth-lb-backdrop');
+      var lbImg     = document.getElementById('sth-lb-img');
+      var lbCaption = document.getElementById('sth-lb-caption');
+      var lbCounter = document.getElementById('sth-lb-counter');
+      var lbClose   = document.getElementById('sth-lb-close');
+      var lbPrev    = document.getElementById('sth-lb-prev');
+      var lbNext    = document.getElementById('sth-lb-next');
+      var lbThumbs  = document.getElementById('sth-lb-thumbs');
+      var lbTag     = document.getElementById('sth-lb-section-tag');
+
+      var images  = [];
+      var current = 0;
+      var isOpen  = false;
+
+      var sectionMap = {
+        'interhouse':  '🏆 Interhouse Sports',
+        'ecobank-art': '🎨 Ecobank Art Museum',
+        'baking':      '🧁 Baking Practice'
+      };
+
+      function buildImages() {
+        images = [];
+        document.querySelectorAll('.sth-mosaic-item img, .sth-story-img img').forEach(function(img) {
+          var caption = img.getAttribute('alt') || '';
+          var item = img.closest('.sth-mosaic-item');
+          if (item) {
+            var cap = item.querySelector('.sth-img-caption');
+            if (cap && cap.textContent.trim()) caption = cap.textContent.trim();
+          }
+          var section = img.closest('section');
+          var sectionLabel = section ? (sectionMap[section.getAttribute('id')] || '') : '';
+          images.push({ src: img.src, caption: caption, section: sectionLabel });
+        });
+      }
+
+      function buildThumbs() {
+        lbThumbs.innerHTML = '';
+        images.forEach(function(item, i) {
+          var div = document.createElement('div');
+          div.className = 'lb-thumb' + (i === current ? ' lb-active' : '');
+          var tImg = document.createElement('img');
+          tImg.src = item.src;
+          tImg.alt = item.caption;
+          div.appendChild(tImg);
+          div.addEventListener('click', function() { goTo(i); });
+          lbThumbs.appendChild(div);
+        });
+      }
+
+      function syncThumbs() {
+        var thumbs = lbThumbs.querySelectorAll('.lb-thumb');
+        thumbs.forEach(function(t, i) { t.classList.toggle('lb-active', i === current); });
+        if (thumbs[current]) thumbs[current].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+      }
+
+      function render() {
+        var item = images[current];
+        lbImg.classList.remove('lb-anim');
+        void lbImg.offsetWidth;
+        lbImg.src = item.src;
+        lbImg.alt = item.caption;
+        lbImg.classList.add('lb-anim');
+        lbCaption.textContent = item.caption;
+        lbCounter.textContent = (current + 1) + ' / ' + images.length;
+        lbTag.textContent = item.section;
+        syncThumbs();
+      }
+
+      function open(index) {
+        buildImages();
+        current = index;
+        buildThumbs();
+        render();
+        lb.classList.add('lb-open');
+        document.body.style.overflow = 'hidden';
+        isOpen = true;
+      }
+
+      function close() {
+        lb.classList.remove('lb-open');
+        document.body.style.overflow = '';
+        isOpen = false;
+        setTimeout(function() { lbImg.src = ''; }, 380);
+      }
+
+      function goTo(index) {
+        current = (index + images.length) % images.length;
+        render();
+      }
+
+      /* Click any mosaic or story image */
+      document.addEventListener('click', function(e) {
+        var img = e.target;
+        if (img.tagName !== 'IMG') return;
+        if (!img.closest('.sth-mosaic-item') && !img.closest('.sth-story-img')) return;
+        e.preventDefault();
+        buildImages();
+        var idx = -1;
+        for (var i = 0; i < images.length; i++) {
+          if (images[i].src === img.src) { idx = i; break; }
+        }
+        open(idx >= 0 ? idx : 0);
+      });
+
+      lbClose.addEventListener('click', close);
+      lbPrev.addEventListener('click',  function() { goTo(current - 1); });
+      lbNext.addEventListener('click',  function() { goTo(current + 1); });
+      backdrop.addEventListener('click', close);
+
+      document.addEventListener('keydown', function(e) {
+        if (!isOpen) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
+
+      /* Touch swipe */
+      var touchX = 0;
+      lb.addEventListener('touchstart', function(e) { touchX = e.changedTouches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend',   function(e) {
+        var dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 44) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+      }, {passive:true});
+
+    }());
   </script>
 </body>
 </html>

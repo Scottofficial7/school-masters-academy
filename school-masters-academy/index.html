@@ -83,7 +83,7 @@
         <div class="third-term-inner">
             <span class="third-term-badge">📢 3rd Term</span>
             <span class="third-term-text">Third Term is now in session! Welcome back, students & staff. Wishing everyone a productive and successful term ahead. 🎓</span>
-            <button class="third-term-close" onclick="document.getElementById('third-term-banner').style.display='none'" aria-label="Close">&times;</button>
+            <button class="third-term-close" onclick="document.getElementById('third-term-banner').style.display='none'; document.getElementById('header').classList.add('banner-gone'); document.body.style.paddingTop='62px';" aria-label="Close">&times;</button>
         </div>
     </div>
 
@@ -234,19 +234,19 @@
             <h2 class="display-5 d-block d-lg-none text-center fw-semibold">Our Features</h2>
 
             <div class="row g-lg-0 mt-5 mt-lg-0 features-row rounded-4 p-4 reveal-up" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
-                <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
                     <img src="images/class1.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
                         <p class="text-white py-3 m-0 bg-primary feature-label">Career-Oriented Curriculum</p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
                     <img src="images/bake.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
                         <p class="text-white py-3 m-0 bg-tertiary feature-label">Skills for Professional Success</p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
+                <div class="col-12 col-md-4 text-center mb-4 mb-md-0 px-3" style="border-radius: 2rem; overflow: hidden;">
                     <img src="images/fun2.JPG" class="img-fluid feature-img" alt="img">
                     <a href="#">
                         <p class="text-white py-3 m-0 bg-secondary feature-label">Supportive Environment</p>
@@ -260,7 +260,7 @@
         <div class="container">
             <div class="row align-items-center g-lg-5">
 
-                <div class="col-md-6 reveal-left">
+                <div class="col-12 col-md-6 reveal-left">
                     <div class="feature d-flex">
                         <div class="me-4">
                             <svg class="" width="100" height="100">
@@ -291,7 +291,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mt-5 reveal-right">
+                <div class="col-12 col-md-6 mt-4 mt-md-5 reveal-right">
                     <div class="bg-primary p-5 welcome-box">
                         <h4 class="text-white mt-3">Welcome</h4>
                         <p class="text-white my-4">Welcome to School Masters Academy, where we gain knowledge for service. Our commitment to fostering academic achievement, personal growth, and community engagement sets us apart. Explore a transformative educational journey that prepares students
@@ -307,31 +307,31 @@
                 <h2 class="display-5 text-center fw-semibold">Our Classes</h2>
 
                     <div class="row g-4 mt-4 courses-row rounded-4 p-4 reveal-up" style="background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,0.07); margin: 0 0 2rem 0; border-radius: 1.5rem;">
-                    <div class="col-md-4 text-center">
+                    <div class="col-12 col-sm-6 col-md-4 text-center">
                         <img src="images/Kindergarten Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
                             <p class="text-white py-3 m-0 bg-primary course-label">Kindergarten</p>
                         </a>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-12 col-sm-6 col-md-4 text-center">
                         <img src="images/Nursery Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
                             <p class="text-white py-3 m-0 bg-tertiary course-label">Nursery</p>
                         </a>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-12 col-sm-6 col-md-4 text-center">
                         <img src="images/Primary Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
                             <p class="text-white py-3 m-0 bg-tertiary course-label">Primary</p>
                         </a>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-12 col-sm-6 col-md-4 text-center">
                         <img src="images/Junior Secondary Section.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
                             <p class="text-white py-3 m-0 bg-tertiary course-label">Junior Secondary</p>
                         </a>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-12 col-sm-6 col-md-4 text-center">
                         <img src="images/Secondary Section4.JPG" class="img-fluid course-img" alt="img">
                         <a href="#">
                             <p class="text-white py-3 m-0 bg-secondary course-label">Senior Secondary</p>
@@ -346,7 +346,7 @@
         <div class="container">
             <div class="row align-items-center">
 
-                <div class="col-md-4 offset-md-2 reveal-left">
+                <div class="col-12 col-md-4 offset-md-2 reveal-left">
                     <div class="imageblock me-4">
                         <a type="button" data-bs-toggle="modal" >
                             <img class="img-fluid founder-img" src="images/smafounder.JPG" alt="img">
@@ -354,7 +354,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 mt-5 reveal-right">
+                <div class="col-12 col-md-4 mt-4 mt-md-5 reveal-right">
 
                     <p class="fs-2 lh-base">At our School, we aim to empower students with the skills, knowledge, and values needed for success in a global context.</p>
                     <div class="d-flex justify-content-between">
@@ -823,7 +823,7 @@
                 <div class="col-md-4">
                     <article class="post-card">
                         <div class="post-card-img-wrap">
-                            <img src="images/TEchhhh.JPG" alt="Second Term Highlights">
+                            <img src="images/Ecobank museum/WhatsApp Image 2026-04-21 at 10.23.01.jpeg" alt="Second Term Highlights">
                             <span class="post-card-category">Events</span>
                         </div>
                         <div class="post-card-body">
@@ -1115,6 +1115,16 @@
             revealEls.forEach(el => observer.observe(el));
         });
     </script>
+    <script>
+  (function () {
+    var header = document.getElementById('header');
+    function onScroll() {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
     
 </body>
 
