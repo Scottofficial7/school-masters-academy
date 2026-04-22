@@ -31,7 +31,6 @@ body {
    NAVBAR  (inherits shared rules from gallery.css)
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-#bdNavbar { background-color: #000 !important; }
 
 @media (max-width: 991px) {
   a.nav-link {
