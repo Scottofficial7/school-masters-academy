@@ -476,14 +476,6 @@
     el.classList.toggle('done');
   }
 
-  /* Adjust body padding for banner + header */
-  function adjustPadding() {
-    var banner = document.getElementById('third-term-banner');
-    var bh = banner && banner.offsetParent !== null ? banner.offsetHeight : 0;
-    document.body.style.paddingTop = (bh) + 'px';
-  }
-  window.addEventListener('load', adjustPadding);
-  window.addEventListener('resize', adjustPadding);
 </script>
 </body>
 </html>

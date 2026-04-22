@@ -15,7 +15,6 @@ nav.header-top.first-header {
 /* ---------- BLOG HERO BANNER ---------- */
 .blog-hero {
   position: relative;
-  margin-top: 106px; /* height of two-row header */
   height: 340px;
   background: url('images/School8.JPG') center center / cover no-repeat;
   display: flex;

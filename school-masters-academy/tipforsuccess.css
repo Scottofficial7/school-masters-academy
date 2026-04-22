@@ -17,7 +17,6 @@
 
     /* ── HERO BANNER ── */
     .tips-hero {
-      margin-top: 130px; /* header height */
       background: linear-gradient(120deg, #0a0a2e 0%, #1D157C 40%, #007bff 100%);
       padding: 80px 0 60px;
       position: relative;

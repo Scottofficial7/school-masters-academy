@@ -57,7 +57,6 @@ a {
   text-align: center;
   background: linear-gradient(135deg, #0c055041 0%, #1a087e2d 50%, #3a3a8e10 100%);
   overflow: hidden;
-  padding-top: 130px; /* accounts for banner + top-bar + primary-nav */
 }
 .contact-hero::before {
   content: '';
@@ -433,7 +432,6 @@ a {
 @media (max-width: 767px) {
   .contact-hero {
     min-height: 280px;
-    padding-top: 110px;
   }
   .contact-hero-content { padding: 2rem 1rem; }
   .contact-hero-content h1 { font-size: 1.9rem; }

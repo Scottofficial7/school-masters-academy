@@ -1175,9 +1175,44 @@ section#slider .banner-content p {
   .container-fluid { padding-left: 1rem; padding-right: 1rem; }
   img[class*="position-absolute"] { display: none; } /* hide decorative BG images on mobile */
 }
+/* ============================================================
+   STICKY NAVBAR — ALL PAGES (≤ 991px mobile/tablet)
+   ============================================================
+   TWO page types share this file:
+   A) index.html  — has the yellow announcement banner + top info bar
+   B) all others  — navbar only (single row, no banner, no info bar)
+
+   Strategy:
+   - #header is already Bootstrap fixed-top (position:fixed; top:0)
+     on ALL pages at all widths. We just need to:
+     1. Make sure the navbar has a solid black background everywhere.
+     2. Give <body> the right padding-top so content isn't hidden.
+     3. On index, account for the banner height above the header.
+   ============================================================ */
+
+/* ── 1. Navbar background — desktop + mobile, every page ──── */
+#primary-header.navbar,
+.navbar.second-header {
+  background-color: #000 !important;
+}
+
+/* ── 2. Desktop body offset (index has two header rows) ────── */
+/*    Other pages: just the single navbar row (~62px)          */
+/*    index.html adds the top-bar height via its own rule below */
+@media (min-width: 992px) {
+  body {
+    padding-top: 62px;   /* single navbar row */
+  }
+  /* index.html has the extra top info bar row (~44px) */
+  body.has-top-bar {
+    padding-top: 106px;
+  }
+}
+
+/* ── 3. Mobile: fixed header + correct body offset ─────────── */
 @media (max-width: 991px) {
 
-  /* Fix the announcement banner at the very top */
+  /* Announcement banner (index only): pin to very top */
   .third-term-banner {
     position: fixed !important;
     top: 0;
@@ -1186,45 +1221,58 @@ section#slider .banner-content p {
     z-index: 1060 !important;
   }
 
-  /* Push header below the banner */
+  /* Header: fixed, sits directly at top (no banner on inner pages) */
   #header {
     position: fixed !important;
-    top: 40px;
+    top: 0;
     left: 0;
     width: 100%;
     z-index: 1050;
-    transition: top 0.3s ease;
+    transition: top 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* When banner is dismissed, header rises to top */
+  /* index.html only: push header below the banner */
+  #header.has-banner {
+    top: 40px;
+  }
+
+  /* When banner is dismissed, header slides back to top */
   #header.banner-gone {
     top: 0 !important;
   }
 
-  /* Main black navbar */
+  /* Body offset: navbar only (~62px) — all inner pages */
+  body {
+    padding-top: 62px !important;
+  }
+
+  /* index.html: body needs room for banner + navbar */
+  body.has-banner {
+    padding-top: 102px !important;
+  }
+
+  /* When banner dismissed on index, shrink back to navbar only */
+  body.banner-gone {
+    padding-top: 62px !important;
+  }
+
+  /* Navbar background */
   #primary-header.navbar {
     background-color: #000 !important;
     transition: box-shadow 0.3s ease, padding 0.3s ease;
   }
 
-  /* Shadow on scroll */
+  /* Shadow when scrolled */
   #header.scrolled #primary-header.navbar {
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45) !important;
-    padding-top: 0.2rem !important;
-    padding-bottom: 0.2rem !important;
   }
 
-  /* Logo shrink on scroll */
+  /* Logo size */
   #header .navbar-brand img.logo {
-    transition: max-height 0.3s ease;
     max-height: 52px;
+    transition: max-height 0.3s ease;
   }
   #header.scrolled .navbar-brand img.logo {
     max-height: 38px;
-  }
-
-  /* Body padding = banner (~40px) + navbar (~62px) */
-  body {
-    padding-top: 102px;
   }
 }
