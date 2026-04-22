@@ -72,7 +72,6 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0a0540 0%, #1a087e 55%, #0055a5 100%);
-  margin-top: 88px; /* clears the two-row fixed header */
   overflow: hidden;
 }
 
@@ -442,7 +441,6 @@ a { color: inherit; text-decoration: none; transition: 0.3s ease-in-out; }
 
 /* Tablet */
 @media (max-width: 991px) {
-  .gallery-hero { margin-top: 60px; }
 
   .gallery-grid-4 {
     grid-template-columns: repeat(3, 1fr);
@@ -489,7 +487,7 @@ a { color: inherit; text-decoration: none; transition: 0.3s ease-in-out; }
 
 /* Mobile */
 @media (max-width: 480px) {
-  .gallery-hero { margin-top: 56px; min-height: 220px; }
+  .gallery-hero { min-height: 220px; }
 
   .gallery-jump-nav { gap: 7px; }
   .gallery-jump-pill { font-size: 0.68rem; padding: 5px 12px; }

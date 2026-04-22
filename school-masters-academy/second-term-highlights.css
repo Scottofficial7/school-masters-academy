@@ -51,7 +51,6 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #0a0540 0%, #1a087e 55%, #0055a5 100%);
-  margin-top: 88px;
   overflow: hidden;
 }
 
@@ -867,8 +866,6 @@ a { color: inherit; text-decoration: none; transition: 0.3s ease-in-out; }
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
 @media (max-width: 991px) {
-  .sth-hero { margin-top: 60px; }
-
   .sth-trophy-banner {
     flex-direction: column;
     text-align: center;
@@ -922,7 +919,7 @@ a { color: inherit; text-decoration: none; transition: 0.3s ease-in-out; }
 }
 
 @media (max-width: 480px) {
-  .sth-hero { margin-top: 56px; min-height: 240px; }
+  .sth-hero { min-height: 240px; }
 
   .sth-jump-nav { gap: 7px; }
   .sth-jump-pill { font-size: 0.68rem; padding: 5px 12px; }

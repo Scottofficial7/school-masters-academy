@@ -17,7 +17,6 @@ nav.header-top.first-header {
 
 /* ---------- ARTICLE HERO ---------- */
 .article-hero {
-  margin-top: 106px;
   background: linear-gradient(135deg, var(--primary-color) 0%, #3C5494 100%);
   padding: 64px 24px 56px;
   text-align: center;

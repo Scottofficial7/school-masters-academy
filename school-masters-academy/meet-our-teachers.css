@@ -13,7 +13,6 @@ body {
 
 /* ── HERO ── */
 .teachers-hero {
-  margin-top: 120px; /* clears fixed header (top-bar + navbar) */
   background: linear-gradient(120deg, #0a0a2e 0%, #1D157C 55%, #3C5494 100%);
   padding: 72px 0 56px;
   position: relative;
