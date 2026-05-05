@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal Login — School Masters Academy</title>
+  <style>
+    /* ────────────────────────────────────────────
+       PORTAL LOGIN BUTTON — add this CSS to style.css
+    ──────────────────────────────────────────── */
+    .portal-login-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 18px;
+      background: linear-gradient(135deg, #FBB911, #f5a800);
+      color: #1D157C;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-transform: uppercase;
+    }
+    .portal-login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(251,185,17,0.4);
+    }
+
+    /* ────────────────────────────────────────────
+       PORTAL MODAL OVERLAY — add to style.css
+    ──────────────────────────────────────────── */
+    .portal-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .portal-modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .portal-modal {
+      background: #fff;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 520px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.35);
+      transform: scale(0.92) translateY(24px);
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .portal-modal-backdrop.open .portal-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .portal-modal-header {
+      background: linear-gradient(135deg, #0d0550 0%, #1D157C 55%, #3C5494 100%);
+      padding: 2rem 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .portal-modal-header img {
+      height: 56px;
+      object-fit: contain;
+      margin-bottom: 0.6rem;
+    }
+    .portal-modal-header h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 2px;
+    }
+    .portal-modal-header p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0;
+    }
+    .portal-modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .portal-modal-close:hover { background: rgba(255,255,255,0.22); }
+
+    .portal-modal-body { padding: 2rem; }
+    .portal-modal-body h3 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .portal-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .portal-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 1.5rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.22s, background 0.22s, transform 0.22s;
+      background: #fff;
+    }
+    .portal-option:hover {
+      border-color: #1D157C;
+      background: #f0f3ff;
+      transform: translateY(-4px);
+    }
+    .portal-option:active { transform: translateY(-1px); }
+
+    .portal-option-icon {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .portal-option-icon.student { background: #e8e6ff; }
+    .portal-option-icon.teacher { background: #d1fae5; }
+    .portal-option-icon.admin   { background: #fef3c7; }
+
+    .portal-option-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      text-align: center;
+    }
+    .portal-option-sub {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .portal-option.student:hover { border-color: #1D157C; background: #f0f3ff; }
+    .portal-option.student:hover .portal-option-label { color: #1D157C; }
+    .portal-option.teacher:hover { border-color: #065f46; background: #ecfdf5; }
+    .portal-option.teacher:hover .portal-option-label { color: #065f46; }
+    .portal-option.admin:hover   { border-color: #92400e; background: #fffbeb; }
+    .portal-option.admin:hover   .portal-option-label { color: #92400e; }
+
+    .portal-modal-footer {
+      padding: 0 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+    .portal-modal-footer a { color: #1D157C; font-weight: 600; text-decoration: none; }
+    .portal-modal-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 440px) {
+      .portal-options { grid-template-columns: 1fr; gap: 0.75rem; }
+      .portal-option { flex-direction: row; padding: 1rem 1.2rem; text-align: left; gap: 1rem; }
+      .portal-option-label { text-align: left; }
+      .portal-option-sub { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     PORTAL MODAL — Copy everything below into index.html
+     Place it just before </body>
+════════════════════════════════════════════ -->
+
+<div class="portal-modal-backdrop" id="portalModalBackdrop" onclick="handleBackdropClick(event)">
+  <div class="portal-modal">
+    <div class="portal-modal-header">
+      <button class="portal-modal-close" onclick="closeLoginPortal()" aria-label="Close">×</button>
+      <img src="images/SMA WEB LOGO.png" alt="School Masters Academy"
+           onerror="this.style.display='none'">
+      <h2>School Masters Academy</h2>
+      <p>Portal Login — Select your role to continue</p>
+    </div>
+
+    <div class="portal-modal-body">
+      <h3>Who are you logging in as?</h3>
+      <div class="portal-options">
+
+        <!-- STUDENT -->
+        <a href="student-portal.html" class="portal-option student">
+          <div class="portal-option-icon student">🎒</div>
+          <div class="portal-option-label">Student</div>
+          <div class="portal-option-sub">Access notes, assignments & fees</div>
+        </a>
+
+        <!-- TEACHER -->
+        <a href="teacher-portal.html" class="portal-option teacher">
+          <div class="portal-option-icon teacher">👩‍🏫</div>
+          <div class="portal-option-label">Teacher</div>
+          <div class="portal-option-sub">Manage classes & upload notes</div>
+        </a>
+
+        <!-- ADMIN -->
+        <a href="admin-portal.html" class="portal-option admin">
+          <div class="portal-option-icon admin">🏫</div>
+          <div class="portal-option-label">Admin</div>
+          <div class="portal-option-sub">School management & records</div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="portal-modal-footer">
+      Having trouble logging in? <a href="contact.html">Contact the school office</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT — Add to your existing <script> block in index.html
+════════════════════════════════════════════ -->
+<script>
+function openLoginPortal() {
+  document.getElementById('portalModalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLoginPortal() {
+  document.getElementById('portalModalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleBackdropClick(e) {
+  if (e.target === document.getElementById('portalModalBackdrop')) {
+    closeLoginPortal();
+  }
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLoginPortal();
+});
+</script>
+</body>
+</html>

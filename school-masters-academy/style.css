@@ -761,7 +761,7 @@ a.nav-link:hover {
 }
 }
 
-@media only screen and (max-width: 990px) {
+@media only screen and (max-width: 991px) {
   a.nav-link {
     color: var(--dark-color);
     font-size: 2rem;
@@ -1027,7 +1027,7 @@ section#slider .banner-content p {
 /* ── Header / navbar ─────────────────────────────────────── */
 
 /* Mobile offcanvas nav — compact, readable */
-@media (max-width: 990px) {
+@media (max-width: 991px) {
   a.nav-link {
     font-size: 1rem !important;
     padding: 0.55rem 0 !important;
@@ -1274,5 +1274,36 @@ section#slider .banner-content p {
   }
   #header.scrolled .navbar-brand img.logo {
     max-height: 38px;
+  }
+}
+/* ============================================================
+   NAVBAR VISIBILITY — desktop vs mobile
+   Force hamburger hidden and nav links visible on desktop.
+   Force hamburger visible and nav links hidden on mobile.
+   These rules use !important and high specificity to override
+   Bootstrap utilities and any conflicting rules.
+   ============================================================ */
+
+/* DESKTOP (992px and up): hide hamburger, show nav links */
+@media (min-width: 992px) {
+  #primary-header .navbar-toggler {
+    display: none !important;
+  }
+
+  #navbarNav {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* MOBILE (below 992px): show hamburger, hide desktop nav links */
+@media (max-width: 991px) {
+  #primary-header .navbar-toggler {
+    display: flex !important;
+  }
+
+  #navbarNav {
+    display: none !important;
   }
 }
