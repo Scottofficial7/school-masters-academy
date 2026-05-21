@@ -3863,10 +3863,6 @@ async function deleteContentItem(itemId) {
   try { await SMA.removeAssignment(itemId); } catch(e) {}
   try { await SMA.removeClassNote(itemId);  } catch(e) {}
 
-  // Remove the linked student notification so the note/assignment disappears
-  // from students' notification feeds immediately.
-  try { await SMA.removeNotificationByRef(itemId); } catch(e) {}
-
   // Animate card out then re-render
   const card = document.getElementById(`ci-${itemId}`);
   if (card) {
@@ -8899,11 +8895,12 @@ async function loadDeleteRequests() {
     const db = firebase.firestore();
     const snap = await db.collection('delete_requests')
       .where('teacherUsername', '==', currentTeacher.username)
-      .orderBy('requestedAt', 'desc')
       .get();
 
     const requests = [];
     snap.forEach(doc => requests.push({ _docId: doc.id, ...doc.data() }));
+    // Sort newest first client-side (avoids Firestore composite index requirement)
+    requests.sort((a, b) => (b.requestedAt || '').localeCompare(a.requestedAt || ''));
 
     // Update badge to reflect only the pending ones
     _updateDelReqBadge(requests.filter(r => r.status === 'pending').length);
@@ -9022,10 +9019,6 @@ async function approveDeleteRequest(docId, itemType, itemId, studentId, studentN
     // 1. Remove from the shared SMA backend (students will no longer see it)
     try { await SMA.removeAssignment(numId); } catch(e) {}
     try { await SMA.removeClassNote(numId);  } catch(e) {}
-
-    // 1b. Remove the linked student notification so the item disappears
-    //     from all students' notification feeds immediately.
-    try { await SMA.removeNotificationByRef(numId); } catch(e) {}
 
     // 2. Remove from this teacher's private tp_content store
     //    and delete any attached files from Firebase Storage
