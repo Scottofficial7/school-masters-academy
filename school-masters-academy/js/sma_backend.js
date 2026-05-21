@@ -412,9 +412,27 @@ window.SMA = (() => {
     await saveList(KEY.NOTIFICATIONS, notifs);
     return notif;
   }
-  async function getStudentNotifications(studentClass) {
+  async function getStudentNotifications(studentClass, studentId) {
     const notifs = await getNotifications();
-    return notifs.filter(n => !n.targetClass || n.targetClass === studentClass);
+    return notifs.filter(n => {
+      // Notifications addressed to a specific student (e.g. delete approved/declined)
+      if (n.targetStudentId) return n.targetStudentId === studentId;
+      // Otherwise filter by class restriction (or show to all if unrestricted)
+      return !n.targetClass || n.targetClass === studentClass;
+    });
+  }
+  /**
+   * removeNotificationByRef(refId)
+   * Removes all notifications whose refId matches the given content ID.
+   * Call this whenever a class note or assignment is deleted so that the
+   * corresponding notification disappears from students' feeds immediately.
+   */
+  async function removeNotificationByRef(refId) {
+    if (!refId) return false;
+    const notifs = await getNotifications();
+    const filtered = notifs.filter(n => String(n.refId) !== String(refId));
+    if (filtered.length === notifs.length) return false; // nothing to remove
+    return saveList(KEY.NOTIFICATIONS, filtered);
   }
 
   /* ═══════════ PAYMENTS ═══════════ */
@@ -1002,7 +1020,7 @@ window.SMA = (() => {
     getLessonNotes, addLessonNote, updateNoteStatus, saveLessonNotes,
     getClassNotes, addClassNote, saveClassNotes,
     getAssignments, saveAssignments, addAssignment, removeAssignment, removeClassNote, cleanupExpiredContent,
-    getNotifications, addNotification, getStudentNotifications, saveNotifications,
+    getNotifications, addNotification, getStudentNotifications, removeNotificationByRef, saveNotifications,
     getPayments, addPayment, savePayments, confirmPayment, rejectPayment, getPaymentProof, deletePaymentProof,
     getAnnouncements, addAnnouncement, removeAnnouncement, toggleAnnouncementPin, saveAnnouncements,
     getResults, saveResult, getAllResults, saveAllResults,

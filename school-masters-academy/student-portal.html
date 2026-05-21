@@ -175,6 +175,9 @@
     .btn-pay:hover{background:var(--navy-dark)}
     .btn-delete-assign{background:transparent;color:#dc2626;border:1.5px solid #dc2626;border-radius:6px;padding:4px 12px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .18s}
     .btn-delete-assign:hover{background:#dc2626;color:#fff}
+    .btn-req-delete{background:transparent;color:#dc2626;border:1.5px solid #dc2626;border-radius:6px;padding:4px 12px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .18s}
+    .btn-req-delete:hover:not(:disabled){background:#dc2626;color:#fff}
+    .btn-req-delete:disabled,.btn-req-delete[data-pending="true"]{background:#fff8f0;color:#d97706;border-color:#d97706;cursor:default;opacity:.85}
     .btn-delete-exam{background:transparent;color:#dc2626;border:1.5px solid #dc2626;border-radius:6px;padding:4px 10px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .18s;line-height:1}
     .btn-delete-exam:hover{background:#dc2626;color:#fff}
 
@@ -2411,20 +2414,40 @@ async function renderNotes() {
   );
 
   document.getElementById('notesList').innerHTML = filtered.length
-    ? filtered.map(n=>`
+    ? filtered.map(n => {
+        const docCount = (n.attachedDocs   || []).length;
+        const imgCount = (n.attachedImages || []).length;
+        const attachBadge = (docCount + imgCount) > 0
+          ? `<div style="margin-top:.4rem">
+               <span style="display:inline-flex;align-items:center;gap:3px;font-size:.71rem;font-weight:700;
+                             background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;
+                             border-radius:20px;padding:2px 9px">
+                 📎 ${docCount > 0 ? docCount + ' file' + (docCount > 1 ? 's' : '') : ''}${docCount > 0 && imgCount > 0 ? ' · ' : ''}${imgCount > 0 ? imgCount + ' image' + (imgCount > 1 ? 's' : '') : ''}
+               </span>
+             </div>` : '';
+        const openLabel = docCount > 0 ? '📥 Open & Download →' : 'Read Full Note →';
+        return `
         <div class="note-card">
           <div class="note-card-top">
             <span class="note-subject">${n.subject||'Note'}</span>
             ${n.term ? `<span class="note-term-badge">${n.term}</span>` : ''}
           </div>
           <div class="note-teacher">📚 ${n.teacher||'Teacher'}</div>
-          <div class="note-preview">${(n.content||n.preview||'').substring(0,120)}…</div>
-          <div class="note-footer">
+          <div class="note-preview">${(n.content||n.preview||'').substring(0,120)}${(n.content||n.preview||'').length>120?'…':''}</div>
+          ${attachBadge}
+          <div class="note-footer" style="margin-top:.55rem">
             <span class="note-date">📅 ${n.date||''}</span>
-            <button class="btn-sm" onclick="openNote('${n.id}')">Read Full Note →</button>
+            <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+              <button class="btn-sm" onclick="openNote('${n.id}')">${openLabel}</button>
+              <button class="btn-req-delete" id="rdnote-${n.id}" onclick="requestDeleteItem('${n.id}','note')">🗑️ Request Delete</button>
+            </div>
           </div>
-        </div>`).join('')
+        </div>`;
+      }).join('')
     : '<div class="empty-state"><div class="es-icon">📚</div><p>No class notes available yet. Check back soon.</p></div>';
+
+  // Restore pending state on request-delete buttons for any already-submitted requests
+  _restoreDeleteRequestStates('note', filtered.map(n => String(n.id)));
 }
 
 async function openNote(id) {
@@ -2583,6 +2606,17 @@ async function renderAssignments() {
           : daysLeft === 1 ? `🟠 Due Tomorrow`
           : daysLeft <= 3 ? `🟡 Due: ${a.dueDate} (${daysLeft}d)`
           : `⏰ Due: ${a.dueDate} (${daysLeft}d left)`;
+        const docCount = (a.attachedDocs   || []).length;
+        const imgCount = (a.attachedImages || []).length;
+        const attachBadge = (docCount + imgCount) > 0
+          ? `<div style="margin-top:.4rem">
+               <span style="display:inline-flex;align-items:center;gap:3px;font-size:.71rem;font-weight:700;
+                             background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;
+                             border-radius:20px;padding:2px 9px">
+                 📎 ${docCount > 0 ? docCount + ' file' + (docCount > 1 ? 's' : '') : ''}${docCount > 0 && imgCount > 0 ? ' · ' : ''}${imgCount > 0 ? imgCount + ' image' + (imgCount > 1 ? 's' : '') : ''}
+               </span>
+             </div>` : '';
+        const itemType = (a.type||'').toLowerCase() === 'classwork' ? 'classwork' : 'assignment';
         return `
         <div class="assign-card">
           <div class="note-card-top">
@@ -2591,33 +2625,139 @@ async function renderAssignments() {
           </div>
           <div class="note-teacher">👩‍🏫 ${a.teacher||''} ${a.term?'• '+a.term:''}</div>
           <div class="note-preview" style="margin-top:.35rem">${a.description||''}</div>
+          ${attachBadge}
           <div class="note-footer" style="margin-top:.75rem">
             <span class="note-date">📅 ${a.dueDate||'TBD'}</span>
             <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
-              <button class="btn-sm" onclick="openAssignDetail('${a.id}')">View Details →</button>
+              <button class="btn-sm" onclick="openAssignDetail('${a.id}')">${docCount>0?'📥 View & Download →':'View Details →'}</button>
               ${done ? `<span class="pill pill-success">Completed</span>`
                      : `<button class="btn-pay" onclick="openAssignSubmitModal('${a.id}')">📤 Submit</button>`}
-              <button class="btn-delete-assign" onclick="deleteAssignment('${a.id}')" title="Delete assignment">🗑️ Delete</button>
+              <button class="btn-req-delete" id="rdassign-${a.id}" onclick="requestDeleteItem('${a.id}','${itemType}')">🗑️ Request Delete</button>
             </div>
           </div>
         </div>`;
       }).join('')
     : '<div class="empty-state"><div class="es-icon">📝</div><p>No assignments found.</p></div>';
+
+  // Restore pending state on request-delete buttons for already-submitted requests
+  _restoreDeleteRequestStates('assignment', filtered.map(a => String(a.id)));
 }
 
-async function deleteAssignment(id) {
-  if (!confirm('Remove this assignment from your list?')) return;
-  // Fix #2: do NOT splice from the shared assignments list — that would delete the
-  // assignment for every student and the teacher. Instead, record a per-student
-  // hidden list in SMA student UI state and filter it out locally on render.
-  const hidden = (await SMA.getStudentUIState(currentStudentData.id, 'hiddenAssignments', [])) || [];
-  if (!hidden.includes(String(id))) {
-    hidden.push(String(id));
-    await SMA.setStudentUIState(currentStudentData.id, 'hiddenAssignments', hidden);
+async function requestDeleteItem(itemId, itemType) {
+  // itemType: 'note' | 'assignment' | 'classwork'
+  const s = currentStudentData;
+
+  // Check for an already-pending request so we don't double-submit
+  try {
+    const db = firebase.firestore();
+    const existing = await db.collection('delete_requests')
+      .where('studentId', '==', s.id)
+      .where('itemId',    '==', String(itemId))
+      .where('status',    '==', 'pending')
+      .get();
+    if (!existing.empty) {
+      showToast('⏳ You already have a pending delete request for this item.', 'info');
+      _markDeleteBtnPending(itemId, itemType);
+      return;
+    }
+  } catch(e) { /* non-fatal */ }
+
+  const typeLabel = itemType === 'note' ? 'class note' : itemType === 'classwork' ? 'classwork' : 'assignment';
+  if (!confirm(`Request deletion of this ${typeLabel}?\n\nYour teacher will review the request and remove it if approved.`)) return;
+
+  // Look up the item to get the teacher's username
+  let teacherUsername = null;
+  let itemTitle       = '';
+  try {
+    if (itemType === 'note') {
+      const notes = await SMA.getClassNotes();
+      const n = notes.find(n => String(n.id) === String(itemId));
+      if (n) {
+        teacherUsername = n.teacherUsername || null;
+        itemTitle = n.title || n.subject || 'Class Note';
+        // Fallback: if teacherUsername missing, match by display name from teachers list
+        if (!teacherUsername && n.teacher) {
+          const teachers = await SMA.getTeachers();
+          const match = teachers.find(t =>
+            (t.name || ((t.firstName||'') + ' ' + (t.lastName||'')).trim()) === n.teacher ||
+            t.username === n.teacher
+          );
+          if (match) teacherUsername = match.username;
+        }
+      }
+    } else {
+      const assigns = await SMA.getAssignments();
+      const a = assigns.find(a => String(a.id) === String(itemId));
+      if (a) {
+        teacherUsername = a.teacherUsername || null;
+        itemTitle = a.title || a.subject || (itemType === 'classwork' ? 'Classwork' : 'Assignment');
+        // Fallback: if teacherUsername missing, match by display name from teachers list
+        if (!teacherUsername && a.teacher) {
+          const teachers = await SMA.getTeachers();
+          const match = teachers.find(t =>
+            (t.name || ((t.firstName||'') + ' ' + (t.lastName||'')).trim()) === a.teacher ||
+            t.username === a.teacher
+          );
+          if (match) teacherUsername = match.username;
+        }
+      }
+    }
+  } catch(e) { console.warn('requestDeleteItem lookup', e); }
+
+  if (!teacherUsername) {
+    showToast('❌ Could not identify the teacher for this item. Please contact your teacher directly.', 'error');
+    return;
   }
-  await renderAssignments();
-  await renderDashboard();
-  showToast('Assignment removed from your list. 🗑️', 'success');
+
+  try {
+    const db = firebase.firestore();
+    await db.collection('delete_requests').add({
+      itemId:         String(itemId),
+      itemType,
+      itemTitle,
+      teacherUsername,
+      studentId:      s.id,
+      studentName:    ((s.firstName||'') + ' ' + (s.lastName||'')).trim() || s.username,
+      studentClass:   s.class || '',
+      status:         'pending',
+      requestedAt:    new Date().toISOString(),
+    });
+
+    _markDeleteBtnPending(itemId, itemType);
+    showToast(`✅ Delete request sent to your ${typeLabel} teacher. You'll be notified once reviewed.`, 'success');
+  } catch(e) {
+    console.error('requestDeleteItem', e);
+    showToast('❌ Failed to send request: ' + (e.message || 'Unknown error'), 'error');
+  }
+}
+
+// Mark the matching button as "⏳ Pending…" immediately after a request is sent.
+function _markDeleteBtnPending(itemId, itemType) {
+  const prefix = itemType === 'note' ? 'rdnote' : 'rdassign';
+  const btn = document.getElementById(`${prefix}-${itemId}`);
+  if (!btn) return;
+  btn.textContent = '⏳ Pending…';
+  btn.disabled = true;
+  btn.setAttribute('data-pending', 'true');
+}
+
+// After re-rendering a list, query Firestore for pending requests from this student
+// and mark the corresponding buttons so the pending state survives page refreshes.
+async function _restoreDeleteRequestStates(itemType, itemIds) {
+  if (!currentStudentData || !itemIds.length) return;
+  try {
+    const db = firebase.firestore();
+    const snap = await db.collection('delete_requests')
+      .where('studentId', '==', currentStudentData.id)
+      .where('status',    '==', 'pending')
+      .get();
+    snap.forEach(doc => {
+      const d = doc.data();
+      if (itemIds.includes(String(d.itemId))) {
+        _markDeleteBtnPending(d.itemId, itemType);
+      }
+    });
+  } catch(e) { /* non-fatal */ }
 }
 
 async function markSubmitted(id) {
@@ -2950,7 +3090,7 @@ async function renderNotifications() {
     const t = (a.target || a.audience || '').toLowerCase();
     return t !== 'teachers only';
   });
-  const teacherNotifs = await SMA.getStudentNotifications(currentStudentData?.class || '');
+  const teacherNotifs = await SMA.getStudentNotifications(currentStudentData?.class || '', currentStudentData?.id || '');
   const _readArr  = await SMA.getStudentUIState(currentStudentData?.id||'', 'notif_read', []);
   const readSet   = new Set(_readArr);
   const list      = document.getElementById('notifList');
@@ -2997,10 +3137,12 @@ async function renderNotifications() {
     const isNote  = item.type === 'class_note';
     const isAssign = item.type === 'assignment';
     const isAnn   = item._source === 'admin';
-    const accentColor = isNote ? 'var(--navy)' : isAssign ? 'var(--gold-dark)' : 'var(--info)';
-    const bgColor = isNote ? '#e8e6ff' : isAssign ? 'var(--gold-light)' : 'var(--info-bg)';
-    const typeLabel = isNote ? '📚 Class Note' : isAssign ? '📝 Assignment' : '📢 Announcement';
-    const typeColor = isNote ? 'pill-info' : isAssign ? 'pill-warning' : 'pill-info';
+    const isDelApproved = item.type === 'delete_approved';
+    const isDelDeclined = item.type === 'delete_declined';
+    const accentColor = isNote ? 'var(--navy)' : isAssign ? 'var(--gold-dark)' : isDelApproved ? 'var(--success)' : isDelDeclined ? 'var(--danger)' : 'var(--info)';
+    const bgColor = isNote ? '#e8e6ff' : isAssign ? 'var(--gold-light)' : isDelApproved ? 'var(--success-bg)' : isDelDeclined ? 'var(--danger-bg)' : 'var(--info-bg)';
+    const typeLabel = isNote ? '📚 Class Note' : isAssign ? '📝 Assignment' : isDelApproved ? '✅ Request Approved' : isDelDeclined ? '❌ Request Declined' : '📢 Announcement';
+    const typeColor = isNote ? 'pill-info' : isAssign ? 'pill-warning' : isDelApproved ? 'pill-success' : isDelDeclined ? 'pill-danger' : 'pill-info';
     const hasContent = (item.content || '').trim().length > 0;
     const dueTag = isAssign && item.dueDate ? `<span class="assign-due-tag due-soon" style="margin-left:.5rem;font-size:.68rem">Due: ${item.dueDate}</span>` : '';
 
@@ -3060,7 +3202,7 @@ async function markAllRead() {
     const t = (a.target || a.audience || '').toLowerCase();
     return t !== 'teachers only';
   });
-  const teacherNotifs= await SMA.getStudentNotifications(currentStudentData?.class || '');
+  const teacherNotifs= await SMA.getStudentNotifications(currentStudentData?.class || '', currentStudentData?.id || '');
   const allIds       = [...anns.map(a=>a.id), ...teacherNotifs.map(n=>n.id)];
   await SMA.setStudentUIState(currentStudentData?.id||'', 'notif_read', allIds);
   renderNotifications();
@@ -4203,7 +4345,7 @@ async function buildSearchIndex() {
   const [notes, assignments, notifs, results] = await Promise.all([
     getMyClassNotes(),
     getMyAssignments(),
-    SMA.getStudentNotifications(currentStudentData?.class || ''),
+    SMA.getStudentNotifications(currentStudentData?.class || '', currentStudentData?.id || ''),
     SMA.getResults(currentStudentData?.id || ''),
   ]);
   _searchIndex = [
@@ -4599,9 +4741,12 @@ window.SMA = (() => {
     await saveList(KEY.NOTIFICATIONS, notifs);
     return notif;
   }
-  async function getStudentNotifications(studentClass) {
+  async function getStudentNotifications(studentClass, studentId) {
     const notifs = await getNotifications();
-    return notifs.filter(n => !n.targetClass || n.targetClass === studentClass);
+    return notifs.filter(n => {
+      if (n.targetStudentId) return n.targetStudentId === studentId;
+      return !n.targetClass || n.targetClass === studentClass;
+    });
   }
 
   /* ═══════════ PAYMENTS ═══════════ */
