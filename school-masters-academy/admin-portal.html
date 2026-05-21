@@ -1805,6 +1805,7 @@
               <div style="display:flex;gap:.5rem">
                 <select class="form-control" style="width:auto;padding:.4rem .8rem;font-size:.82rem" id="studentClassFilter" onchange="filterStudents()">
                   <option value="">All Classes</option>
+                  <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
                   <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option><option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
                   <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
                   <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
@@ -1859,12 +1860,17 @@
         <!-- ══ CLASSES ══ -->
         <div class="tab-page" id="page-classes">
           <div class="section-hdr">
-            <div><h2>🏛️ Class Groups</h2><p>View student lists by class – Primary 1 to SSS 3</p></div>
+            <div><h2>🏛️ Class Groups</h2><p>View student lists by class – Nursery 1 to SSS 3</p></div>
           </div>
 
           <!-- Mobile: horizontal scrollable pill bar (shown ≤768px) -->
           <div class="cls-mobile-bar">
             <div class="cls-mobile-bar-inner">
+              <span class="cls-mobile-section-label">Pre-Primary</span>
+              <div class="class-pill" onclick="selectClass('Nursery 1',this)">NUR1</div>
+              <div class="class-pill" onclick="selectClass('Nursery 2',this)">NUR2</div>
+              <div class="class-pill" onclick="selectClass('KG 1',this)">KG1</div>
+              <div class="class-pill" onclick="selectClass('KG 2',this)">KG2</div>
               <span class="cls-mobile-section-label">Primary</span>
               <div class="class-pill active" onclick="selectClass('Primary 1',this)">P1</div>
               <div class="class-pill" onclick="selectClass('Primary 2',this)">P2</div>
@@ -1888,6 +1894,15 @@
             <div class="card cls-sidebar" style="height:fit-content">
               <div class="card-header"><div class="card-title">Select Class</div></div>
               <div class="card-body">
+                <div class="class-group">
+                  <div class="class-group-label">Pre-Primary</div>
+                  <div class="class-pills">
+                    <div class="class-pill" onclick="selectClass('Nursery 1',this)">Nursery 1</div>
+                    <div class="class-pill" onclick="selectClass('Nursery 2',this)">Nursery 2</div>
+                    <div class="class-pill" onclick="selectClass('KG 1',this)">KG 1</div>
+                    <div class="class-pill" onclick="selectClass('KG 2',this)">KG 2</div>
+                  </div>
+                </div>
                 <div class="class-group">
                   <div class="class-group-label">Primary Section</div>
                   <div class="class-pills">
@@ -1973,6 +1988,7 @@
               <div class="search-bar"><span>🔍</span><input type="text" placeholder="Search by student name..." id="feeSearch" oninput="filterFees()"></div>
               <select class="form-control" style="width:auto;padding:.5rem .8rem;font-size:.82rem" id="feeClassFilter" onchange="filterFees()">
                 <option value="">All Classes</option>
+                <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
                 <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option><option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
                 <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
                 <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
@@ -2691,6 +2707,7 @@
         <div class="form-group"><label class="form-label">Class <span>*</span></label>
           <select class="form-control" id="sClass">
             <option value="">Select class</option>
+            <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
             <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option><option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
             <option>JSS 1</option><option>JSS 2</option><option>JSS 3</option>
             <option>SSS 1</option><option>SSS 2</option><option>SSS 3</option>
@@ -2765,6 +2782,9 @@
           <label class="form-label">Assigned Class</label>
           <select class="form-control" id="tClass">
             <option value="">Select class</option>
+            <optgroup label="Pre-Primary">
+              <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
+            </optgroup>
             <optgroup label="Primary">
               <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
               <option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
@@ -3117,6 +3137,9 @@
           <label class="form-label">Select Class to Promote <span style="color:var(--crimson)">*</span></label>
           <select class="form-control" id="promoteFromClass" onchange="previewPromotion()" style="font-size:.9rem">
             <option value="">— Choose a class —</option>
+            <optgroup label="Pre-Primary">
+              <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
+            </optgroup>
             <optgroup label="Primary">
               <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
               <option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
@@ -4595,6 +4618,7 @@ async function removeStudent(id) {
 
 /* ════ PROMOTE STUDENTS ════ */
 const PROMOTION_MAP = {
+  'Nursery 1':'Nursery 2','Nursery 2':'KG 1','KG 1':'KG 2','KG 2':'Primary 1',
   'Primary 1':'Primary 2','Primary 2':'Primary 3','Primary 3':'Primary 4',
   'Primary 4':'Primary 5','Primary 5':'Primary 6','Primary 6':'JSS 1',
   'JSS 1':'JSS 2','JSS 2':'JSS 3','JSS 3':'SSS 1',
@@ -4973,6 +4997,8 @@ function selectClass(cls, el) {
 function _pillMatchesCls(pillText, cls) {
   // Sidebar: 'Prim 1' -> 'Primary 1', mobile: 'P1'->'Primary 1', 'JSS1'->'JSS 1', 'SSS1'->'SSS 1'
   const map = {
+    'Nursery 1':'Nursery 1','Nursery 2':'Nursery 2','KG 1':'KG 1','KG 2':'KG 2',
+    'NUR1':'Nursery 1','NUR2':'Nursery 2','KG1':'KG 1','KG2':'KG 2',
     'Prim 1':'Primary 1','Prim 2':'Primary 2','Prim 3':'Primary 3',
     'Prim 4':'Primary 4','Prim 5':'Primary 5','Prim 6':'Primary 6',
     'JSS 1':'JSS 1','JSS 2':'JSS 2','JSS 3':'JSS 3',
@@ -6068,7 +6094,8 @@ async function runGlobalSearch() {
 /* ════════════════════════════════════════════
    ATTENDANCE
 ════════════════════════════════════════════ */
-const CLASSES = ['Primary 1','Primary 2','Primary 3','Primary 4','Primary 5','Primary 6',
+const CLASSES = ['Nursery 1','Nursery 2','KG 1','KG 2',
+                 'Primary 1','Primary 2','Primary 3','Primary 4','Primary 5','Primary 6',
                  'JSS 1','JSS 2','JSS 3','SSS 1','SSS 2','SSS 3'];
 let _attClass = 'Primary 1';
 let _attRecords = {}; // { studentId: 'present'|'absent'|'late' }
@@ -6856,6 +6883,7 @@ var IMPORT_STUDENT_COLS = ['FirstName','LastName','Class','Gender','DOB','Guardi
 var IMPORT_TEACHER_COLS = ['FirstName','LastName','Type','Subjects','Class','Gender','Phone','Email'];
 
 var VALID_CLASSES = [
+  'Nursery 1','Nursery 2','KG 1','KG 2',
   'Primary 1','Primary 2','Primary 3','Primary 4','Primary 5','Primary 6',
   'JSS 1','JSS 2','JSS 3','SSS 1','SSS 2','SSS 3'
 ];

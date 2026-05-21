@@ -911,7 +911,7 @@ window.SMA = (() => {
         term:       'Third Term',
         email:      'admin@schoolmasters.ng',
         phone:      '+234 801 234 5678',
-        fees: { Primary: 115000, JSS: 195000, SSS: 195000, ExamFee: 5000, LatePenalty: 2500 }
+        fees: { PrePrimary: 115000, Primary: 115000, JSS: 195000, SSS: 195000, ExamFee: 5000, LatePenalty: 2500 }
       });
 
       // Empty lists
@@ -982,9 +982,9 @@ window.SMA = (() => {
     const students = await getStudents();
     // Timestamp + random suffix avoids collisions after deletions (length-based index reuses IDs).
     const id = 'STU_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-    const section = data.class.startsWith('Primary') ? 'Primary' : data.class.startsWith('JSS') ? 'JSS' : 'SSS';
+    const section = (data.class.startsWith('Nursery') || data.class.startsWith('KG')) ? 'PrePrimary' : data.class.startsWith('Primary') ? 'Primary' : data.class.startsWith('JSS') ? 'JSS' : 'SSS';
     const settings = await getSettings();
-    const feeDue = settings.fees[section] || (section === 'Primary' ? 115000 : 195000);
+    const feeDue = settings.fees[section] || (section === 'PrePrimary' ? 115000 : section === 'Primary' ? 115000 : 195000);
     const username = (data.firstName.toLowerCase() + '.' + data.lastName.toLowerCase()).replace(/\s+/g, '');
     const plainPassword = 'sma@' + data.firstName.toLowerCase().replace(/\s+/g, '');
     const password = await hashPassword(plainPassword);
@@ -1987,6 +1987,20 @@ window.SMA = (() => {
           <div id="clearWorkContent"></div>
         </div>
 
+        <!-- DELETE REQUESTS -->
+        <div class="tab-page" id="tab-delete-requests">
+          <div class="section-hdr" style="flex-wrap:wrap;gap:.75rem">
+            <div>
+              <h2 style="margin-bottom:.2rem">✋ Student Delete Requests</h2>
+              <p style="font-size:.82rem;color:var(--muted);font-weight:400">Students can request removal of notes, assignments, or classwork. Only <strong>you</strong> can approve or decline your own content.</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="loadDeleteRequests()">🔄 Refresh</button>
+          </div>
+          <div id="deleteRequestsList">
+            <div class="empty-state"><div class="icon">✋</div><h3>No delete requests yet</h3><p>When students request removal of your content, it will appear here for your review.</p></div>
+          </div>
+        </div>
+
         <!-- SECONDARY ONLY: SUBJECTS MANAGER -->
         <div class="tab-page" id="tab-subjects">
           <div class="section-hdr">
@@ -2651,7 +2665,8 @@ window.SMA = (() => {
 // ═══════════════════════════════════════════
 // DATA & STATE  (all reads/writes via SMA backend)
 // ═══════════════════════════════════════════
-const PRIMARY_CLASSES = ['Nursery 1','Nursery 2','Nursery 3','Primary 1','Primary 2','Primary 3','Primary 4','Primary 5','Primary 6'];
+const PRE_PRIMARY_CLASSES = ['Nursery 1','Nursery 2','KG 1','KG 2'];
+const PRIMARY_CLASSES = [...PRE_PRIMARY_CLASSES,'Primary 1','Primary 2','Primary 3','Primary 4','Primary 5','Primary 6'];
 const SECONDARY_CLASSES = ['JSS 1','JSS 2','JSS 3','SSS 1','SSS 2','SSS 3'];
 const ALL_CLASSES = [...PRIMARY_CLASSES, ...SECONDARY_CLASSES];
 
@@ -2961,6 +2976,8 @@ async function initPortal() {
   if(currentTeacher.type === 'secondary') renderSubjects();
   startSchedulerPolling(); // Auto-publish scheduled content
   cleanupExpiredTeacherContent(); // Auto-delete past-deadline content
+  _pollDeleteRequestBadge(); // Show pending-requests badge immediately
+  setInterval(_pollDeleteRequestBadge, 60000); // Re-check every minute
 }
 
 function buildNav() {
@@ -2983,6 +3000,7 @@ function buildNav() {
     <button class="nav-item" onclick="showTab('announcements',this)"><span class="nav-icon">📢</span>Announcements</button>
     <div class="nav-section-label">Manage</div>
     <button class="nav-item" onclick="showTab('clear-work',this)"><span class="nav-icon">🗑️</span>Clear Outdated Work</button>
+    <button class="nav-item" onclick="showTab('delete-requests',this);loadDeleteRequests()"><span class="nav-icon">✋</span>Delete Requests<span class="nav-badge" id="navDelReqBadge" style="display:none;background:#dc2626"></span></button>
     <button class="nav-item" onclick="showTab('notifications',this)"><span class="nav-icon">🔔</span>Notifications<span class="nav-badge" id="navNotifBadge">2</span></button>
     <button class="nav-item" onclick="showTab('profile',this)"><span class="nav-icon">👤</span>My Profile</button>
   `;
@@ -3003,6 +3021,7 @@ function buildNav() {
     <button class="nav-item" onclick="showTab('announcements',this)"><span class="nav-icon">📢</span>Announcements</button>
     <div class="nav-section-label">Manage</div>
     <button class="nav-item" onclick="showTab('clear-work',this)"><span class="nav-icon">🗑️</span>Clear Outdated Work</button>
+    <button class="nav-item" onclick="showTab('delete-requests',this);loadDeleteRequests()"><span class="nav-icon">✋</span>Delete Requests<span class="nav-badge" id="navDelReqBadge2" style="display:none;background:#dc2626"></span></button>
     <button class="nav-item" onclick="showTab('notifications',this)"><span class="nav-icon">🔔</span>Notifications<span class="nav-badge" id="navNotifBadge">2</span></button>
     <button class="nav-item" onclick="showTab('profile',this)"><span class="nav-icon">👤</span>My Profile</button>
   `;
@@ -3019,7 +3038,7 @@ function showTab(id, navEl) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   if(navEl) navEl.classList.add('active');
-  const titles = {'dashboard':'Dashboard','upload':'Upload Content','my-content':'My Uploads','lesson-plans':'Lesson Plans & Notes','timetable':'My Timetable','students':'My Students','grades':'Grades & Assessment','exam-results':'Examination Results','notifications':'Notifications','announcements':'Announcements','profile':'My Profile','clear-work':'Clear Outdated Work','subjects':'My Subjects','attendance':'Attendance','online-exam':'Online Examinations'};
+  const titles = {'dashboard':'Dashboard','upload':'Upload Content','my-content':'My Uploads','lesson-plans':'Lesson Plans & Notes','timetable':'My Timetable','students':'My Students','grades':'Grades & Assessment','exam-results':'Examination Results','notifications':'Notifications','announcements':'Announcements','profile':'My Profile','clear-work':'Clear Outdated Work','delete-requests':'Student Delete Requests','subjects':'My Subjects','attendance':'Attendance','online-exam':'Online Examinations'};
   document.getElementById('topbarTitle').textContent = titles[id]||id;
   document.getElementById('topbarBreadcrumb').textContent = 'Home > '+(titles[id]||id);
   closeSidebar();
@@ -3537,6 +3556,9 @@ async function publishScheduledItem(itemId) {
       teacher: teacherDisplayName, teacherUsername: item.teacher,
       targetClass: cls, term: termLabel,
       content: bodyPlain, preview: bodyPlain.substring(0, 200),
+      fullContent: item.body || '',
+      ...(item.attachedDocs   && item.attachedDocs.length   ? { attachedDocs:   item.attachedDocs   } : {}),
+      ...(item.attachedImages && item.attachedImages.length ? { attachedImages: item.attachedImages } : {}),
     };
     if (item.type === 'assignment') {
       await SMA.addAssignment({ ...sharedData, description: bodyPlain, dueDate: item.dueDate || 'TBD' });
@@ -3683,6 +3705,9 @@ async function submitContent(mode) {
         title, subject, teacher: teacherDisplayName,
         teacherUsername: currentTeacher.username, targetClass: cls, term: termLabel,
         content: bodyPlain, preview: bodyPlain.substring(0, 200),
+        fullContent: bodyHTML,
+        ...(attachedDocs.length   ? { attachedDocs }   : {}),
+        ...(attachedImages.length ? { attachedImages } : {}),
       };
       if (selectedContentType === 'assignment') {
         await SMA.addAssignment({ ...sharedData, description: bodyPlain, dueDate: dueDate || 'TBD' });
@@ -3794,6 +3819,7 @@ async function renderContentList() {
       </div>
       <div class="content-item-actions">
         ${isScheduled?`<button class="btn btn-green btn-xs" onclick="publishScheduledItemNow(${item.id})" title="Publish now">📤 Publish Now</button><button class="btn btn-xs btn-danger" onclick="cancelScheduled(${item.id})" title="Cancel schedule">✕ Cancel</button>`:''}
+        <button class="btn btn-xs btn-danger" onclick="deleteContentItem(${item.id})" title="Delete upload" style="margin-top:.3rem">🗑️ Delete</button>
       </div>
     </div>`;
   }).join('');
@@ -3812,6 +3838,43 @@ async function cancelScheduled(itemId) {
   await setContentItems(all);
   renderContentList();
   showToast('📋 Schedule cancelled — saved as draft', 'info');
+}
+
+async function deleteContentItem(itemId) {
+  if (!confirm('Delete this upload? This cannot be undone.')) return;
+
+  const all = await getContentItems();
+  const item = all.find(c => c.id === itemId);
+  if (!item) return;
+
+  // Delete any attached files from Firebase Storage
+  const filesToDelete = [
+    ...(item.attachedDocs   || []).map(d => d.path),
+    ...(item.attachedImages || []).map(i => i.path),
+  ].filter(Boolean);
+  for (const path of filesToDelete) {
+    try { await storage.ref(path).delete(); } catch(e) { /* already gone */ }
+  }
+
+  // Remove from teacher's local content store
+  await setContentItems(all.filter(c => c.id !== itemId));
+
+  // Also remove from shared SMA backend so students no longer see it
+  try { await SMA.removeAssignment(itemId); } catch(e) {}
+  try { await SMA.removeClassNote(itemId);  } catch(e) {}
+
+  // Animate card out then re-render
+  const card = document.getElementById(`ci-${itemId}`);
+  if (card) {
+    card.style.transition = 'opacity .25s, transform .25s';
+    card.style.opacity = '0';
+    card.style.transform = 'translateX(16px)';
+    setTimeout(() => { renderContentList(); renderDashboard(); }, 260);
+  } else {
+    renderContentList();
+    renderDashboard();
+  }
+  showToast('🗑️ Upload deleted successfully', 'success');
 }
 
 async function viewContent(id){
@@ -8268,8 +8331,10 @@ document.addEventListener('keydown', e => {
         <label class="form-label">Class Name <span style="color:var(--danger)">*</span></label>
         <select class="form-control" id="newClassNameSel" onchange="if(this.value){document.getElementById('newClassName').value=this.value}">
           <option value="">Choose from standard list…</option>
+          <optgroup label="Pre-Primary">
+            <option>Nursery 1</option><option>Nursery 2</option><option>KG 1</option><option>KG 2</option>
+          </optgroup>
           <optgroup label="Primary">
-            <option>Nursery 1</option><option>Nursery 2</option><option>Nursery 3</option>
             <option>Primary 1</option><option>Primary 2</option><option>Primary 3</option>
             <option>Primary 4</option><option>Primary 5</option><option>Primary 6</option>
           </optgroup>
@@ -8780,6 +8845,276 @@ async function saveDomainRatings() {
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = '💾 Save Domains';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STUDENT DELETE REQUESTS  –  Teacher Portal
+   ═══════════════════════════════════════════════════════════════
+   Flow:
+     1. Student presses "Request Delete" on a note / assignment / classwork.
+     2. A document is written to Firestore collection `delete_requests`.
+     3. Teacher sees a red badge on "Delete Requests" in the sidebar.
+     4. Teacher opens the tab, reviews each request, and either:
+          • Approves  → item deleted from SMA backend + teacher tp_content store.
+          • Declines  → student is notified with the optional reason.
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── Badge helper (updates both primary & secondary nav badges) ──────────────
+function _updateDelReqBadge(count) {
+  ['navDelReqBadge', 'navDelReqBadge2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (count > 0) { el.textContent = count; el.style.display = ''; }
+    else            { el.style.display = 'none'; }
+  });
+}
+
+async function _pollDeleteRequestBadge() {
+  if (!currentTeacher) return;
+  try {
+    const db = firebase.firestore();
+    const snap = await db.collection('delete_requests')
+      .where('teacherUsername', '==', currentTeacher.username)
+      .where('status', '==', 'pending')
+      .get();
+    _updateDelReqBadge(snap.size);
+  } catch(e) { /* silent – network or rules issue */ }
+}
+
+// ── Main loader: renders the full requests list ──────────────────────────────
+async function loadDeleteRequests() {
+  const container = document.getElementById('deleteRequestsList');
+  if (!container) return;
+  container.innerHTML = `
+    <div style="padding:2.5rem;text-align:center;color:var(--muted);font-size:.88rem">
+      <div style="font-size:1.5rem;margin-bottom:.5rem">⏳</div>Loading requests…
+    </div>`;
+
+  try {
+    const db = firebase.firestore();
+    const snap = await db.collection('delete_requests')
+      .where('teacherUsername', '==', currentTeacher.username)
+      .orderBy('requestedAt', 'desc')
+      .get();
+
+    const requests = [];
+    snap.forEach(doc => requests.push({ _docId: doc.id, ...doc.data() }));
+
+    // Update badge to reflect only the pending ones
+    _updateDelReqBadge(requests.filter(r => r.status === 'pending').length);
+
+    if (!requests.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">✋</div>
+          <h3>No delete requests yet</h3>
+          <p>When students request removal of your content, it will appear here.</p>
+        </div>`;
+      return;
+    }
+
+    const typeLabel = t =>
+      t === 'note'       ? '📚 Class Note'  :
+      t === 'assignment' ? '📝 Assignment'  : '📋 Classwork';
+
+    const statusPill = s =>
+      s === 'pending'  ? `<span style="background:var(--warning-bg);color:var(--warning-text);border:1px solid #fde68a;border-radius:20px;padding:2px 11px;font-size:.71rem;font-weight:700">⏳ Pending</span>` :
+      s === 'approved' ? `<span style="background:var(--success-bg);color:var(--success-text);border:1px solid #6ee7b7;border-radius:20px;padding:2px 11px;font-size:.71rem;font-weight:700">✅ Approved</span>` :
+                         `<span style="background:var(--danger-bg);color:var(--danger-text);border:1px solid #fca5a5;border-radius:20px;padding:2px 11px;font-size:.71rem;font-weight:700">❌ Declined</span>`;
+
+    const fmtDate = iso => {
+      if (!iso) return '';
+      try { return new Date(iso).toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
+      catch(e) { return iso; }
+    };
+
+    container.innerHTML = requests.map(r => {
+      // Escape values used inside onclick attribute strings
+      const safeDocId  = (r._docId      || '').replace(/'/g, "\\'");
+      const safeStudId = (r.studentId   || '').replace(/'/g, "\\'");
+      const safeStudNm = (r.studentName || '').replace(/'/g, "\\'");
+      const safeItemId = (String(r.itemId || '')).replace(/'/g, "\\'");
+      const safeType   = (r.itemType    || '').replace(/'/g, "\\'");
+
+      return `
+      <div id="delreq-${r._docId}"
+           style="background:var(--white);border:1px solid var(--border);border-radius:14px;
+                  padding:1.25rem 1.4rem;margin-bottom:.85rem;
+                  border-left:4px solid ${r.status==='pending'?'var(--warning)':r.status==='approved'?'var(--success)':'var(--danger)'};
+                  transition:box-shadow .2s">
+        <!-- Top row: title + badges -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;margin-bottom:.55rem">
+              <span style="font-weight:700;font-size:.93rem;color:var(--text)">${r.itemTitle || r.itemType || 'Content'}</span>
+              <span style="font-size:.7rem;background:var(--info-bg);color:var(--info-text);border:1px solid #bfdbfe;border-radius:20px;padding:2px 9px;font-weight:700">${typeLabel(r.itemType)}</span>
+              ${statusPill(r.status)}
+            </div>
+            <!-- Meta row -->
+            <div style="display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted);align-items:center">
+              <span>👤 <strong style="color:var(--text)">${r.studentName || r.studentId || '—'}</strong></span>
+              ${r.studentClass ? `<span>🏫 ${r.studentClass}</span>` : ''}
+              <span>📅 ${fmtDate(r.requestedAt)}</span>
+              ${r.resolvedAt ? `<span style="color:var(--muted)">Resolved: ${fmtDate(r.resolvedAt)}</span>` : ''}
+            </div>
+            ${r.declineReason ? `
+            <div style="margin-top:.6rem;font-size:.8rem;color:var(--danger-text);
+                        background:var(--danger-bg);border-radius:8px;padding:.4rem .85rem;
+                        border-left:3px solid var(--danger)">
+              <strong>Decline reason:</strong> ${r.declineReason}
+            </div>` : ''}
+          </div>
+          <!-- Action buttons (only for pending) -->
+          ${r.status === 'pending' ? `
+          <div style="display:flex;gap:.5rem;flex-shrink:0;align-items:center;flex-wrap:wrap">
+            <button
+              onclick="approveDeleteRequest('${safeDocId}','${safeType}','${safeItemId}','${safeStudId}','${safeStudNm}')"
+              style="background:var(--success);color:#fff;border:none;border-radius:9px;
+                     padding:.48rem 1.15rem;font-size:.82rem;font-weight:700;cursor:pointer;
+                     transition:background .18s,transform .15s;font-family:'Plus Jakarta Sans',sans-serif"
+              onmouseover="this.style.background='#047857';this.style.transform='translateY(-1px)'"
+              onmouseout="this.style.background='var(--success)';this.style.transform='none'">
+              ✅ Approve
+            </button>
+            <button
+              onclick="declineDeleteRequest('${safeDocId}','${safeStudId}','${safeType}')"
+              style="background:transparent;color:var(--danger);border:1.5px solid var(--danger);
+                     border-radius:9px;padding:.48rem 1.15rem;font-size:.82rem;font-weight:700;
+                     cursor:pointer;transition:background .18s,color .18s,transform .15s;
+                     font-family:'Plus Jakarta Sans',sans-serif"
+              onmouseover="this.style.background='var(--danger)';this.style.color='#fff';this.style.transform='translateY(-1px)'"
+              onmouseout="this.style.background='transparent';this.style.color='var(--danger)';this.style.transform='none'">
+              ❌ Decline
+            </button>
+          </div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+  } catch(e) {
+    console.error('loadDeleteRequests', e);
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">⚠️</div>
+        <h3>Could not load requests</h3>
+        <p>${e.message || 'Check your Firestore security rules.'}</p>
+      </div>`;
+  }
+}
+
+// ── Approve: delete the item for real, notify student ───────────────────────
+async function approveDeleteRequest(docId, itemType, itemId, studentId, studentName) {
+  if (!confirm(`Approve deletion of this ${itemType} for ${studentName}?\n\nThe item will be permanently removed for all students in the class.`)) return;
+
+  const db = firebase.firestore();
+  // Disable the approve button immediately to prevent double-clicks
+  const card = document.getElementById(`delreq-${docId}`);
+  if (card) card.style.opacity = '.6';
+
+  try {
+    const numId = Number(itemId) || itemId; // SMA stores IDs as numbers
+
+    // 1. Remove from the shared SMA backend (students will no longer see it)
+    try { await SMA.removeAssignment(numId); } catch(e) {}
+    try { await SMA.removeClassNote(numId);  } catch(e) {}
+
+    // 2. Remove from this teacher's private tp_content store
+    //    and delete any attached files from Firebase Storage
+    const contentItems = await getContentItems().catch(() => []);
+    const target = contentItems.find(c => String(c.id) === String(itemId));
+    if (target) {
+      const filePaths = [
+        ...(target.attachedDocs   || []).map(d => d.path),
+        ...(target.attachedImages || []).map(i => i.path),
+      ].filter(Boolean);
+      for (const path of filePaths) {
+        try { await storage.ref(path).delete(); } catch(e) { /* already gone */ }
+      }
+      await setContentItems(contentItems.filter(c => String(c.id) !== String(itemId)));
+    }
+
+    // 3. Mark the request as approved in Firestore
+    await db.collection('delete_requests').doc(docId).update({
+      status:     'approved',
+      resolvedAt: new Date().toISOString(),
+      resolvedBy: currentTeacher.username,
+    });
+
+    // 4. Notify the student via the SMA notifications feed
+    try {
+      await SMA.addNotification({
+        type:            'delete_approved',
+        targetClass:     null,
+        targetStudentId: studentId,
+        title:           '🗑️ Your deletion request was approved',
+        summary:         `Your request to remove a ${itemType} has been approved. The item has been deleted.`,
+        content:         `Your request to remove a ${itemType} has been approved and the item has been permanently deleted.`,
+        teacher:         currentTeacher.name || currentTeacher.username,
+        subject:         'Content Management',
+        term:            '',
+      });
+    } catch(e) { /* notification is best-effort */ }
+
+    showToast(`✅ Deletion approved — the ${itemType} has been removed for all students.`, 'success');
+    await SMA.logActivity(`Approved student delete request for a ${itemType}`, '✅', 'success').catch(()=>{});
+    loadDeleteRequests();
+    renderContentList();
+    renderDashboard();
+
+  } catch(e) {
+    console.error('approveDeleteRequest', e);
+    if (card) card.style.opacity = '1';
+    showToast('❌ Failed to approve: ' + (e.message || 'Unknown error'), 'error');
+  }
+}
+
+// ── Decline: mark declined, give optional reason, notify student ─────────────
+async function declineDeleteRequest(docId, studentId, itemType) {
+  const reason = prompt(
+    'Reason for declining (optional — the student will see this):\n\nLeave blank and press OK to decline without a reason.',
+    ''
+  );
+  if (reason === null) return; // user pressed Cancel
+
+  const db = firebase.firestore();
+  const card = document.getElementById(`delreq-${docId}`);
+  if (card) card.style.opacity = '.6';
+
+  try {
+    await db.collection('delete_requests').doc(docId).update({
+      status:        'declined',
+      declineReason: reason.trim() || '',
+      resolvedAt:    new Date().toISOString(),
+      resolvedBy:    currentTeacher.username,
+    });
+
+    // Notify student
+    try {
+      await SMA.addNotification({
+        type:            'delete_declined',
+        targetClass:     null,
+        targetStudentId: studentId,
+        title:           '🚫 Your deletion request was declined',
+        summary:         reason.trim()
+          ? `Reason: ${reason.trim()}`
+          : `Your request to delete a ${itemType} was not approved by your teacher.`,
+        content:         reason.trim()
+          ? `Your request to delete a ${itemType} was declined by your teacher. Reason: ${reason.trim()}`
+          : `Your request to delete a ${itemType} was not approved by your teacher.`,
+        teacher:         currentTeacher.name || currentTeacher.username,
+        subject:         'Content Management',
+        term:            '',
+      });
+    } catch(e) { /* best-effort */ }
+
+    showToast('Request declined. The student has been notified.', 'info');
+    loadDeleteRequests();
+
+  } catch(e) {
+    console.error('declineDeleteRequest', e);
+    if (card) card.style.opacity = '1';
+    showToast('❌ Failed to decline: ' + (e.message || 'Unknown error'), 'error');
   }
 }
 

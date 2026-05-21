@@ -260,6 +260,7 @@
     .save-banner{display:none;align-items:center;gap:7px;background:var(--success-bg);color:var(--success-text);padding:.6rem 1rem;border-radius:9px;font-size:.83rem;font-weight:600;margin-top:.9rem}
     .save-banner.show{display:flex}
 
+
     /* NOTIFICATIONS */
     .notif-item{display:flex;gap:.9rem;padding:.85rem 0;border-bottom:1px solid var(--border)}
     .notif-item:last-child{border-bottom:none}
@@ -947,6 +948,7 @@
 
     /* ═══════════ PREMIUM SCROLL ═══════════ */
     html { scroll-behavior: smooth; }
+
 
     .page-content {
       scroll-behavior: smooth;
@@ -1671,6 +1673,8 @@
             Profile saved successfully!
           </div>
         </div>
+          </div>
+        </div>
 
       </div><!-- /page-content -->
     </div><!-- /main-content -->
@@ -1813,6 +1817,18 @@
     </div>
     <div class="note-reader-meta" id="noteModalMeta"></div>
     <div class="note-reader-body" id="noteModalContent"></div>
+  </div>
+</div>
+
+<!-- ASSIGNMENT DETAIL MODAL -->
+<div class="modal-overlay note-reader-overlay" id="assignDetailModal" onclick="if(event.target===this)closeAssignDetailModal()">
+  <div class="modal-box note-reader-box">
+    <div class="modal-head">
+      <h3 id="assignDetailTitle">Assignment</h3>
+      <button class="modal-close" onclick="closeAssignDetailModal()">×</button>
+    </div>
+    <div class="note-reader-meta" id="assignDetailMeta"></div>
+    <div class="note-reader-body" id="assignDetailContent"></div>
   </div>
 </div>
 
@@ -2423,11 +2439,127 @@ async function openNote(id) {
     n.teacher ? `<span style="display:flex;align-items:center;gap:4px">👩‍🏫 <strong>${n.teacher}</strong></span>` : '',
     n.date    ? `<span>${n.date}</span>` : '',
   ].filter(Boolean).join('');
-  document.getElementById('noteModalContent').innerHTML = (n.content||n.full||n.preview||'').replace(/\n/g,'<br>');
+
+  const contentEl = document.getElementById('noteModalContent');
+
+  // Use fullContent (teacher's exact rich HTML with all styles intact).
+  // Fall back to plain-text auto-formatter only if no HTML is available.
+  const rich = n.fullContent || n.full || '';
+  const plain = n.content || n.preview || '';
+  const hasHTML = /<[a-z][\s\S]*>/i.test(rich);
+  contentEl.innerHTML = hasHTML ? rich : _formatPlainNote(plain || rich);
+
+  // Attached images
+  let imgEl = document.getElementById('noteModalImages');
+  if (!imgEl) { imgEl = document.createElement('div'); imgEl.id = 'noteModalImages'; contentEl.after(imgEl); }
+  imgEl.innerHTML = (n.attachedImages && n.attachedImages.length)
+    ? `<div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border)">
+         <div style="font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">\u{1f4f7} Attached Images</div>
+         <div style="display:flex;flex-wrap:wrap;gap:.5rem">${n.attachedImages.map(img=>
+           `<a href="${img.url}" target="_blank" rel="noopener" title="${img.name}" style="display:block;border-radius:8px;overflow:hidden;border:1.5px solid var(--border)">
+              <img src="${img.url}" alt="${img.name}" style="width:120px;height:90px;object-fit:cover;display:block"></a>`
+         ).join('')}</div></div>` : '';
+
+  // Attached documents
+  let docsEl = document.getElementById('noteModalDocs');
+  if (!docsEl) { docsEl = document.createElement('div'); docsEl.id = 'noteModalDocs'; imgEl.after(docsEl); }
+  docsEl.innerHTML = (n.attachedDocs && n.attachedDocs.length)
+    ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+         <div style="font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">\u{1f4ce} Attached Files</div>
+         <div style="display:flex;flex-direction:column;gap:.4rem">${n.attachedDocs.map(doc=>
+           `<a href="${doc.url}" target="_blank" rel="noopener" download="${doc.name}"
+               style="display:inline-flex;align-items:center;gap:8px;padding:.5rem .9rem;background:#f3f4f6;border:1px solid var(--border);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--navy);text-decoration:none">
+               \u{1f4c4} ${doc.name}<span style="color:var(--muted);font-weight:400;font-size:.75rem">${doc.size||''}</span>
+               <span style="margin-left:auto;font-size:.72rem;background:var(--navy);color:#fff;padding:2px 8px;border-radius:10px">Download</span></a>`
+         ).join('')}</div></div>` : '';
+
   document.getElementById('noteModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  contentEl.scrollTop = 0;
 }
 function closeNoteModal() { document.getElementById('noteModal').classList.remove('open'); document.body.style.overflow = ''; }
+
+async function openAssignDetail(id) {
+  const all = await getMyAssignments();
+  const a = all.find(a => String(a.id) === String(id));
+  if (!a) return;
+
+  document.getElementById('assignDetailTitle').textContent = a.title || a.subject || 'Assignment';
+
+  document.getElementById('assignDetailMeta').innerHTML = [
+    a.subject  ? `<span class="meta-tag">📝 ${a.subject}</span>` : '',
+    a.term     ? `<span class="meta-tag">🗓 ${a.term}</span>` : '',
+    a.teacher  ? `<span style="display:flex;align-items:center;gap:4px">👩‍🏫 <strong>${a.teacher}</strong></span>` : '',
+    a.dueDate  ? `<span>⏰ Due: ${a.dueDate}</span>` : '',
+  ].filter(Boolean).join('');
+
+  const contentEl = document.getElementById('assignDetailContent');
+  const rich = a.fullContent || a.full || '';
+  const plain = a.description || a.content || a.preview || '';
+  const hasHTML = /<[a-z][\s\S]*>/i.test(rich);
+  contentEl.innerHTML = hasHTML ? rich : _formatPlainNote(plain || rich);
+
+  // Attached images
+  let imgEl = document.getElementById('assignDetailImages');
+  if (!imgEl) { imgEl = document.createElement('div'); imgEl.id = 'assignDetailImages'; contentEl.after(imgEl); }
+  imgEl.innerHTML = (a.attachedImages && a.attachedImages.length)
+    ? `<div style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border)">
+         <div style="font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">📷 Attached Images</div>
+         <div style="display:flex;flex-wrap:wrap;gap:.5rem">${a.attachedImages.map(img =>
+           `<a href="${img.url}" target="_blank" rel="noopener" title="${img.name}" style="display:block;border-radius:8px;overflow:hidden;border:1.5px solid var(--border)">
+              <img src="${img.url}" alt="${img.name}" style="width:120px;height:90px;object-fit:cover;display:block"></a>`
+         ).join('')}</div></div>` : '';
+
+  // Attached documents
+  let docsEl = document.getElementById('assignDetailDocs');
+  if (!docsEl) { docsEl = document.createElement('div'); docsEl.id = 'assignDetailDocs'; imgEl.after(docsEl); }
+  docsEl.innerHTML = (a.attachedDocs && a.attachedDocs.length)
+    ? `<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+         <div style="font-size:.78rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">📎 Attached Files</div>
+         <div style="display:flex;flex-direction:column;gap:.4rem">${a.attachedDocs.map(doc =>
+           `<a href="${doc.url}" target="_blank" rel="noopener" download="${doc.name}"
+               style="display:inline-flex;align-items:center;gap:8px;padding:.5rem .9rem;background:#f3f4f6;border:1px solid var(--border);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--navy);text-decoration:none">
+               📄 ${doc.name}<span style="color:var(--muted);font-weight:400;font-size:.75rem">${doc.size||''}</span>
+               <span style="margin-left:auto;font-size:.72rem;background:var(--navy);color:#fff;padding:2px 8px;border-radius:10px">Download</span></a>`
+         ).join('')}</div></div>` : '';
+
+  document.getElementById('assignDetailModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  contentEl.scrollTop = 0;
+}
+function closeAssignDetailModal() { document.getElementById('assignDetailModal').classList.remove('open'); document.body.style.overflow = ''; }
+
+// Auto-format plain text into readable HTML (fallback for older notes with no rich HTML).
+function _formatPlainNote(text) {
+  if (!text || !text.trim()) return '<p style="color:var(--muted);font-style:italic">No content.</p>';
+  const lines = text.replace(/\r\n/g,'\n').split('\n');
+  const out = []; let inUL=false, inOL=false;
+  const closeList = () => { if(inUL){out.push('</ul>');inUL=false;} if(inOL){out.push('</ol>');inOL=false;} };
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const fmt = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/__(.+?)__/g,'<u>$1</u>');
+  lines.forEach(raw => {
+    const line = raw.trim();
+    if (!line) { closeList(); return; }
+    const olMatch = line.match(/^(\d+)[.)]\s+(.+)$/);
+    if (olMatch) {
+      if(inUL){out.push('</ul>');inUL=false;} if(!inOL){out.push('<ol style="padding-left:1.4em;margin:.6em 0">');inOL=true;}
+      out.push(`<li style="margin-bottom:.35em">${fmt(olMatch[2])}</li>`); return;
+    }
+    const ulMatch = line.match(/^[-*\u2022]\s+(.+)$/);
+    if (ulMatch) {
+      if(inOL){out.push('</ol>');inOL=false;} if(!inUL){out.push('<ul style="padding-left:1.4em;margin:.6em 0">');inUL=true;}
+      out.push(`<li style="margin-bottom:.35em">${fmt(ulMatch[1])}</li>`); return;
+    }
+    closeList();
+    const hMatch = line.match(/^(#{1,3})\s+(.+)$/);
+    if (hMatch) { const sz=['1.1rem','1rem','.95rem'][hMatch[1].length-1]; out.push(`<h3 style="font-size:${sz};font-weight:700;color:var(--navy);margin:1em 0 .3em">${fmt(hMatch[2])}</h3>`); return; }
+    if (line.length<=60 && line===line.toUpperCase() && /[A-Z]/.test(line)) { out.push(`<h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin:1.1em 0 .35em;letter-spacing:.3px">${esc(line)}</h3>`); return; }
+    if (line.endsWith(':') && line.length<=80 && !line.includes('.')) { out.push(`<p style="font-weight:700;color:var(--navy);margin:.9em 0 .2em">${fmt(line)}</p>`); return; }
+    out.push(`<p style="margin:.45em 0;line-height:1.8">${fmt(line)}</p>`);
+  });
+  closeList();
+  return out.join('\n');
+}
 
 /* ══ ASSIGNMENTS ══ */
 async function renderAssignments() {
@@ -2462,6 +2594,7 @@ async function renderAssignments() {
           <div class="note-footer" style="margin-top:.75rem">
             <span class="note-date">📅 ${a.dueDate||'TBD'}</span>
             <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+              <button class="btn-sm" onclick="openAssignDetail('${a.id}')">View Details →</button>
               ${done ? `<span class="pill pill-success">Completed</span>`
                      : `<button class="btn-pay" onclick="openAssignSubmitModal('${a.id}')">📤 Submit</button>`}
               <button class="btn-delete-assign" onclick="deleteAssignment('${a.id}')" title="Delete assignment">🗑️ Delete</button>
@@ -5442,6 +5575,11 @@ async function _restoreExamSession() {
     showToast('⚠️ Welcome back! Your exam timer kept running.', 'warning');
   } catch(e) { _clearExamSession(); }
 }
+
 </script>
+
+<!-- KID ZONE GAME HTML STORAGE (base64-encoded, inert) -->
+
+<!-- KID ZONE NEW GAME BLOBS -->
 </body>
 </html>
