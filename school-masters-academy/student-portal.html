@@ -1925,6 +1925,7 @@ async function doLogin() {
   // Clear any stale intervals from a previous session before starting a new login
   if (window._presenceHeartbeat) { clearInterval(window._presenceHeartbeat); window._presenceHeartbeat = null; }
   if (window._feePoller) { clearInterval(window._feePoller); window._feePoller = null; }
+  if (window._deleteApprovalListener) { window._deleteApprovalListener(); window._deleteApprovalListener = null; }
 
   let result;
   try {
@@ -2080,6 +2081,51 @@ async function showPortal() {
   renderAll();
   showTab('dashboard', document.querySelector('.nav-item.active'), 'Dashboard');
   _restoreExamSession(); // resume any in-progress exam
+  _startDeleteApprovalListener(); // Fix: watch for teacher-approved deletions in real time
+}
+
+// Fix: real-time listener so when a teacher approves a delete request the item
+// disappears from the student's Notes / Assignments list immediately — without
+// the student needing to refresh the page or switch tabs.
+function _startDeleteApprovalListener() {
+  // Tear down any stale listener from a previous session
+  if (window._deleteApprovalListener) { window._deleteApprovalListener(); window._deleteApprovalListener = null; }
+  const sid = currentStudentData && currentStudentData.id;
+  if (!sid) return;
+
+  try {
+    const db = firebase.firestore();
+    // Only watch this student's requests that are pending or recently resolved
+    const unsub = db.collection('delete_requests')
+      .where('studentId', '==', sid)
+      .onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          // Whenever a request is marked approved, re-render the relevant list
+          if (change.type === 'modified' || change.type === 'added') {
+            const d = change.doc.data();
+            if (d.status === 'approved') {
+              const activeTab = document.querySelector('.tab-panel.active');
+              const activeId  = activeTab ? activeTab.id : '';
+              if (d.itemType === 'note') {
+                renderNotes();
+                renderDashboard();
+              } else {
+                // 'assignment' or 'classwork'
+                renderAssignments();
+                renderDashboard();
+              }
+              // Refresh notifications badge/list regardless of active tab
+              renderNotifications();
+            }
+          }
+        });
+      }, err => {
+        console.warn('_deleteApprovalListener error:', err);
+      });
+    window._deleteApprovalListener = unsub;
+  } catch(e) {
+    console.warn('_startDeleteApprovalListener failed:', e);
+  }
 }
 
 function _applyAvatar(initials) {
@@ -2102,6 +2148,7 @@ async function doLogout() {
   if (window._presenceId) await SMA.clearPresence(window._presenceId);
   if (window._presenceHeartbeat) { clearInterval(window._presenceHeartbeat); window._presenceHeartbeat = null; }
   if (window._feePoller) { clearInterval(window._feePoller); window._feePoller = null; }
+  if (window._deleteApprovalListener) { window._deleteApprovalListener(); window._deleteApprovalListener = null; }
   // Fix #5: remove the visibilitychange listener registered during login so it doesn't
   // fire against a null/stale student session after logout. Reset the flag so it is
   // re-registered correctly on the next login.
@@ -2162,6 +2209,10 @@ function _showTabBase(name, el, title) {
     _navStack.push({ name, title: title || name });
     history.pushState({ smaTab: name, smaTitle: title || name, smaPortal: 'student' }, '', '#' + name);
   }
+  // Fix: always re-fetch from Firestore when switching to notes or assignments tabs
+  // so teacher-approved deletions are reflected immediately without a full page refresh.
+  if (name === 'notes')       { setTimeout(() => renderNotes(), 0); }
+  if (name === 'assignments') { setTimeout(() => renderAssignments(), 0); }
 }
 
 // Handle browser/mobile swipe-back

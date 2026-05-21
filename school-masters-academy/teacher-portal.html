@@ -8988,7 +8988,19 @@ async function loadDeleteRequests() {
               onmouseout="this.style.background='transparent';this.style.color='var(--danger)';this.style.transform='none'">
               ❌ Decline
             </button>
-          </div>` : ''}
+          </div>` : `
+          <div style="display:flex;gap:.5rem;flex-shrink:0;align-items:center;flex-wrap:wrap">
+            <button
+              onclick="deleteDeleteRequest('${safeDocId}')"
+              style="background:transparent;color:var(--danger);border:1.5px solid var(--danger);
+                     border-radius:9px;padding:.48rem 1.15rem;font-size:.82rem;font-weight:700;
+                     cursor:pointer;transition:background .18s,color .18s,transform .15s;
+                     font-family:'Plus Jakarta Sans',sans-serif"
+              onmouseover="this.style.background='var(--danger)';this.style.color='#fff';this.style.transform='translateY(-1px)'"
+              onmouseout="this.style.background='transparent';this.style.color='var(--danger)';this.style.transform='none'">
+              🗑️ Delete
+            </button>
+          </div>`}
         </div>
       </div>`;
     }).join('');
@@ -9071,6 +9083,27 @@ async function approveDeleteRequest(docId, itemType, itemId, studentId, studentN
 }
 
 // ── Decline: mark declined, give optional reason, notify student ─────────────
+// ── Delete: remove a resolved (approved/declined) request record from Firestore ─
+async function deleteDeleteRequest(docId) {
+  if (!confirm('Delete this request record?\n\nThis only removes it from your view — it does not affect the content or the student.')) return;
+
+  const db = firebase.firestore();
+  const card = document.getElementById(`delreq-${docId}`);
+  if (card) card.style.opacity = '.6';
+
+  try {
+    await db.collection('delete_requests').doc(docId).delete();
+    showToast('🗑️ Request record deleted.', 'info');
+    await SMA.logActivity('Deleted a resolved delete request record', '🗑️', 'info').catch(()=>{});
+    loadDeleteRequests();
+  } catch(e) {
+    console.error('deleteDeleteRequest', e);
+    if (card) card.style.opacity = '1';
+    showToast('❌ Failed to delete: ' + (e.message || 'Unknown error'), 'error');
+  }
+}
+
+// ── Delete: remove a resolved (approved/declined) request record from Firestore ────────────────────
 async function declineDeleteRequest(docId, studentId, itemType) {
   const reason = prompt(
     'Reason for declining (optional — the student will see this):\n\nLeave blank and press OK to decline without a reason.',
