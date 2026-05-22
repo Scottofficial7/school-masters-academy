@@ -2104,15 +2104,49 @@ function _startDeleteApprovalListener() {
           if (change.type === 'modified' || change.type === 'added') {
             const d = change.doc.data();
             if (d.status === 'approved') {
-              // Pass forceFresh=true so Firestore's local cache is bypassed —
-              // without this the deleted item can reappear from stale cached data.
+              const sid2 = currentStudentData && currentStudentData.id;
               if (d.itemType === 'note') {
-                renderNotes(true);
-                renderDashboard();
+                // Persist the hidden note ID in the student's UI state so it is
+                // filtered out by getMyClassNotes() on every future render,
+                // regardless of Firestore cache state.
+                if (sid2 && d.itemId) {
+                  SMA.getStudentUIState(sid2, 'hiddenNotes', []).then(existing => {
+                    const arr = existing || [];
+                    if (!arr.includes(String(d.itemId))) {
+                      arr.push(String(d.itemId));
+                      SMA.setStudentUIState(sid2, 'hiddenNotes', arr).then(() => {
+                        renderNotes();
+                        renderDashboard();
+                      });
+                    } else {
+                      renderNotes();
+                      renderDashboard();
+                    }
+                  });
+                } else {
+                  renderNotes();
+                  renderDashboard();
+                }
               } else {
-                // 'assignment' or 'classwork'
-                renderAssignments(true);
-                renderDashboard();
+                // 'assignment' or 'classwork' — same pattern using hiddenAssignments
+                if (sid2 && d.itemId) {
+                  SMA.getStudentUIState(sid2, 'hiddenAssignments', []).then(existing => {
+                    const arr = existing || [];
+                    if (!arr.includes(String(d.itemId))) {
+                      arr.push(String(d.itemId));
+                      SMA.setStudentUIState(sid2, 'hiddenAssignments', arr).then(() => {
+                        renderAssignments();
+                        renderDashboard();
+                      });
+                    } else {
+                      renderAssignments();
+                      renderDashboard();
+                    }
+                  });
+                } else {
+                  renderAssignments();
+                  renderDashboard();
+                }
               }
               // Refresh notifications badge/list regardless of active tab
               renderNotifications();
@@ -2425,19 +2459,10 @@ async function getMyClassNotes() {
   const s = currentStudentData;
   const all = await SMA.getClassNotes();
   if (!all.length) return [];
-  /* If notes have a targetClass field, filter; otherwise show all approved */
+  // Filter out teacher-approved deletions stored in the student's UI state
+  const hidden = (await SMA.getStudentUIState(s.id, 'hiddenNotes', [])) || [];
   return all.filter(n => {
-    if (n.targetClass && s.class) return n.targetClass === s.class;
-    return true;
-  });
-}
-// Same as above but forces a server fetch — used after a teacher approves a delete
-// so Firestore's local cache doesn't serve stale data.
-async function getMyClassNotesFresh() {
-  const s = currentStudentData;
-  const all = await SMA.getClassNotesFresh();
-  if (!all.length) return [];
-  return all.filter(n => {
+    if (hidden.includes(String(n.id))) return false;
     if (n.targetClass && s.class) return n.targetClass === s.class;
     return true;
   });
@@ -2448,18 +2473,7 @@ async function getMyAssignments() {
   const all = await SMA.getAssignments();
   if (!all.length) return [];
   // Fix #2: exclude assignments the student has soft-deleted from their own view.
-  const hidden = (await SMA.getStudentUIState(s.id, 'hiddenAssignments', [])) || [];
-  return all.filter(a => {
-    if (hidden.includes(String(a.id))) return false;
-    if (a.targetClass && s.class) return a.targetClass === s.class;
-    return true;
-  });
-}
-// Same as above but forces a server fetch — used after a teacher approves a delete.
-async function getMyAssignmentsFresh() {
-  const s = currentStudentData;
-  const all = await SMA.getAssignmentsFresh();
-  if (!all.length) return [];
+  // Also excludes teacher-approved deletions stored in hiddenAssignments UI state.
   const hidden = (await SMA.getStudentUIState(s.id, 'hiddenAssignments', [])) || [];
   return all.filter(a => {
     if (hidden.includes(String(a.id))) return false;
@@ -2469,8 +2483,8 @@ async function getMyAssignmentsFresh() {
 }
 
 /* ══ NOTES ══ */
-async function renderNotes(forceFresh = false) {
-  const notes = await (forceFresh ? getMyClassNotesFresh() : getMyClassNotes());
+async function renderNotes() {
+  const notes = await getMyClassNotes();
   const q    = (document.getElementById('notesSearch')?.value||'').toLowerCase();
   const subF = document.getElementById('notesSubjectFilter')?.value||'';
 
@@ -2659,10 +2673,10 @@ function _formatPlainNote(text) {
 }
 
 /* ══ ASSIGNMENTS ══ */
-async function renderAssignments(forceFresh = false) {
+async function renderAssignments() {
   const statF = document.getElementById('assignStatusFilter')?.value||'';
   const q     = (document.getElementById('assignSearch')?.value||'').toLowerCase();
-  const all   = await (forceFresh ? getMyAssignmentsFresh() : getMyAssignments());
+  const all   = await getMyAssignments();
 
   const filtered = all.filter(a =>
     (!statF || a.status===statF) &&
