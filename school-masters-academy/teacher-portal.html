@@ -823,7 +823,7 @@ window.SMA = (() => {
     apiKey:            "AIzaSyDo2yotUrC8htCGEhd9cwz_3_oq7N1-ZGo",
     authDomain:        "sma-backend-web.firebaseapp.com",
     projectId:         "sma-backend-web",
-    storageBucket:     "sma-backend-web.firebasestorage.app",
+    storageBucket:     "sma-backend-web.appspot.com",
     messagingSenderId: "679984502762",
     appId:             "1:679984502762:web:1766f03a215e8255ab8493",
     measurementId:     "G-34H515BZX0",
@@ -837,7 +837,7 @@ window.SMA = (() => {
   window.db = db; // expose globally so all script blocks share the same instance
   // Pass the bucket URL explicitly — the compat SDK needs this when the
   // project uses the newer .firebasestorage.app domain instead of .appspot.com
-  const storage = firebase.storage(firebase.app(), firebaseConfig.storageBucket);
+  const storage = firebase.storage();
   
   window.storage = storage; // expose Firebase Storage globally
 
@@ -3386,7 +3386,7 @@ function handleImageUpload(input) {
       renderImagePreviews();
     }, (err) => {
       const e = uploadedImages.find(i => String(i.id) === String(id));
-      if (e) { e.uploading = false; e.error = err.message || 'Upload failed'; }
+      if (e) { e.uploading = false; e.error = (err.code ? err.code + ': ' : '') + (err.message || 'Upload failed'); }
       renderImagePreviews();
     });
   });
@@ -3436,7 +3436,7 @@ function handleDocUpload(input) {
       renderDocList();
     }, (err) => {
       const e = uploadedDocs.find(d => String(d.id) === String(id));
-      if (e) { e.uploading = false; e.error = err.message || 'Upload failed'; }
+      if (e) { e.uploading = false; e.error = (err.code ? err.code + ': ' : '') + (err.message || 'Upload failed'); }
       renderDocList();
     }, (pct) => {
       const e = uploadedDocs.find(d => String(d.id) === String(id));
@@ -3453,7 +3453,7 @@ function renderDocList() {
     const statusBadge = doc.uploading
       ? `<span style="font-size:.68rem;color:#a16207;background:#fef3c7;padding:1px 6px;border-radius:10px">⏳ ${doc.progress}%</span>`
       : doc.error
-        ? `<span style="font-size:.68rem;color:#dc2626;background:#fee2e2;padding:1px 6px;border-radius:10px">⚠ Failed</span>`
+        ? `<span style="font-size:.68rem;color:#dc2626;background:#fee2e2;padding:1px 6px;border-radius:10px" title="${doc.error}">⚠ Failed</span>`
         : `<span style="font-size:.68rem;color:#059669;background:#d1fae5;padding:1px 6px;border-radius:10px">✓ Uploaded</span>`;
     return `
     <div class="upload-file-item">
