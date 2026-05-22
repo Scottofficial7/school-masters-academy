@@ -1150,7 +1150,10 @@ window.SMA = (() => {
     return loadList(KEY.NOTIFICATIONS);
   }
   async function addNotification(data) {
-    const notifs = await getTeacherLocalNotifs();
+    // Must read from the SHARED notifications list (lists/notifications),
+    // not the teacher-private tp_notifications store — students read from
+    // the shared list, so that is what we must append to.
+    const notifs = await getNotifications();
     const id = 'NTF' + Date.now();
     const notif = {
       id, ...data,
@@ -1163,7 +1166,7 @@ window.SMA = (() => {
     return notif;
   }
   async function getStudentNotifications(studentClass) {
-    const notifs = await getTeacherLocalNotifs();
+    const notifs = await getNotifications();
     return notifs.filter(n => !n.targetClass || n.targetClass === studentClass);
   }
 
