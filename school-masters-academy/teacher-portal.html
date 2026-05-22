@@ -835,7 +835,10 @@ window.SMA = (() => {
 
   const db = firebase.firestore();
   window.db = db; // expose globally so all script blocks share the same instance
-  const storage = firebase.storage();
+  // Pass the bucket URL explicitly — the compat SDK needs this when the
+  // project uses the newer .firebasestorage.app domain instead of .appspot.com
+  const storage = firebase.storage(firebase.app(), firebaseConfig.storageBucket);
+  
   window.storage = storage; // expose Firebase Storage globally
 
   /* ═══════════ FIRESTORE HELPERS ═══════════ */
@@ -3473,27 +3476,49 @@ function removeDoc(id) {
 }
 
 // Core Firebase Storage upload function with progress callback
+// Waits for anonymous auth to be ready before starting — avoids the 0% stall
+// that happens when ref.put() is called before signInAnonymously() resolves.
 function _uploadFileToStorage(file, type, id, onSuccess, onError, onProgress) {
-  try {
-    const teacher = currentTeacher ? currentTeacher.username : 'unknown';
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const path = `teacher-uploads/${teacher}/${type}/${id}_${safeName}`;
-    const ref = storage.ref(path);
-    const task = ref.put(file);
-    task.on('state_changed',
-      snap => {
-        const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-        if (onProgress) onProgress(pct);
-      },
-      err => { console.error('Storage upload error:', err); onError(err); },
-      async () => {
-        const url = await task.snapshot.ref.getDownloadURL();
-        onSuccess(url, path);
+  const doUpload = () => {
+    try {
+      const teacher = currentTeacher ? currentTeacher.username : 'unknown';
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `teacher-uploads/${teacher}/${type}/${id}_${safeName}`;
+      const ref = storage.ref(path);
+      const task = ref.put(file);
+      task.on('state_changed',
+        snap => {
+          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+          if (onProgress) onProgress(pct);
+        },
+        err => { console.error('Storage upload error:', err); onError(err); },
+        async () => {
+          const url = await task.snapshot.ref.getDownloadURL();
+          onSuccess(url, path);
+        }
+      );
+    } catch(e) {
+      console.error('Storage error:', e);
+      onError(e);
+    }
+  };
+
+  // If already signed in, upload immediately; otherwise wait for auth
+  const user = firebase.auth().currentUser;
+  if (user) {
+    doUpload();
+  } else {
+    const unsub = firebase.auth().onAuthStateChanged(u => {
+      unsub(); // unsubscribe immediately — one-shot listener
+      if (u) {
+        doUpload();
+      } else {
+        // Anonymous sign-in hasn't happened yet — trigger it then retry
+        firebase.auth().signInAnonymously()
+          .then(doUpload)
+          .catch(e => { console.error('Auth failed before upload:', e); onError(e); });
       }
-    );
-  } catch(e) {
-    console.error('Storage error:', e);
-    onError(e);
+    });
   }
 }
 
