@@ -3367,11 +3367,40 @@ function insertHeading(){document.execCommand('formatBlock',false,'h3');document
 function insertHR(){document.execCommand('insertHorizontalRule',false,null);document.getElementById('richEditor').focus()}
 
 // ═══════════════════════════════════════════
-// FIREBASE STORAGE — FILE UPLOAD HELPERS
+// FILE ATTACHMENT HELPERS (Base64 → Firestore)
+// Files are read client-side into base64 data URLs and stored directly in
+// Firestore alongside the note/assignment — no Firebase Storage needed.
+// Max safe size per file: ~700 KB raw (stays under Firestore 1 MB doc limit).
+// Larger files are rejected with a clear message prompting compression.
 // ═══════════════════════════════════════════
 
-// uploadedImages: [{id, name, file, localUrl, storageUrl, storagePath, uploading, error}]
-// uploadedDocs:   [{id, name, size, file, storageUrl, storagePath, uploading, progress, error}]
+const MAX_FILE_BYTES = 700 * 1024; // 700 KB raw ≈ ~930 KB base64
+
+// Detect MIME type from file extension for accurate data URLs
+function _getMimeType(filename) {
+  const ext = (filename.split('.').pop() || '').toLowerCase();
+  const map = {
+    pdf: 'application/pdf',
+    doc: 'application/msword',
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ppt: 'application/vnd.ms-powerpoint',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    xls: 'application/vnd.ms-excel',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp',
+  };
+  return map[ext] || 'application/octet-stream';
+}
+
+// Read a File object as a base64 data URL (returns a Promise)
+function _readFileAsDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Could not read file'));
+    reader.readAsDataURL(file);
+  });
+}
 
 function handleImageUpload(input) {
   Array.from(input.files).forEach(file => {
@@ -3380,13 +3409,21 @@ function handleImageUpload(input) {
     const entry = { id, name: file.name, file, localUrl, storageUrl: null, storagePath: null, uploading: true, error: null };
     uploadedImages.push(entry);
     renderImagePreviews();
-    _uploadFileToStorage(file, 'images', id, (url, path) => {
+
+    if (file.size > MAX_FILE_BYTES) {
       const e = uploadedImages.find(i => String(i.id) === String(id));
-      if (e) { e.storageUrl = url; e.storagePath = path; e.uploading = false; }
+      if (e) { e.uploading = false; e.error = `File too large (${(file.size/1024).toFixed(0)} KB). Please compress to under 700 KB.`; }
       renderImagePreviews();
-    }, (err) => {
+      return;
+    }
+
+    _readFileAsDataURL(file).then(dataUrl => {
       const e = uploadedImages.find(i => String(i.id) === String(id));
-      if (e) { e.uploading = false; e.error = (err.code ? err.code + ': ' : '') + (err.message || 'Upload failed'); }
+      if (e) { e.storageUrl = dataUrl; e.uploading = false; }
+      renderImagePreviews();
+    }).catch(err => {
+      const e = uploadedImages.find(i => String(i.id) === String(id));
+      if (e) { e.uploading = false; e.error = err.message || 'Failed to read file'; }
       renderImagePreviews();
     });
   });
@@ -3397,10 +3434,10 @@ function renderImagePreviews() {
   const grid = document.getElementById('imagePreviewGrid');
   grid.innerHTML = uploadedImages.map(img => {
     const overlay = img.uploading
-      ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:.7rem;color:#fff">⏳ Uploading…</div>`
+      ? `<div style="position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:.7rem;color:#fff">⏳ Reading…</div>`
       : img.error
         ? `<div style="position:absolute;inset:0;background:rgba(220,38,38,.5);display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:.65rem;color:#fff;padding:4px;text-align:center">⚠ ${img.error}</div>`
-        : `<div style="position:absolute;bottom:3px;left:3px;background:rgba(5,150,105,.85);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:4px">✓ Saved</div>`;
+        : `<div style="position:absolute;bottom:3px;left:3px;background:rgba(5,150,105,.85);color:#fff;font-size:.6rem;padding:1px 5px;border-radius:4px">✓ Ready</div>`;
     return `
     <div class="image-preview-item" style="position:relative">
       <img src="${img.localUrl}" alt="${img.name}">
@@ -3411,10 +3448,6 @@ function renderImagePreviews() {
 }
 
 function removeImage(id) {
-  const entry = uploadedImages.find(i => String(i.id) === String(id));
-  if (entry && entry.storagePath) {
-    try { storage.ref(entry.storagePath).delete().catch(() => {}); } catch(e) {}
-  }
   uploadedImages = uploadedImages.filter(i => String(i.id) !== String(id));
   renderImagePreviews();
 }
@@ -3430,17 +3463,21 @@ function handleDocUpload(input) {
     };
     uploadedDocs.push(entry);
     renderDocList();
-    _uploadFileToStorage(file, 'docs', id, (url, path) => {
+
+    if (file.size > MAX_FILE_BYTES) {
       const e = uploadedDocs.find(d => String(d.id) === String(id));
-      if (e) { e.storageUrl = url; e.storagePath = path; e.uploading = false; e.progress = 100; }
+      if (e) { e.uploading = false; e.error = `File too large (${(file.size/1024).toFixed(0)} KB). Please compress to under 700 KB.`; }
       renderDocList();
-    }, (err) => {
+      return;
+    }
+
+    _readFileAsDataURL(file).then(dataUrl => {
       const e = uploadedDocs.find(d => String(d.id) === String(id));
-      if (e) { e.uploading = false; e.error = (err.code ? err.code + ': ' : '') + (err.message || 'Upload failed'); }
+      if (e) { e.storageUrl = dataUrl; e.uploading = false; e.progress = 100; }
       renderDocList();
-    }, (pct) => {
+    }).catch(err => {
       const e = uploadedDocs.find(d => String(d.id) === String(id));
-      if (e) e.progress = pct;
+      if (e) { e.uploading = false; e.error = err.message || 'Failed to read file'; }
       renderDocList();
     });
   });
@@ -3451,10 +3488,10 @@ function renderDocList() {
   const list = document.getElementById('docFileList');
   list.innerHTML = uploadedDocs.map(doc => {
     const statusBadge = doc.uploading
-      ? `<span style="font-size:.68rem;color:#a16207;background:#fef3c7;padding:1px 6px;border-radius:10px">⏳ ${doc.progress}%</span>`
+      ? `<span style="font-size:.68rem;color:#a16207;background:#fef3c7;padding:1px 6px;border-radius:10px">⏳ Reading…</span>`
       : doc.error
-        ? `<span style="font-size:.68rem;color:#dc2626;background:#fee2e2;padding:1px 6px;border-radius:10px" title="${doc.error}">⚠ Failed</span>`
-        : `<span style="font-size:.68rem;color:#059669;background:#d1fae5;padding:1px 6px;border-radius:10px">✓ Uploaded</span>`;
+        ? `<span style="font-size:.68rem;color:#dc2626;background:#fee2e2;padding:1px 6px;border-radius:10px" title="${doc.error}">⚠ ${doc.error.startsWith('File too large') ? 'Too large' : 'Failed'}</span>`
+        : `<span style="font-size:.68rem;color:#059669;background:#d1fae5;padding:1px 6px;border-radius:10px">✓ Ready</span>`;
     return `
     <div class="upload-file-item">
       <span class="upload-file-icon">📄</span>
@@ -3467,59 +3504,8 @@ function renderDocList() {
 }
 
 function removeDoc(id) {
-  const entry = uploadedDocs.find(d => String(d.id) === String(id));
-  if (entry && entry.storagePath) {
-    try { storage.ref(entry.storagePath).delete().catch(() => {}); } catch(e) {}
-  }
   uploadedDocs = uploadedDocs.filter(d => String(d.id) !== String(id));
   renderDocList();
-}
-
-// Core Firebase Storage upload function with progress callback
-// Waits for anonymous auth to be ready before starting — avoids the 0% stall
-// that happens when ref.put() is called before signInAnonymously() resolves.
-function _uploadFileToStorage(file, type, id, onSuccess, onError, onProgress) {
-  const doUpload = () => {
-    try {
-      const teacher = currentTeacher ? currentTeacher.username : 'unknown';
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-      const path = `teacher-uploads/${teacher}/${type}/${id}_${safeName}`;
-      const ref = storage.ref(path);
-      const task = ref.put(file);
-      task.on('state_changed',
-        snap => {
-          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-          if (onProgress) onProgress(pct);
-        },
-        err => { console.error('Storage upload error:', err); onError(err); },
-        async () => {
-          const url = await task.snapshot.ref.getDownloadURL();
-          onSuccess(url, path);
-        }
-      );
-    } catch(e) {
-      console.error('Storage error:', e);
-      onError(e);
-    }
-  };
-
-  // If already signed in, upload immediately; otherwise wait for auth
-  const user = firebase.auth().currentUser;
-  if (user) {
-    doUpload();
-  } else {
-    const unsub = firebase.auth().onAuthStateChanged(u => {
-      unsub(); // unsubscribe immediately — one-shot listener
-      if (u) {
-        doUpload();
-      } else {
-        // Anonymous sign-in hasn't happened yet — trigger it then retry
-        firebase.auth().signInAnonymously()
-          .then(doUpload)
-          .catch(e => { console.error('Auth failed before upload:', e); onError(e); });
-      }
-    });
-  }
 }
 
 // ═══════════════════════════════════════════
@@ -3690,7 +3676,7 @@ async function submitContent(mode) {
   // Block if any files are still uploading
   const stillUploading = [...uploadedDocs, ...uploadedImages].filter(f => f.uploading);
   if (stillUploading.length) {
-    showToast(`⏳ Please wait — ${stillUploading.length} file(s) still uploading`, 'error'); return;
+    showToast(`⏳ Please wait — ${stillUploading.length} file(s) still processing`, 'error'); return;
   }
   // Warn about any failed uploads
   const failedDocs = uploadedDocs.filter(f => f.error);
@@ -3708,10 +3694,10 @@ async function submitContent(mode) {
   // Collect successfully uploaded attachments
   const attachedDocs = uploadedDocs
     .filter(d => d.storageUrl)
-    .map(d => ({ name: d.name, size: d.size, url: d.storageUrl, path: d.storagePath }));
+    .map(d => ({ name: d.name, size: d.size, url: d.storageUrl }));
   const attachedImages = uploadedImages
     .filter(i => i.storageUrl)
-    .map(i => ({ name: i.name, url: i.storageUrl, path: i.storagePath }));
+    .map(i => ({ name: i.name, url: i.storageUrl }));
 
   const newItem = {
     id: Date.now(), type:selectedContentType, title, term,
@@ -3896,8 +3882,8 @@ async function deleteContentItem(itemId) {
 
   // Delete any attached files from Firebase Storage
   const filesToDelete = [
-    ...(item.attachedDocs   || []).map(d => d.path),
-    ...(item.attachedImages || []).map(i => i.path),
+    ...(item.attachedDocs   || []).map(d => d.path).filter(Boolean),
+    ...(item.attachedImages || []).map(i => i.path).filter(Boolean),
   ].filter(Boolean);
   for (const path of filesToDelete) {
     try { await storage.ref(path).delete(); } catch(e) { /* already gone */ }
