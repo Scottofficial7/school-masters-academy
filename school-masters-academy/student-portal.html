@@ -2104,14 +2104,14 @@ function _startDeleteApprovalListener() {
           if (change.type === 'modified' || change.type === 'added') {
             const d = change.doc.data();
             if (d.status === 'approved') {
-              const activeTab = document.querySelector('.tab-panel.active');
-              const activeId  = activeTab ? activeTab.id : '';
+              // Pass forceFresh=true so Firestore's local cache is bypassed —
+              // without this the deleted item can reappear from stale cached data.
               if (d.itemType === 'note') {
-                renderNotes();
+                renderNotes(true);
                 renderDashboard();
               } else {
                 // 'assignment' or 'classwork'
-                renderAssignments();
+                renderAssignments(true);
                 renderDashboard();
               }
               // Refresh notifications badge/list regardless of active tab
@@ -2431,6 +2431,17 @@ async function getMyClassNotes() {
     return true;
   });
 }
+// Same as above but forces a server fetch — used after a teacher approves a delete
+// so Firestore's local cache doesn't serve stale data.
+async function getMyClassNotesFresh() {
+  const s = currentStudentData;
+  const all = await SMA.getClassNotesFresh();
+  if (!all.length) return [];
+  return all.filter(n => {
+    if (n.targetClass && s.class) return n.targetClass === s.class;
+    return true;
+  });
+}
 
 async function getMyAssignments() {
   const s = currentStudentData;
@@ -2444,10 +2455,22 @@ async function getMyAssignments() {
     return true;
   });
 }
+// Same as above but forces a server fetch — used after a teacher approves a delete.
+async function getMyAssignmentsFresh() {
+  const s = currentStudentData;
+  const all = await SMA.getAssignmentsFresh();
+  if (!all.length) return [];
+  const hidden = (await SMA.getStudentUIState(s.id, 'hiddenAssignments', [])) || [];
+  return all.filter(a => {
+    if (hidden.includes(String(a.id))) return false;
+    if (a.targetClass && s.class) return a.targetClass === s.class;
+    return true;
+  });
+}
 
 /* ══ NOTES ══ */
-async function renderNotes() {
-  const notes = await getMyClassNotes();
+async function renderNotes(forceFresh = false) {
+  const notes = await (forceFresh ? getMyClassNotesFresh() : getMyClassNotes());
   const q    = (document.getElementById('notesSearch')?.value||'').toLowerCase();
   const subF = document.getElementById('notesSubjectFilter')?.value||'';
 
@@ -2636,10 +2659,10 @@ function _formatPlainNote(text) {
 }
 
 /* ══ ASSIGNMENTS ══ */
-async function renderAssignments() {
+async function renderAssignments(forceFresh = false) {
   const statF = document.getElementById('assignStatusFilter')?.value||'';
   const q     = (document.getElementById('assignSearch')?.value||'').toLowerCase();
-  const all   = await getMyAssignments();
+  const all   = await (forceFresh ? getMyAssignmentsFresh() : getMyAssignments());
 
   const filtered = all.filter(a =>
     (!statF || a.status===statF) &&
@@ -4504,6 +4527,13 @@ window.SMA = (() => {
     const doc = await getDoc('lists', name);
     return doc ? (doc.items || []) : [];
   }
+  // Always fetches from Firestore server, bypassing local cache.
+  // Use this after a teacher-approved deletion so the student sees
+  // the up-to-date list immediately, not a stale cached version.
+  async function loadListFresh(name) {
+    const snap = await col('lists').doc(name).get({ source: 'server' });
+    return snap.exists ? (snap.data().items || []) : [];
+  }
   async function saveList(name, arr) {
     await setDoc('lists', name, { items: arr, updatedAt: new Date().toISOString() });
     return true;
@@ -4735,6 +4765,9 @@ window.SMA = (() => {
     await seedDefaults();
     return loadList(KEY.CLASS_NOTES);
   }
+  async function getClassNotesFresh() {
+    return loadListFresh(KEY.CLASS_NOTES);
+  }
   async function addClassNote(data) {
     const notes = await getClassNotes();
     const id = 'CN' + String(notes.length + 1).padStart(3, '0') + '_' + Date.now();
@@ -4755,6 +4788,9 @@ window.SMA = (() => {
   async function getAssignments() {
     await seedDefaults();
     return loadList(KEY.ASSIGNMENTS);
+  }
+  async function getAssignmentsFresh() {
+    return loadListFresh(KEY.ASSIGNMENTS);
   }
   async function saveAssignments(arr) { return saveList(KEY.ASSIGNMENTS, arr); }
   async function addAssignment(data) {
@@ -5085,8 +5121,8 @@ window.SMA = (() => {
     getTeachers, saveTeachers, addTeacher, updateTeacher, removeTeacher,
     getLessonPlans, addLessonPlan, updatePlanStatus,
     getLessonNotes, addLessonNote, updateNoteStatus,
-    getClassNotes, addClassNote,
-    getAssignments, saveAssignments, addAssignment,
+    getClassNotes, addClassNote, getClassNotesFresh,
+    getAssignments, saveAssignments, addAssignment, getAssignmentsFresh,
     getNotifications, addNotification, getStudentNotifications,
     getPayments, addPayment, confirmPayment, rejectPayment, getPaymentProof, deletePaymentProof,
     getAnnouncements, addAnnouncement, removeAnnouncement, toggleAnnouncementPin,
