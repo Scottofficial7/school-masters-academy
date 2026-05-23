@@ -2876,6 +2876,7 @@ async function doLogin() {
   }
   currentTeacher = buildTeacherDisplay(result.user);
   sessionStorage.setItem('sma_teacher', JSON.stringify(result.user));
+  SMA_Push.init('teacher', { id: result.user.id || result.user.username, name: (result.user.firstName||'') + ' ' + (result.user.lastName||''), apiKey: 'AIzaSyDo2yotUrC8htCGEhd9cwz_3_oq7N1-ZGo' });
 
   /* ── Presence: mark teacher as online ── */
   const _tPresenceId = result.user.id || result.user.username;
@@ -2938,6 +2939,7 @@ async function doLogout() {
   document.getElementById('loginPass').value='';
   document.getElementById('loadingBar').style.width = '0';
   document.getElementById('loadingStatus').textContent = 'Verifying credentials…';
+  SMA_Push.logout();
   currentTeacher = null;
   sessionStorage.removeItem('sma_teacher');
 }
@@ -9281,5 +9283,6 @@ async function declineDeleteRequest(docId, studentId, itemType) {
 })();
 </script>
 
+<script src="sma-push-notifications.js"></script>
 </body>
 </html>

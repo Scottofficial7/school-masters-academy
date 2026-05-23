@@ -1944,6 +1944,7 @@ async function doLogin() {
 
   currentStudentData = result.user;
   sessionStorage.setItem('sma_student', JSON.stringify(currentStudentData));
+  SMA_Push.init('student', { id: currentStudentData.id, name: (currentStudentData.firstName||'') + ' ' + (currentStudentData.lastName||''), class: currentStudentData.class, apiKey: 'AIzaSyDo2yotUrC8htCGEhd9cwz_3_oq7N1-ZGo' });
   profileData  = await SMA.getProfile(currentStudentData.id) || {};
   profileAvatar = await SMA.getAvatar(currentStudentData.id) || null;
   schoolSettings = await SMA.getSettings();
@@ -2191,6 +2192,7 @@ async function doLogout() {
     window._examVisibilityHandler = null;
   }
   window._examListenersRegistered = false;
+  SMA_Push.logout();
   currentStudentData = null; profileData = {}; profileAvatar = null;
   sessionStorage.removeItem('sma_student');
   // Clear nav history stack and reset URL so swipe-back doesn't re-enter portal
@@ -5827,5 +5829,6 @@ async function _restoreExamSession() {
 <!-- KID ZONE GAME HTML STORAGE (base64-encoded, inert) -->
 
 <!-- KID ZONE NEW GAME BLOBS -->
+<script src="sma-push-notifications.js"></script>
 </body>
 </html>

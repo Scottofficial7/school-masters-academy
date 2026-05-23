@@ -3244,6 +3244,7 @@ async function doLogin() {
     setTimeout(async () => {
       loader.classList.remove('active');
       document.getElementById('portalScreen').classList.add('active');
+      SMA_Push.init('admin', { id: result.user?.id || 'admin', name: (result.user?.firstName||'Administrator'), apiKey: 'AIzaSyDo2yotUrC8htCGEhd9cwz_3_oq7N1-ZGo' });
       await refreshDashboardStats();
       await renderStudentsTable();
       await renderTeachersTable();
@@ -3283,6 +3284,7 @@ async function doLogin() {
 }
 
 function doLogout() {
+  SMA_Push.logout();
   // Clear nav history stack and reset URL
   _navStack = [];
   history.replaceState(null, '', window.location.pathname);
@@ -9836,5 +9838,5 @@ _registerPageHook('exams', () => {
   setTimeout(loadResultsReleaseState,     100);
 });
 </script>
-</body>
-</html>
+<script src="sma-push-notifications.js"></script>
+</body></html>
